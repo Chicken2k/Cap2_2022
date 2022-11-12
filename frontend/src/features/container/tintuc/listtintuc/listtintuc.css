@@ -1,0 +1,71 @@
+.breadcrumb {
+  padding-top: 1%;
+}
+#listtintuc .hr-new {
+  /* background-color: #f44336;
+  height: 3px; */
+  /* width: 80%; */
+  /* margin-left: 2rem; */
+  /* position: relative;
+  top: 0.9rem; */
+  border: 1px solid #0bbf54;
+}
+#listtintuc .title-new{
+  position: relative;
+  margin-bottom: 35px;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-top: 20px;
+}
+#listtintuc h3{
+  font-weight: bold;
+    font-size: 27px;
+    position: absolute;
+    background-color: #ffff;
+    top: -15px;
+    padding-right: 20px;
+}
+.content-new {
+  clear: both;
+}
+.title-new a {
+  font-size: 1.3rem;
+  color: black;
+  font-weight: 900;
+  font-family: ui-monospace;
+}
+.title-new p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: "Rubik", sans-serif;
+}
+.title-new span {
+  font-weight: 600;
+  color: #009688;
+  font-style: italic;
+  position: relative;
+  top: -0.8rem;
+}
+.title-new i {
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+.w-new {
+  width: 95%;
+  margin: 0 auto;
+}
+#listtintuc .img-new{
+  width: 100%;
+  height: 338px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px 3px silver;
+  /* height: 100%; */
+  width: 100%;
+  transition-duration: .3s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+}
+#listtintuc .img-new:hover {
+  transform: translateY(-20px);
+}

@@ -1,0 +1,11 @@
+{
+    "development": {
+        "username": "root",
+        "password": "admin",
+        "database": "testbuag",
+        "host": "localhost",
+        "port": "3006",
+        "dialect": "mysql",
+        "logging": true
+    }
+}

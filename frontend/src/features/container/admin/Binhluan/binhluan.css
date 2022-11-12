@@ -1,0 +1,12 @@
+.rate-binhluan{
+    font-size: 15px;
+}
+.size-binhluan{
+    width: 110px;
+}
+.dangerScore {
+    color:red;
+}
+.safeScore {
+    color:green;
+}

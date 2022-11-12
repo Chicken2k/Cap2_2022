@@ -1,0 +1,98 @@
+#banner {
+  width: 100%;  
+}
+#banner .fit{
+  width: 100%;
+  height: 100vh;
+}
+#banner img{
+ width: 100%;
+ height: inherit;
+} 
+
+@media (max-width: 768px) {
+  #banner .fit{
+      width: 100%;
+      height: 50vh;
+  }
+}
+@media (max-width: 576px) {
+  #banner .fit{
+      width: 100%;
+      height: 30vh;
+  }
+  .slider_area .single_slider .slider_text h3 {
+      font-size: 94px;
+  }
+}
+
+
+
+/* COVER */
+.cover {
+  background-image: url('../../../images/paner.jpg');
+  height: 500px;
+  background-size: cover;
+  position: relative;
+  color: white;
+}
+
+.cover__content {
+  max-width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 12%;
+  transform: translateY(-50%);
+
+
+}
+
+.cover .cover__content h1 {
+
+  font-size: 40px;
+  font-weight: 700;
+
+}
+.text_datbanbanner{
+  color: white;
+}
+/* INTRO */
+.intro {
+  background: linear-gradient(-45deg, #ec5252, #6e1a52);
+  padding: 20px;
+
+}
+
+.intro .intro__content {
+  width: 78%;
+  margin: 0 auto;
+}
+
+.intro .intro__content .intro__items {
+  display: flex;
+  align-items: center;
+
+
+}
+
+.intro .intro__content .intro__icon {
+  font-size: 50px;
+  color: #fff;
+  margin-right: 25px;
+}
+
+.intro .intro__content .intro__details p {
+  margin-bottom: 0;
+}
+
+.intro .intro__content p:first-child {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.intro .intro__content p:last-child {
+  color: #fff;
+  font-size: 15px;
+  font-weight: normal;
+}
