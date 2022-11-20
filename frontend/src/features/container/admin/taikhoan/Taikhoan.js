@@ -58,10 +58,10 @@ function Taikhoan(props) {
     const roless = [...roles]
     roless.pop();
     const handleOk = async () => {
-        var inforadmin = await taikhoanApi.getOneAdmin(userId).then(ok => {
+        var inforadmin = await taikhoanApi.deleteuser(userId).then(ok => {
             return ok
         });
-        await userroleApi.edituserrole({ idsua: inforadmin.id, roleId: value })
+        //await userroleApi.edituserrole({ idsua: inforadmin.id, roleId: value })
         actionResult();
         setIsModalVisible(false);
     };
@@ -102,18 +102,18 @@ function Taikhoan(props) {
                             status: <div className="action">{ok.status === 1 ? <span onClick={() => { handleStatus(ok.status, ok.id) }}><i className="far fa-thumbs-up text-primary"></i></span> : <span onClick={() => handleStatus(ok.status, ok.id)}><i className="far fa-thumbs-down "></i></span>}</div>,
                             role: ok.Roles.name === "admin" ?
                                 <span className="text-danger"><b>{chuhoa(ok.Roles[0].name)}</b></span> :
-                                <span className="text-success"><b>{chuhoa(ok.Roles[0].name)}</b></span>,
+                                <span className="text-success"><b>{ok.Roles[0] ? chuhoa(ok.Roles[0].name) : ''}</b></span>,
                             action:
                                 <div className="action">
-                                    <Popconfirm title="Bạn muốn cấp quyền truy cập cho tài khoản này？" onConfirm={() => { hangdleUpdate(ok.id) }} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
+                                    <Popconfirm title="Bạn muốn vô hiệu hóa tài khoản này？" onConfirm={() => { hangdleUpdate(ok.id) }} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
                                         <i className="fas fa-user-lock text-warning"></i>
                                     </Popconfirm>
                                 </div>
                         }))}
                     />
                 }
-                <Modal title="Cấp quyền truy cập hệ thống" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                    <Radio.Group onChange={onChangeRadio} value={value}>
+                <Modal title="Xác nhận vô hiệu hóa tài khoản" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                    {/* <Radio.Group onChange={onChangeRadio} value={value}>
                         {!roles ? '' :
                             roless.map(ok => (
                                 <Radio style={radioStyle} key={ok.id} value={ok.id}>
@@ -121,7 +121,7 @@ function Taikhoan(props) {
                                 </Radio>
                             ))
                         }
-                    </Radio.Group>
+                    </Radio.Group> */}
                 </Modal>
             </div>
         </div>

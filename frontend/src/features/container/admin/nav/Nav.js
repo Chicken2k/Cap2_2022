@@ -264,19 +264,19 @@ export default function Nav() {
     )
     const menu_quanlyadmin = (
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1" icon={state.collapsed === true ? <span className="fas fa-tachometer-alt" ></span> : <span className="fas fa-tachometer-alt mr-2"></span>}>
+            {/* <Menu.Item key="1" icon={state.collapsed === true ? <span className="fas fa-tachometer-alt" ></span> : <span className="fas fa-tachometer-alt mr-2"></span>}>
                 <Link to="/admin">Doanh thu</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={state.collapsed === true ? <span className="fas fa-luggage-cart" ></span> : <span className="fas fa-luggage-cart mr-2"></span>}>
                 <Link to={`${match.url}/tour`}>Quản lý tour</Link>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="3" icon={state.collapsed === true ? <span className="fas fa-users" ></span> : <span className="fas fa-users mr-2"></span>}>
                 <Link to={`${match.url}/taikhoan`}>Quản lý tài khoản</Link>
             </Menu.Item>
             <Menu.Item key="4" icon={state.collapsed === true ? <span className="far fa-newspaper" ></span> : <span className="far fa-newspaper mr-2"></span>}>
-                <Link to={`${match.url}/tintuc`}>Quản lý tin tức</Link>
+                <Link to={`${match.url}/tintuc`}>Quản lý nhà hàng</Link>
             </Menu.Item>
-            <Menu.Item key="5" icon={state.collapsed === true ? <span className="fas fa-flag-usa" ></span> : <span className="fas fa-flag-usa mr-2"></span>}>
+            {/* <Menu.Item key="5" icon={state.collapsed === true ? <span className="fas fa-flag-usa" ></span> : <span className="fas fa-flag-usa mr-2"></span>}>
                 <Link to={`${match.url}/quocgia`}>Quản lý quốc gia</Link>
             </Menu.Item>
             <Menu.Item key="6" icon={state.collapsed === true ? <span className="fas fa-atlas" ></span> : <span className="fas fa-atlas mr-2"></span>}>
@@ -320,7 +320,7 @@ export default function Nav() {
             </Menu.Item>
             <Menu.Item key="19" icon={state.collapsed === true ? <span className="fa fa-list-alt"></span> : <span className="fa fa-list-alt"></span>}>
                 <Link to={`${match.url}/binhluanchude`}>Bình luận chủ đề</Link>
-            </Menu.Item>
+            </Menu.Item> */}
         </Menu>
     )
     const Menu_Authentication = (role) => {

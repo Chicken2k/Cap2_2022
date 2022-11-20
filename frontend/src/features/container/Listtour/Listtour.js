@@ -125,7 +125,7 @@ export default function Listtour() {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link to="/"><i className="fas fa-home mr-2"></i>Trang chủ</Link></li>
-                        <li className="breadcrumb-item"><Link to="/list-tour" disabled>Tour du lịch</Link></li>
+                        <li className="breadcrumb-item"><Link to="/list-tour" disabled>Thông tin nhà hàng</Link></li>
                     </ol>
                 </nav>
             </div>

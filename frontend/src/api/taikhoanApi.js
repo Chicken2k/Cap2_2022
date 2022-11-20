@@ -35,7 +35,7 @@ class TaikhoanApi {
     deleteuser = (id) => {
         const url = `/users/${id}`;
         return axiosClient.delete(url).then(data => {
-            message.success("Xoá thành công!");
+            message.success("Vô hiệu hóa thành công!");
         }).catch(err => {
             message.error("Có lỗi xảy ra!");
         });
