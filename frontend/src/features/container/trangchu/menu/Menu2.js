@@ -68,8 +68,10 @@ function ListMenu(props) {
             var ok = await taikhoanApi.getOne(users.id).then(ok => {
                 return ok;
             });
-            setUser(ok)
-            setAvatar(ok.avatar)
+            setUser(ok);
+            if (ok) {
+                setAvatar(ok.avatar)
+            }
         }
     }
     useEffect(() => {
@@ -184,6 +186,7 @@ function ListMenu(props) {
                 <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
                     <Linkrt className="navbar-brand" to="/" >
                         <img src={logo} alt="" />
+                        <p>Sử thành logo đặt bàn nè</p>
                     </Linkrt>
                     <button
                         className="navbar-toggler d-lg-none"
@@ -205,17 +208,22 @@ function ListMenu(props) {
                             </li>
                             <li className="nav-item">
                                 <div className="border-bot-menu">
-                                    <Linkrt className="nav-link" to="/list-tour">Tour du lịch</Linkrt>
+                                    <Linkrt className="nav-link" to="/restaurant-information">Quản lý thông tin</Linkrt>
                                 </div>
                             </li>
                             <li className="nav-item">
                                 <div className="border-bot-menu">
-                                    <Linkrt className="nav-link">Dịch vụ</Linkrt>
+                                    <Linkrt className="nav-link">Quản lý bàn</Linkrt>
                                 </div>
                             </li>
                             <li className="nav-item">
                                 <div className="border-bot-menu">
-                                    <Linkrt className="nav-link" to="/listtintuc">Tin tức</Linkrt>
+                                    <Linkrt className="nav-link" to="/listtintuc">Quản lý tin tức</Linkrt>
+                                </div>
+                            </li>
+                            <li className="nav-item">
+                                <div className="border-bot-menu">
+                                    <Linkrt className="nav-link" to="/listtintuc">Quản lý doanh thu</Linkrt>
                                 </div>
                             </li>
                         </ul>

@@ -10,6 +10,11 @@ import { useDispatch } from 'react-redux'
 import loginApi from '../../../api/loginApi'
 // import { userData } from '../admin/taikhoan/taikhoanSlice'
 
+const role = {
+    ADMIN: 'admin',
+    CUSTOMER: 'customer',
+    RESTAURANT: 'restaurant',
+}
 function Login(props) {
     const [state, setState] = useState({ email: '', password: '' })
     const { email, password } = state
@@ -24,14 +29,21 @@ function Login(props) {
             if (email.trim() === "" || password.trim() === "") {
                 message.warning("Bạn chưa nhập đầy đủ thông tin!");
             } else {
-                var token = await loginApi.login({ email: email, password: password }).then(data => {
+                let loginResponses = await loginApi.login({ email: email, password: password }).then(data => {
                     return data
                 })
-                if (token !== "err") {
-                    localStorage.setItem("token", token)
+                if (loginResponses !== "err") {
+                    localStorage.setItem("token", loginResponses.token);
                     actioninfor()
                     message.success("Đăng nhập thành công!");
-                    history.push('/')
+                    if (loginResponses.user.role === role.ADMIN) {
+                        history.push('/admin');
+                    } 
+                    else if (loginResponses.user.role === role.RESTAURANT) {
+                        history.push('/quanlytour');
+                    } else {
+                        history.push('/');
+                    }
                 } else {
                     message.warning("Sai tên đăng nhập hoặc mật khẩu!")
                 }

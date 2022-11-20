@@ -112,7 +112,7 @@ export default function NestingExample() {
           <Route path="/list-tour/:id">
             <Listtour />
           </Route>
-          <Route path="/list-tour">
+          <Route path="/restaurant-information">
             <Listtour />
           </Route>
           <Route path="/tour/:id">

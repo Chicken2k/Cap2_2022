@@ -7,7 +7,7 @@ exports.authen = (req, res) => {
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
             if (err) {
                 return res.status(403).send({
-                    message: 'token loi roi'
+                    message: err.message
                 })
             } else {
                 res.json({ data: user.user })
