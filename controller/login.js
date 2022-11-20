@@ -17,9 +17,10 @@ exports.login = (req, res) => {
                 description: data[0].Roles[0].description
             };
             var token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { algorithm: 'HS256', expiresIn: '3h' });
-            res.json(token);
-        } else {
-            res.json("err");
+            res.json({
+                token: token,
+                user: user,
+            });
         }
     }
     ).catch(err => {
