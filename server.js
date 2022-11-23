@@ -135,7 +135,7 @@ require("./routes/Hoadoncanhan")(app);
 require("./routes/Phanhoi")(app);
 require("./routes/Chude")(app);
 require("./routes/Binhluanchude")(app);
-
+require("./routes/Restaurant")(app);
 
 app.use(function (err, req, res, next) {
     res.status(500).send(err)

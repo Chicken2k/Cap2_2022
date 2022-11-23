@@ -34,6 +34,7 @@ function Login(props) {
                 })
                 if (loginResponses !== "err") {
                     localStorage.setItem("token", loginResponses.token);
+                    localStorage.setItem('userId', loginResponses.user.id);
                     actioninfor()
                     message.success("Đăng nhập thành công!");
                     if (loginResponses.user.role === role.ADMIN) {

@@ -17,7 +17,7 @@ function Footer(props) {
                 <h5 className="text-uppercase text-danger mt-3 footer">Liên hệ</h5>
                 <p>
                   <strong>Email: </strong>
-                  <i>buag@travel.com</i>
+                  <i>datban@sieungon.com</i>
                 </p>
                 <p>
                   <strong>Số điện thoại: </strong>
@@ -64,10 +64,7 @@ function Footer(props) {
               <h5 className="text-uppercase text-danger footer">Thanh vien</h5>
               {
                 <ul className="text_footer">
-                  <li>Trần Đại Quý</li>
-                  <li>Lê Viết Cường</li>
-                  <li>Thái Tiến Minh Quân</li>
-                  <li>Vũ Văn Tiến</li>
+                  <li>Đặng Công Lân</li>
                 </ul>
               }
             </div>
@@ -76,7 +73,7 @@ function Footer(props) {
         <div className="footer-copyright text-center py-3">
           © 2021 Copyright:
         <Link to="https://mdbootstrap.com/" className="text_Buag">
-          BUAG TRAVEL.
+          DAT BAN.
        </Link>
         </div>
       </footer>

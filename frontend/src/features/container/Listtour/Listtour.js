@@ -125,12 +125,12 @@ export default function Listtour() {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><Link to="/"><i className="fas fa-home mr-2"></i>Trang chủ</Link></li>
-                        <li className="breadcrumb-item"><Link to="/list-tour" disabled>Thông tin nhà hàng</Link></li>
+                        <li className="breadcrumb-item"><Link to="/list-tour" disabled>Thông tin nhà h</Link></li>
                     </ol>
                 </nav>
             </div>
             <div className="container">
-                <div className="row mb-4 bg-white rounded">
+                {/* <div className="row mb-4 bg-white rounded">
                     <div className="col-md-3 border-right pb-3 bg chungtoi">
                         <h4 className="pt-4">Tìm Kiếm tour</h4>
                         <Search placeholder="Tìm kiếm tour" onSearch={search} enterButton />
@@ -149,7 +149,7 @@ export default function Listtour() {
                                     <Option value="nam">Miền Nam</Option>
                                 </Select>
                             </div> : ""
-                        }
+                        } */}
                        
                         {/* <div className="star-mid text-primary">
                             <span onClick={() => checkstar(5)} style={{ cursor: "pointer" }}><Rate value="5" disabled /><span className="ml-2">từ 5 sao</span><br /></span>
@@ -158,7 +158,7 @@ export default function Listtour() {
                             <span onClick={() => checkstar(2)} style={{ cursor: "pointer" }}><Rate value="2" disabled /><span className="ml-2">từ 2 sao</span><br /></span>
                             <span onClick={() => checkstar(1)} style={{ cursor: "pointer" }}><Rate value="1" disabled /><span className="ml-2">từ 1 sao</span><br /></span>
                         </div> */}
-                    </div>
+                    {/* </div>
                     <div className="col-md-9">
                         <div className="title text-center mt-3">
                             {state.check === 'trong' ? <h3>Tour trong nước</h3> : <h3>Tour nước ngoài</h3>}
@@ -182,8 +182,8 @@ export default function Listtour() {
                                                             </div>
                                                             <div className="money float-left ml-3 text-warning">
                                                                 {(ok.gianguoilon).toLocaleString()} VNĐ<br />
-                                                            </div>
-                                                        </div>
+                                                            </div> */}
+                                                        {/* </div>
                                                     </Link>
                                                 </div>
                                             )) :
@@ -226,8 +226,8 @@ export default function Listtour() {
                                                         </div>
                                                     </Link>
                                                 </div>
-                                            )) :
-                                            state.statenuocngoai.map((ok, index) => (
+                                            )) : */}
+                                            {/* state.statenuocngoai.map((ok, index) => (
                                                 <div className="col-md-6 mb-3">
                                                     <Link to={`/tour/${ok.id}`}>
                                                         <div className="img rounded">
@@ -251,7 +251,8 @@ export default function Listtour() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
+                {/* new code manage restaurant information */}
             </div>
             <Footer />
         </div>
