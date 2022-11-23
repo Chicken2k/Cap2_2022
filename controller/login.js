@@ -5,10 +5,8 @@ const Role = require("../models").Role;
 exports.login = (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-
     User.findAll({
-        where: { email: email, password: password },
-        include: [Role]
+        where: { email: email, password: password }
     }).then(data => {
         if (data[0] !== undefined) {
             var user = {

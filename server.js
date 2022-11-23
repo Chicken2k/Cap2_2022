@@ -140,4 +140,4 @@ require("./routes/Restaurant")(app);
 app.use(function (err, req, res, next) {
     res.status(500).send(err)
 })
-app.listen(process.env.PORT || 666, () => { console.log(`Server is listening at port 666`); })
+app.listen(process.env.PORT || 666, () => { console.log(`Server is listening on port 666`); })

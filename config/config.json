@@ -2,10 +2,10 @@
     "development": {
         "username": "root",
         "password": "admin",
-        "database": "testbuag",
+        "database": "restaurant",
         "host": "localhost",
         "port": "3006",
         "dialect": "mysql",
-        "logging": true
+        "logging": false
     }
 }
