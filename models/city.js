@@ -3,18 +3,23 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Chude extends Model {
+  class City extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    static associate(models) {
+      City.hasMany(models.Restaurant, {
+        foreignKey: 'CityId'
+      })
+    }
   };
-  Chude.init({
-    chuDe: DataTypes.STRING
+  City.init({
+    name: DataTypes.STRING(255),
   }, {
     sequelize,
-    modelName: 'Chude',
+    modelName: 'City',
   });
-  return Chude;
+  return City;
 };
