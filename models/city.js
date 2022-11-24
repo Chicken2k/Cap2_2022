@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       City.hasMany(models.Restaurant, {
-        foreignKey: 'CityId'
+        foreignKey: 'cityId'
       })
     }
   };
@@ -20,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'City',
+    paranoid: true,
+    deletedAt: 'deletedAt'
   });
   return City;
 };
