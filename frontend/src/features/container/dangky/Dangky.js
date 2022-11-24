@@ -8,8 +8,8 @@ import { message } from 'antd'
 import taikhoanApi from '../../../api/taikhoanApi'
 
 function Dangky(props) {
-    const [state, setState] = useState({ password: '', repassword: '', name: '', status: 1, email: '', userRole: 2 });
-    const { password, repassword, status, name, email, userRole } = state
+    const [state, setState] = useState({ password: '', repassword: '', name: '', status: 1, email: '', roleId: '' });
+    const { password, repassword, status, name, email, roleId } = state;
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
@@ -27,8 +27,8 @@ function Dangky(props) {
                         if (await taikhoanApi.checkEmail(email).then(data => { return data; }) !== null) {
                             message.error("Email đã được sử dụng!");
                         } else {
-                            var UserRoles = [{ roleId: userRole }]
-                            taikhoanApi.postuser({ name, status, email, password, UserRoles });
+                            //var UserRoles = [{ roleId: userRole }]
+                            taikhoanApi.postuser({ name, status, email, password, roleId });
                             history.push('/dangnhap')
                         }
                     } else {
@@ -45,6 +45,7 @@ function Dangky(props) {
             ...state,
             [e.target.name]: e.target.value
         })
+        console.log('state on change: ', state);
     }
     const history = useHistory()
     const handgleLG = () => {
@@ -90,12 +91,8 @@ function Dangky(props) {
                             <input type="password" className="form-control" placeholder="Nhập lại mật khẩu" name="repassword" value={repassword} onChange={onchange} aria-label="Username" aria-describedby="addon-wrapping" />
                         </div>
                         <div className="input-group flex-nowrap mt-3 mb-3">
-                            <input type="radio" className="" name="userRole" value={2} onChange={onchange} />
-                            <label className='radio-label'>Customer</label>
-                        </div>
-                        <div className="input-group flex-nowrap mt-3 mb-3">
-                            <input type="radio" className="" name="userRole" value={3} onChange={onchange} />
-                            <label className='radio-label'>Restaurant</label>
+                            <input type="radio" className="" name="roleId" value='2' onChange={onchange} /> Customer
+                            <input type="radio" className="" name="roleId" value='3' onChange={onchange} /> Restaurant
                         </div>
 
                         <div className="form-group form-check">
