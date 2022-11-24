@@ -43,6 +43,7 @@ function Taikhoan(props) {
     };
     const [isModalVisible, setIsModalVisible] = useState(false);
     const users = useSelector(state => state.taikhoan.user.data);
+    console.log('users in Taikhoan: ', users);
     const loading = useSelector(state => state.taikhoan.loading)
     const dispatch = useDispatch();
     const actionResult = async () => { await dispatch(userData()) }
@@ -54,9 +55,9 @@ function Taikhoan(props) {
         setUseId(e)
         setIsModalVisible(true);
     }
-    const roles = useSelector(state => state.roles.role.data);
-    const roless = [...roles]
-    roless.pop();
+    // const roles = useSelector(state => state.roles.role.data);
+    // const roless = [...roles]
+    // roless.pop();
     const handleOk = async () => {
         var inforadmin = await taikhoanApi.deleteuser(userId).then(ok => {
             return ok

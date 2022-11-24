@@ -15,7 +15,7 @@ class TaikhoanApi {
     getOne = (params) => {
         const url = `/users/${params}`;
         return axiosClient.get(url).then(data => {
-            return data.data
+            return data
         });
     };
     getOneAdmin = (params) => {

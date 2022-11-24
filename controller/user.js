@@ -11,7 +11,8 @@ exports.create = (req, res) => {
     })
 }
 exports.findall = (req, res) => {
-    User.findAll({ attributes: ['id', 'name', 'gioitinh', 'email', 'avatar', "diachi", "sdt", "ngaysinh", "status"], order: [["id", "DESC"]], include: [Role, UserRole] }).then(data => {
+    console.log('run in find all');
+    User.findAll({ attributes: ['id', 'name', 'gioitinh', 'email', 'avatar', "diachi", "sdt", "ngaysinh", "status"], order: [["id", "DESC"]], include: [Role] }).then(data => {
         res.json({ data: data })
     }).catch(er => {
         throw er;
