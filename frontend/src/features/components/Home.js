@@ -14,7 +14,7 @@ import Trangchu from './Trangchu'
 import Admin from './Admin'
 import Menu from "../container/trangchu/menu/Menu";
 import Menu2 from "../container/trangchu/menu/Menu2";
-import Listtour from "../container/Listtour/Listtour";
+import ManageRestaurant from "../container/manageRestaurant/manageRestaurant";
 import Tour from "../container/detailtour/tour/Tour";
 
 import { quocgiaData } from "../container/admin/Quocgia/quocgiaSlice";
@@ -110,10 +110,10 @@ export default function NestingExample() {
             <Dangky />
           </Route>
           <Route path="/list-tour/:id">
-            <Listtour />
+            <ManageRestaurant />
           </Route>
           <Route path="/restaurant-information">
-            <Listtour />
+            <ManageRestaurant />
           </Route>
           <Route path="/tour/:id">
             <Tour />
