@@ -13,6 +13,7 @@ getRestaurantsByUserId = async (req, res) => {
             data: restaurants
         })
     } catch ( error) {
+        console.log('run here?');
         res.status(error.status).json({
             successful: false,
             error: error.message
