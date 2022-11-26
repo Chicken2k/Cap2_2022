@@ -3,15 +3,14 @@ var Role = require('../models').Role;
 var UserRole = require('../models').UserRole;
 
 exports.create = (req, res) => {
-    console.log('req create user: ', req.body);
-    User.create(req.body, { include: [UserRole] }).then(data => {
+    User.create(req.body).then(data => {
         res.json({ data: data })
     }).catch(er => {
         throw er;
     })
 }
 exports.findall = (req, res) => {
-    User.findAll({ attributes: ['id', 'name', 'gioitinh', 'email', 'avatar', "diachi", "sdt", "ngaysinh", "status"], order: [["id", "DESC"]], include: [Role, UserRole] }).then(data => {
+    User.findAll({ attributes: ['id', 'name', 'gioitinh', 'email', 'avatar', "diachi", "sdt", "ngaysinh", "status"], order: [["id", "DESC"]], include: [Role] }).then(data => {
         res.json({ data: data })
     }).catch(er => {
         throw er;

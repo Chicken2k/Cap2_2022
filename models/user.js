@@ -10,27 +10,27 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      User.belongsToMany(models.Role, {
-        through: "UserRoles"
-      }),
-        User.belongsToMany(models.Tour, {
-          through: "Hoadons"
+        User.belongsTo(models.Role, {
+          foreignKey: 'roleId'
         }),
-        User.belongsToMany(models.Tour, {
-          through: "Binhluans"
+        User.hasMany(models.News, {
+          foreignKey: 'userId'
         }),
-        User.hasMany(models.UserRole),
-        User.hasMany(models.Thongbao)
-        User.hasMany(models.Hoadoncanhan)
+        User.hasMany(models.Booking, {
+          foreignKey: 'userId'
+        }),
+        User.hasMany(models.Restaurant, {
+          foreignKey: 'userId'
+        })
     }
   };
   User.init({
-    name: DataTypes.STRING,
+    name: DataTypes.STRING(255),
     gioitinh: DataTypes.INTEGER,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    avatar: DataTypes.STRING(1000),
-    tenanh: DataTypes.STRING(500),
+    email: DataTypes.STRING(255),
+    password: DataTypes.STRING(255),
+    avatar: DataTypes.STRING(255),
+    tenanh: DataTypes.STRING(255),
     diachi: DataTypes.STRING,
     sdt: DataTypes.STRING,
     ngaysinh: DataTypes.STRING,
@@ -38,6 +38,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+    paranoid: true,
+    deletedAt: 'deletedAt'
   });
   return User;
 };
