@@ -39,5 +39,5 @@ const restaurantsSlice = createSlice({
     }
 })
 const { reducer, actions } = restaurantsSlice;
-export const { addRestaurant, updateRestaurant, deleteRestaurant } = actions;
+export const { createRestaurant, updateRestaurant, deleteRestaurant } = actions;
 export default reducer;
