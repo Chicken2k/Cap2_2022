@@ -22,10 +22,14 @@ getRestaurantsByUserId = async (req, res) => {
 
 createRestaurant = async (req, res) => {
     try {
-        const restaurantId = await Restaurant.create(req.body);
+        const newRestaurant = await Restaurant.create(req.body.body);
+        const data = {
+            id: newRestaurant.id,
+            name: newRestaurant.name,
+        }
         res.status(201).json({
             successful: true,
-            data: restaurantId
+            data: data
         })
     } catch (error) {
         res.status(error.status).json({
@@ -37,10 +41,11 @@ createRestaurant = async (req, res) => {
 
 updateRestaurant = async (req, res) => {
     try {
-        const restaurantId = req.params;
+        const { id } = req.params;
+        console.log('req body: ', req.body);
         await Restaurant.update(req.body, {
             where: {
-                id: restaurantId
+                id: id
             }
         })
         res.status(201).json({
@@ -57,10 +62,10 @@ updateRestaurant = async (req, res) => {
 
 deleteRestaurant = async (req, res) => {
     try {
-        const restaurantId = req.params;
+        const { id } = req.params;
         await Restaurant.destroy({
             where: {
-                id: restaurantId
+                id: id
             }
         })
         res.status(201).json({

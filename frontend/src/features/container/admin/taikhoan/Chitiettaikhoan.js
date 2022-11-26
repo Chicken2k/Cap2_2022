@@ -13,7 +13,6 @@ function Chitiettaikhoan(props) {
             }
         }
     }
-    console.log(user);
 
     return (
         <div id="admin">
