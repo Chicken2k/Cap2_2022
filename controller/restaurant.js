@@ -42,8 +42,7 @@ createRestaurant = async (req, res) => {
 updateRestaurant = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log('req body: ', req.body);
-        await Restaurant.update(req.body, {
+        await Restaurant.update(req.body.body, {
             where: {
                 id: id
             }
