@@ -43,7 +43,6 @@ function Taikhoan(props) {
     };
     const [isModalVisible, setIsModalVisible] = useState(false);
     const users = useSelector(state => state.taikhoan.user.data);
-    console.log('users in Taikhoan: ', users);
     const loading = useSelector(state => state.taikhoan.loading)
     const dispatch = useDispatch();
     const actionResult = async () => { await dispatch(userData()) }

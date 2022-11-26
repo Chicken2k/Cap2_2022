@@ -4,6 +4,8 @@ module.exports = app => {
 
     router.get('/', restaurant.getRestaurantsByUserId);
     router.post('/', restaurant.createRestaurant);
+    router.patch('/:id', restaurant.updateRestaurant);
+    router.delete('/:id', restaurant.deleteRestaurant);
 
     app.use('/v1/restaurants', router);
 }

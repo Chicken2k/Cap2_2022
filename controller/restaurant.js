@@ -13,7 +13,6 @@ getRestaurantsByUserId = async (req, res) => {
             data: restaurants
         })
     } catch ( error) {
-        console.log('run here?');
         res.status(error.status).json({
             successful: false,
             error: error.message
@@ -23,12 +22,50 @@ getRestaurantsByUserId = async (req, res) => {
 
 createRestaurant = async (req, res) => {
     try {
-        const { restaurant }  = req.body;
-        console.log('Create restaurant', req.body);
-        console.log('restaurant nè: ', restaurant);
+        const restaurantId = await Restaurant.create(req.body);
         res.status(201).json({
             successful: true,
-            data: 'Create restaurant successfully'
+            data: restaurantId
+        })
+    } catch (error) {
+        res.status(error.status).json({
+            successful: false,
+            error: error.message
+        })
+    }
+}
+
+updateRestaurant = async (req, res) => {
+    try {
+        const restaurantId = req.params;
+        await Restaurant.update(req.body, {
+            where: {
+                id: restaurantId
+            }
+        })
+        res.status(201).json({
+            successful: true,
+            data: 'Update restaurant successfully'
+        })
+    } catch (error) {
+        res.status(error.status).json({
+            successful: false,
+            error: error.message
+        })
+    }
+}
+
+deleteRestaurant = async (req, res) => {
+    try {
+        const restaurantId = req.params;
+        await Restaurant.destroy({
+            where: {
+                id: restaurantId
+            }
+        })
+        res.status(201).json({
+            successful: true,
+            data: 'Delete restaurant successfully'
         })
     } catch (error) {
         res.status(error.status).json({
@@ -41,4 +78,6 @@ createRestaurant = async (req, res) => {
 module.exports = {
     getRestaurantsByUserId,
     createRestaurant,
+    updateRestaurant,
+    deleteRestaurant
 };
