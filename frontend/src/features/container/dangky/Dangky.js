@@ -45,7 +45,6 @@ function Dangky(props) {
             ...state,
             [e.target.name]: e.target.value
         })
-        console.log('state on change: ', state);
     }
     const history = useHistory()
     const handgleLG = () => {

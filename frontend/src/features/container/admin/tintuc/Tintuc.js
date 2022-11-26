@@ -13,8 +13,6 @@ function Tintuc() {
     const dispatch = useDispatch()
     const tintucs = useSelector(state => state.tintucs.tintuc.data);
     const loading = useSelector(state => state.tintucs.Loading);
-    console.log(tintucs);
-    console.log(loading);
     var sort = []
     if (tintucs) {
         for (let i = 0; i < tintucs.length; i++) {

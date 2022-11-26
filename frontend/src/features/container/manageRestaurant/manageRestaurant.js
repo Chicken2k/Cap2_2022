@@ -1,134 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { Image, Modal, Popconfirm, Spin, Table } from 'antd'
+import { useSelector, useDispatch } from 'react-redux';
+
 import Footer from '../trangchu/footer/Footer'
 import './manageRestaurant.css'
-import { useSelector } from 'react-redux';
 import "./checkactive.js";
 import restaurantApi from '../../../api/restaurantApi';
+import { createRestaurant, updateRestaurant, deleteRestaurant, restaurantData } from './restaurantSlice';
+
 export default function Listtour() {
-    const [ restaurants, setRestaurant ] = useState([]);
-
-    const getRestaurants = async() => {
-        const userId = localStorage.getItem('userId');
-        const listRestaurant = await restaurantApi.getAll(userId);
-        if (listRestaurant !== undefined) {
-            setRestaurant(listRestaurant.data);
-        }
-    }
-
-    useEffect(() => {
-        //0getRestaurants();
-
+    const [ listRestaurant, setRestaurant ] = useState([]);
+    const [ restaurantInfor, setRestaurantInfor ] = useState({
+        name: '',
+        description: '',
+        address: '', 
     });
-    //const tours = useSelector(state => state.tours.tour.data);
-    // const [state, setState] = useState({
-    //     check: "trong",
-    //     statetrongnuoc: "",
-    //     statenuocngoai: ""
-    // })
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const dispatch = useDispatch();
+    const restaurants = useSelector(state => state.restaurants.data);
+    const actionResult = async () => { await dispatch(restaurantData())};
+    const { name, description, address } = restaurantInfor;
+    useEffect(() => {
+        actionResult();
+    }, []);
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+    const openModal = () => {
+        setIsModalVisible(true);
+    }
+    const submitForm = () => {
 
-    // const formatdate = e => {
-    //     if (e) {
-    //         var ngay = e.substr(0, 2)
-    //         var thang = e.substr(3, 2)
-    //         var nam = e.substr(6, 4)
-    //         return nam + '-' + thang + '-' + ngay;
-    //     }
-    // }
-    // const maxDate = e => {
-    //     if (e) {
-    //         var ngayMax = formatdate(e[0].ngay)
-    //         for (let i = 0; i < e.length; i++) {
-    //             if (ngayMax <= formatdate(e[i].ngay)) {
-    //                 ngayMax = formatdate(e[i].ngay)
-    //             }
-    //         }
-    //         return ngayMax
-    //     }
-    // }
-    // var tourtrongnuoc = []
-    // if (tours) {
-    //     var sort = []
-    //     for (let i = 0; i < tours.length; i++) {
-    //         sort.unshift(tours[i])
-    //     }
-    //     var date = new Date();
-    //     var today = date.getFullYear() + "-" + ((date.getMonth() + 1) > 10 ? date.getMonth() + 1 : ("0" + (date.getMonth() + 1))) + "-" + (date.getDate() > 10 ? date.getDate() : ("0" + date.getDate()));
-    //     for (let i = 0; i < sort.length; i++) {
-    //         if (sort[i].status === 1 && sort[i].vitri === 1 && maxDate(sort[i].Ngaydis) >= today) {
-    //             tourtrongnuoc.push(sort[i])
-    //         }
-    //     }
-    // }
-    // var tournuocngoai = []
-    // if (tours) {
-    //     var sort = []
-    //     for (let i = 0; i < tours.length; i++) {
-    //         sort.unshift(tours[i])
-    //     }
-    //     var date = new Date();
-    //     var today = date.getFullYear() + "-" + ((date.getMonth() + 1) > 10 ? date.getMonth() + 1 : ("0" + (date.getMonth() + 1))) + "-" + (date.getDate() > 10 ? date.getDate() : ("0" + date.getDate()));
-    //     for (let i = 0; i < sort.length; i++) {
-    //         if (sort[i].status === 1 && sort[i].vitri === 2 && maxDate(sort[i].Ngaydis) >= today) {
-    //             tournuocngoai.push(sort[i])
-    //         }
-    //     }
-    // }
-    // useEffect(() => {
-    //     //actionNgaydi();
-    //     window.scrollTo(0, 0);
-    // }, [])
-
-    // const handleChange = (value) => {
-    //     setState({
-    //         ...state,
-    //         check: value
-    //     })
-    // }
-    // const search = e => {
-    //     const { check } = state
-    //     if (check === "trong") {
-    //         var tourtrongnuoc = []
-    //         if (tours) {
-    //             var sort = []
-    //             for (let i = 0; i < tours.length; i++) {
-    //                 sort.unshift(tours[i])
-    //             }
-    //             console.log(sort);
-    //             var date = new Date();
-    //             var today = date.getFullYear() + "-" + ((date.getMonth() + 1) > 10 ? date.getMonth() + 1 : ("0" + (date.getMonth() + 1))) + "-" + (date.getDate() > 10 ? date.getDate() : ("0" + date.getDate()));
-    //             for (let i = 0; i < sort.length; i++) {
-    //                 if (sort[i].status === 1 && sort[i].vitri === 1 && (sort[i].name).toLowerCase().search(e) === 0 && maxDate(sort[i].Ngaydis) >= today) {
-    //                     tourtrongnuoc.push(sort[i])
-    //                 }
-    //             }
-    //             console.log(tourtrongnuoc);
-    //         }
-    //         setState({
-    //             ...state,
-    //             statetrongnuoc: tourtrongnuoc
-    //         })
-    //     } else {
-    //         var tournuocngoai = []
-    //         if (tours) {
-    //             var sort = []
-    //             for (let i = 0; i < tours.length; i++) {
-    //                 sort.unshift(tours[i])
-    //             }
-    //             var date = new Date();
-    //             var today = date.getFullYear() + "-" + ((date.getMonth() + 1) > 10 ? date.getMonth() + 1 : ("0" + (date.getMonth() + 1))) + "-" + (date.getDate() > 10 ? date.getDate() : ("0" + date.getDate()));
-    //             for (let i = 0; i < sort.length; i++) {
-    //                 if (sort[i].status === 1 && sort[i].vitri === 2 && (sort[i].name).toLowerCase().search(e) === 0 && maxDate(sort[i].Ngaydis) >= today) {
-    //                     tournuocngoai.push(sort[i])
-    //                 }
-    //             }
-    //         }
-    //         setState({
-    //             ...state,
-    //             statenuocngoai: tournuocngoai
-    //         })
-    //     }
-    // }
+    }
+    const onChange = (e) => {
+        console.log('hee hee: ', e.event);
+    }
     return (
         <div id="list-tour">
             <div className="breadcrumb">
@@ -140,10 +47,32 @@ export default function Listtour() {
                 </nav>
             </div>
             <div className="container">
-                {restaurants.length === 0 ? (
+                {restaurants === undefined ? (
                     <div>
                         <p className='message'>Bạn chưa có nhà hàng nào</p>
-                        <button>Thêm nhà hàng</button>
+                        <button onClick={openModal}>Thêm nhà hàng</button>
+                        <Modal title="Thêm nhà hàng" visible={isModalVisible} onCancel={handleCancel} onOk={submitForm}>
+                            <form>
+                                <div>
+                                    <label>
+                                        Tên nhà hàng
+                                    </label>
+                                        <input type="text" name="name" value={name} onChange={onChange}/>
+                                </div>
+                                <div>
+                                    <label>
+                                        Mô tả
+                                        <input type="text" name="name" value={description} onChange={onChange}/>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        Địa chỉ
+                                        <input type="text" name="name" value={address} onChange={onChange}/>
+                                    </label>
+                                </div>
+                            </form>                
+                        </Modal>
                     </div>
                 ) : (
                     <div>Nhà hàng của bạn nè</div> 
