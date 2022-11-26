@@ -22,7 +22,7 @@ getRestaurantsByUserId = async (req, res) => {
 
 createRestaurant = async (req, res) => {
     try {
-        const newRestaurant = await Restaurant.create(req.body.body);
+        const newRestaurant = await Restaurant.create(req.body);
         const data = {
             id: newRestaurant.id,
             name: newRestaurant.name,
@@ -42,7 +42,7 @@ createRestaurant = async (req, res) => {
 updateRestaurant = async (req, res) => {
     try {
         const { id } = req.params;
-        await Restaurant.update(req.body.body, {
+        await Restaurant.update(req.body, {
             where: {
                 id: id
             }

@@ -8,11 +8,11 @@ class RestaurantApi {
     }
     createRestaurant(body) {
         const url = '/v1/restaurants';
-        return axiosClient.post(url, { body });
+        return axiosClient.post(url, body);
     }
     updateRestaurant(id, body) {
         const url = `/v1/restaurants/${id}`;
-        return axiosClient.patch(url, { body });
+        return axiosClient.patch(url, body);
     }
     deleteRestaurant(id) {
         const url = `/v1/restaurants/${id}`;
