@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { Image, Modal, Popconfirm, Spin, Table } from 'antd'
+import { Image, Modal, Button } from 'antd'
 import { useSelector, useDispatch } from 'react-redux';
 
 import Footer from '../trangchu/footer/Footer'
@@ -49,27 +49,29 @@ export default function Listtour() {
             <div className="container">
                 {restaurants === undefined ? (
                     <div>
-                        <p className='message'>Bạn chưa có nhà hàng nào</p>
-                        <button onClick={openModal}>Thêm nhà hàng</button>
+                        <div className='noRestaurant'>
+                            <p className='message'>Bạn chưa có nhà hàng nào</p>
+                            <Button type='primary' onClick={openModal}>Thêm nhà hàng</Button>
+                        </div>
                         <Modal title="Thêm nhà hàng" visible={isModalVisible} onCancel={handleCancel} onOk={submitForm}>
                             <form>
                                 <div>
-                                    <label>
+                                    <label className='labelInput'>
                                         Tên nhà hàng
                                     </label>
                                         <input type="text" name="name" value={name} onChange={onChange}/>
                                 </div>
                                 <div>
-                                    <label>
+                                    <label className='labelInput'>
                                         Mô tả
-                                        <input type="text" name="name" value={description} onChange={onChange}/>
                                     </label>
+                                        <textarea name="name" value={description} onChange={onChange} rows='10' cols='50'/>
                                 </div>
                                 <div>
-                                    <label>
+                                    <label className='labelInput'>
                                         Địa chỉ
-                                        <input type="text" name="name" value={address} onChange={onChange}/>
                                     </label>
+                                        <input type="text" name="name" value={address} onChange={onChange}/>
                                 </div>
                             </form>                
                         </Modal>
