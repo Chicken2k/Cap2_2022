@@ -14,7 +14,7 @@ export default function Listtour() {
         name: '',
         description: '',
         address: '',
-        phonerNumber: '',
+        phoneNumber: '',
     });
     const [ isModalVisible, setIsModalVisible ] = useState(false);
     const [ isModalVisibleDelete, setIsModalVisibleDelete ] = useState(false);
@@ -43,7 +43,6 @@ export default function Listtour() {
             userId: userId,
         }
         await restaurantApi.createRestaurant(restaurantBody);
-        //dispatch(createRestaurant(restaurantBody));
         actionResult();
     }
     const onOk = () => {
@@ -77,12 +76,22 @@ export default function Listtour() {
     }
 
     const onOkUpdate = async (restaurantId) => {
-        const restaurantBody = {
-            name: restaurantInfor.name,
-            phoneNumber: restaurantInfor.phonerNumber,
-            description: restaurantInfor.description,
-            address: restaurantInfor.address,
+        let restaurantBody = {};
+        console.log('restaurant id to update: ', restaurantId);
+        console.log('restaurant infor in update: ', restaurantInfor);
+        if (restaurantInfor.name !== '') {
+            restaurantBody.name = restaurantInfor.name;
         }
+        if (restaurantInfor.address !== '') {
+            restaurantBody.address = restaurantInfor.address;
+        }
+        if (restaurantInfor.description !== '') {
+            restaurantBody.description = restaurantInfor.description;
+        }
+        if (restaurantInfor.phoneNumber !== '') {
+            restaurantBody.phoneNumber = restaurantInfor.phoneNumber;
+        }
+        console.log('restaurant body in update: ', restaurantBody);
         await restaurantApi.updateRestaurant(restaurantId, restaurantBody);
         actionResult();
         setIsModalVisibleUpdate(false);
@@ -114,25 +123,25 @@ export default function Listtour() {
                                     <label className='labelInput'>
                                         Tên nhà hàng
                                     </label>
-                                        <input type="text" name="name" value={name}  onChange={onChange}/>
+                                        <input type="text" name="name" value={name} placeholder={name} onChange={onChange}/>
                                 </div>
                                 <div>
                                     <label className='labelInput'>
                                         Mô tả
                                     </label>
-                                        <textarea name="description" value={description} onChange={onChange} rows='10' cols='50'/>
+                                        <textarea name="description" value={description} placeholder={description} onChange={onChange} rows='10' cols='50'/>
                                 </div>
                                 <div>
                                     <label className='labelInput'>
                                         Địa chỉ
                                     </label>
-                                        <input type="text" name="address" value={address}  onChange={onChange}/>
+                                        <input type="text" name="address" value={address} placeholder={address}  onChange={onChange}/>
                                 </div>
                                 <div>
                                     <label className='labelInput'>
                                         Số điện thoại
                                     </label>
-                                        <input type="text" name="phoneNumber" value={phoneNumber}  onChange={onChange}/>
+                                        <input type="text" name="phoneNumber" value={phoneNumber} placeholder={phoneNumber}  onChange={onChange}/>
                                 </div>
                             </form>                
                         </Modal>
