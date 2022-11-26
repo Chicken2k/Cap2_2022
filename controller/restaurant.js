@@ -2,18 +2,23 @@ const Restaurant = require('../models').Restaurant;
 
 getRestaurantsByUserId = async (req, res) => {
     try {
-        const {userId} = req.query;
-        const restaurants = await Restaurant.findAll({
-            where: {
-                userId: userId,
-            }
+        let restaurants
+        const {userId, cityId, foodId} = req.query;
+        const objQuery = {};
+        if(userId) objQuery.userId = userId;
+        if(cityId) objQuery.cityId = cityId;
+        if(foodId) objQuery.foodId = foodId;
+        if(!objQuery) restaurants = await Restaurant.findAll();
+        restaurants = await Restaurant.findAll({
+            where: objQuery
         });
         res.status(200).json({
             successful: true,
             data: restaurants
         })
     } catch ( error) {
-        res.status(error.status).json({
+        if(!error.status) res.status(500).json({err: 'err'})
+        else res.status(error.status).json({
             successful: false,
             error: error.message
         })

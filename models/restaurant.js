@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       Restaurant.belongsTo(models.City, {
         foreignKey: 'cityId'
       }),
+      Restaurant.belongsTo(models.Food, {
+        foreignKey: 'foodId'
+      }),
       Restaurant.belongsTo(models.User, {
         foreignKey: 'userId'
       }),
