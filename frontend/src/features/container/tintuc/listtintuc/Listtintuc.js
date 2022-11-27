@@ -42,13 +42,13 @@ export default function Listtintuc() {
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
             <li className="breadcrumb-item"><Link to="/"><i className="fas fa-home mr-2"></i>Trang chủ</Link></li>
-            <li className="breadcrumb-item active" aria-current="page">Tour du lịch</li>
+            <li className="breadcrumb-item active" aria-current="page">Thống kê</li>
           </ol>
         </nav>
       </div>
       <div className="title-new">
         <div className="hr-new "></div>
-        <h3 className=" ">Tin tức du lịch </h3>
+        <h3 className=" ">Thống kê lượt view</h3>
       </div>
       <div className="content-new">
         <div className="box-new ">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Modal, Button, Col, Row, Image } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import Footer from '../trangchu/footer/Footer'
 import './manageRestaurant.css'
@@ -97,6 +98,11 @@ export default function Listtour() {
         setIsModalVisibleUpdate(false);
     }
 
+    const history = useHistory()
+
+    const openDetailRestaurantPage = () => {
+        history.push('/detail-restaurant', { id: 5 });
+    }
     let listRestaurant;
     if (restaurants) {
         listRestaurant = restaurants.map((restaurant) => {
@@ -108,8 +114,9 @@ export default function Listtour() {
                             <p>{restaurant.description}</p>
                             <p>Địa chỉ: {restaurant.address}</p>
                             <p>Số điện thoại đặt bàn: {restaurant.phoneNumber}</p>
-                            <Button type='primary' onClick={() => openModalDelete(restaurant.id)}>Xóa</Button>
-                            <Button type='primary' onClick={() => openModalUpdate(restaurant.id)}>Sửa</Button>
+                            <Button type='primary' className='btn-restaurant' onClick={() => openModalDelete(restaurant.id)}>Xóa</Button>
+                            <Button type='primary' className='btn-restaurant' onClick={() => openModalUpdate(restaurant.id)}>Sửa</Button>
+                            <Button type='primary' className='btn-restaurant' onClick={openDetailRestaurantPage}>Xem chi tiết</Button>
 
                             <Modal title="Bạn có muốn xóa nhà hàng này?" visible={isModalVisibleDelete} onCancel={handleCancelDelete} onOk={() => onOkDelete(restaurant.id)}>
                             <form onSubmit={onSubmit}>
@@ -145,7 +152,9 @@ export default function Listtour() {
                             </Modal>
                         </Col>
                         <Col span={6} pull={18}>
-                            <Image src=''/>
+                            <div className='image-container'>
+                                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg" alt="restaurant" width="500" height="600" />
+                            </div>
                         </Col>
                     </Row>
                 </li>
