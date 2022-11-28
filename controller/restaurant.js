@@ -1,6 +1,6 @@
 const Restaurant = require('../models').Restaurant;
 
-getRestaurantsByUserId = async (req, res) => {
+getAll = async (req, res) => {
     try {
         let restaurants
         const {userId, cityId, foodId} = req.query;
@@ -25,6 +25,26 @@ getRestaurantsByUserId = async (req, res) => {
     }
 };
 
+getRestaurantById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const restaurant = await Restaurant.findOne({
+            where: {
+                id: id
+            }
+        });
+        if (!restaurant) throw new Error('RESTAURANT NOT FOUND');
+        return res.status(200).json({
+            success: true,
+            data: restaurant
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: error.message
+        })
+    }
+}
 createRestaurant = async (req, res) => {
     try {
         const newRestaurant = await Restaurant.create(req.body);
@@ -85,7 +105,8 @@ deleteRestaurant = async (req, res) => {
 }
 
 module.exports = {
-    getRestaurantsByUserId,
+    getAll,
+    getRestaurantById,
     createRestaurant,
     updateRestaurant,
     deleteRestaurant

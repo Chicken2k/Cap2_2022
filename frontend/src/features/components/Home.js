@@ -8,13 +8,15 @@ import {
 } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
+import ManageRestaurant from "../container/manageRestaurant/manageRestaurant";
+import DetailRestaurant from "../container/detailRestaurant/detailRestaurant";
+
 import Login from "../container/dangnhap/Dangnhap";
 import Dangky from '../container/dangky/Dangky'
 import Trangchu from './Trangchu'
 import Admin from './Admin'
 import Menu from "../container/trangchu/menu/Menu";
 import Menu2 from "../container/trangchu/menu/Menu2";
-import ManageRestaurant from "../container/manageRestaurant/manageRestaurant";
 import Tour from "../container/detailtour/tour/Tour";
 
 import { quocgiaData } from "../container/admin/Quocgia/quocgiaSlice";
@@ -109,16 +111,19 @@ export default function NestingExample() {
           <Route path="/dangky">
             <Dangky />
           </Route>
-          <Route path="/list-tour/:id">
+          {/* <Route path="/list-tour/:id">
             <ManageRestaurant />
-          </Route>
+          </Route> */}
           <Route path="/restaurant-information">
             <ManageRestaurant />
+          </Route>
+          <Route path="/detail-restaurant">
+            <DetailRestaurant />
           </Route>
           <Route path="/tour/:id">
             <Tour />
           </Route>
-          <Route path="/listtintuc">
+          <Route path="/statistical">
             <Listtintuc />
           </Route>
           <Route path="/detail-new/:id">
