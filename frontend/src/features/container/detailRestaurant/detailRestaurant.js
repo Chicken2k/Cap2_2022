@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import { Carousel } from "antd";
 
-
 import './detailRestaurant.css'
 import Footer from "../trangchu/footer/Footer";
+import restaurantApi from "../../../api/restaurantApi";
 
 export default function DetailRestaurant() {
     const location = useLocation();
+    const [ restaurant, setRestaurant ] = useState({});
     useEffect(() => {
         console.log('state: ', location.state.id);
+
     }, [location]);
     return (
         <div>
