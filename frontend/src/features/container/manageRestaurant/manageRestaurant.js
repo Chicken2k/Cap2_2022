@@ -100,8 +100,12 @@ export default function Listtour() {
 
     const history = useHistory()
 
-    const openDetailRestaurantPage = () => {
-        history.push('/detail-restaurant', { id: 5 });
+    const openDetailRestaurantPage = (restaurantId) => {
+        history.push(
+            {
+                pathname: `/detail-restaurant/${restaurantId}`, 
+                state:{ id: 5 },
+            });
     }
     let listRestaurant;
     if (restaurants) {
@@ -114,9 +118,9 @@ export default function Listtour() {
                             <p>{restaurant.description}</p>
                             <p>Địa chỉ: {restaurant.address}</p>
                             <p>Số điện thoại đặt bàn: {restaurant.phoneNumber}</p>
-                            <Button type='primary' className='btn-restaurant' onClick={() => openModalDelete(restaurant.id)}>Xóa</Button>
+                            <Button type='primary' className='btn-restaurant' onClick={() => openModalDelete(restaurant.id)}>Đóng cửa</Button>
                             <Button type='primary' className='btn-restaurant' onClick={() => openModalUpdate(restaurant.id)}>Sửa</Button>
-                            <Button type='primary' className='btn-restaurant' onClick={openDetailRestaurantPage}>Xem chi tiết</Button>
+                            <Button type='primary' className='btn-restaurant' onClick={() => openDetailRestaurantPage(restaurant.id)}>Xem chi tiết</Button>
 
                             <Modal title="Bạn có muốn xóa nhà hàng này?" visible={isModalVisibleDelete} onCancel={handleCancelDelete} onOk={() => onOkDelete(restaurant.id)}>
                             <form onSubmit={onSubmit}>

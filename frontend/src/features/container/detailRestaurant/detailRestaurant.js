@@ -1,4 +1,5 @@
-import React, { useLocation } from "react";
+import React, { useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import { Carousel } from "antd";
 
 
@@ -6,9 +7,10 @@ import './detailRestaurant.css'
 import Footer from "../trangchu/footer/Footer";
 
 export default function DetailRestaurant() {
-    // const state = useLocation();
-    // const { id } = state;
-    // console.log('id nè: ', id);
+    const location = useLocation();
+    useEffect(() => {
+        console.log('state: ', location.state.id);
+    }, [location]);
     return (
         <div>
             <div className="containerCarousel">
