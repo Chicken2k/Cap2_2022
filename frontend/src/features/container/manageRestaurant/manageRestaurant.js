@@ -104,7 +104,7 @@ export default function Listtour() {
         history.push(
             {
                 pathname: `/detail-restaurant/${restaurantId}`, 
-                state:{ id: 5 },
+                state:{ id: restaurantId },
             });
     }
     let listRestaurant;

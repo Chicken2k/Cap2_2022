@@ -11,7 +11,11 @@ export default function DetailRestaurant() {
     const [ restaurant, setRestaurant ] = useState({});
     useEffect(() => {
         console.log('state: ', location.state.id);
-
+        const getRestaurant = async () => {
+            const data = await restaurantApi.getRestaurantById(location.state.id);
+            setRestaurant(data.data);
+        }
+        getRestaurant();
     }, [location]);
     return (
         <div>
@@ -40,10 +44,10 @@ export default function DetailRestaurant() {
                 </Carousel>
                 <div className='restaurant-information'>
                     <h3 class='box-title'>Thông tin nhà hàng</h3>
-                    <div>Name: </div>
-                    <div>Description: </div>
-                    <div>Address: </div>
-                    <div>Số điện thoại liên hệ</div>
+                    <div>Name: {restaurant.name}</div>
+                    <div>Description: {restaurant.description}</div>
+                    <div>Address: {restaurant.address}</div>
+                    <div>Số điện thoại liên hệ: {restaurant.phoneNumber}</div>
                 </div>
                 <div className='restaurant-information'>
                     <h3 class='box-title'>Đánh giá</h3>
