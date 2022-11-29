@@ -13,6 +13,9 @@ class RestaurantApi {
     const url = `/v1/restaurants/${id}`;
     return axiosClient.get(url);
   }
+  getRestaurantQuery(cityId, foodId) {
+    return axiosClient.get(`v1/restaurants/?cityId=${cityId}&foodId=${foodId}`);
+  }
   createRestaurant(body) {
     const url = "/v1/restaurants";
     return axiosClient.post(url, body);

@@ -1,8 +1,10 @@
 import { Button, Rate, Select, Space, Spin } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import cityApi from "../../../../api/cityApi";
+import foodApi from "../../../../api/foodApi";
+import restaurantApi from "../../../../api/restaurantApi";
 import "./nhahang.css";
 function NhaHang(props) {
   // const dispatch = useDispatch();
@@ -12,67 +14,43 @@ function NhaHang(props) {
   // useEffect(() => {
   //   actionResult();
   // }, []);
-  const restaurant = useSelector((state) => state.nhahangs?.nhahangs);
-  let restaurants;
-  if (restaurant) restaurants = restaurant.data;
-  console.log(restaurants);
-  // const restaurants = [
-  //   {
-  //     name: "Hùng Xiệc",
-  //     id: 1,
-  //     address: "25 Nguyễn Chí Thanh",
-  //     image:
-  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-  //   },
-  //   {
-  //     name: "Hùng Xiệc",
-  //     id: 1,
-  //     address: "25 Nguyễn Chí Thanh",
-  //     image:
-  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-  //   },
-  //   {
-  //     name: "Hùng Xiệc",
-  //     id: 1,
-  //     address: "25 Nguyễn Chí Thanh",
-  //     image:
-  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-  //   },
-  //   {
-  //     name: "Hùng Xiệc",
-  //     id: 1,
-  //     address: "25 Nguyễn Chí Thanh",
-  //     image:
-  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-  //   },
-  //   {
-  //     name: "Hùng Xiệc",
-  //     id: 1,
-  //     address: "25 Nguyễn Chí Thanh",
-  //     image:
-  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-  //   },
-  //   {
-  //     name: "Hùng Xiệc",
-  //     id: 1,
-  //     address: "25 Nguyễn Chí Thanh",
-  //     image:
-  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-  //   },
-  //   {
-  //     name: "Hùng Xiệc",
-  //     id: 1,
-  //     address: "25 Nguyễn Chí Thanh",
-  //     image:
-  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-  //   },
-  // ];
+  const [city, setCity] = useState([]);
+  const [food, setFood] = useState([]);
+  const [changeFood, setChangeFood] = useState(0);
+  const [changeCity, setChangeCity] = useState(0);
+  const restaurants = useSelector((state) => state.nhahangs?.nhahangs);
+  const [restaurant, setRestaurant] = useState([]);
 
-  console.log(restaurants);
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
+  const getCity = async () => {
+    const data = await cityApi.getAll();
+    setCity(data.data);
+    return data.data;
   };
-
+  const getFood = async () => {
+    const data = await foodApi.getAll();
+    setFood(data.data);
+    return data.data;
+  };
+  useEffect(() => {
+    getCity();
+    getFood();
+    setRestaurant(restaurants);
+  }, []);
+  const handleChangeCity = async (value) => {
+    setChangeCity(value);
+  };
+  const handleChangeFood = async (value) => {
+    setChangeFood(value);
+  };
+  const callApiRestaurant = async (cityId, foodId) => {
+    const data = await restaurantApi.getRestaurantQuery(cityId, foodId);
+    console.log(data);
+  };
+  const handleClickButton = (event) => {
+    callApiRestaurant(changeCity, changeFood);
+    setRestaurant(restaurants);
+    console.log(changeCity, changeFood);
+  };
   return (
     <div className="mt-5 mb-5 tour " id="tour">
       <div className="heading text-center">
@@ -85,68 +63,42 @@ function NhaHang(props) {
           <div className="col1">
             <span>Khu vực</span>
             <Select
-              defaultValue="lucy"
               style={{ width: 120 }}
-              onChange={handleChange}
-              options={[
-                {
-                  value: "jack",
-                  label: "Jack",
-                },
-                {
-                  value: "lucy",
-                  label: "Lucy",
-                },
-                {
-                  value: "disabled",
-                  disabled: true,
-                  label: "Disabled",
-                },
-                {
-                  value: "Yiminghe",
-                  label: "yiminghe",
-                },
-              ]}
+              onChange={handleChangeCity}
+              options={city.map((city) => {
+                return {
+                  value: city.id,
+                  label: city.name,
+                };
+              })}
             />
           </div>
           <div className="col1">
             <span>Loại thức ăn</span>
             <Select
-              defaultValue="lucy"
               style={{ width: 120 }}
-              onChange={handleChange}
-              options={[
-                {
-                  value: "jack",
-                  label: "Jack",
-                },
-                {
-                  value: "lucy",
-                  label: "Lucy",
-                },
-                {
-                  value: "disabled",
-                  disabled: true,
-                  label: "Disabled",
-                },
-                {
-                  value: "Yiminghe",
-                  label: "yiminghe",
-                },
-              ]}
+              onChange={handleChangeFood}
+              options={food.map((food) => {
+                return {
+                  value: food.id,
+                  label: food.name,
+                };
+              })}
             />
           </div>
-          <Button type="primary">Tìm kiếm</Button>
+          <Button type="primary" onClick={handleClickButton}>
+            Tìm kiếm
+          </Button>
         </Space>
       </div>
       <div className="container">
         <div className="row justify-content-center">
-          {!restaurants.length ? (
+          {!restaurant?.data?.length ? (
             <div className="spin">
               <Spin />
             </div>
           ) : (
-            restaurants.slice(0, 6).map((ok) => (
+            restaurant?.data?.slice(0, 6).map((ok) => (
               <div className="col-md-4 mb-2" key={ok.id}>
                 <Link to={`/detail-restaurant/${ok.id}`}>
                   <div className="img rounded">

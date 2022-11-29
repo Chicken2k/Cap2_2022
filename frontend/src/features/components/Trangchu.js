@@ -13,7 +13,6 @@ export class Trangchu extends Component {
         <Nhahang />
         <Dichvu />
         {/* <Tintuc /> */}
-        <Nhahang />
         <Footer />
         <Showchat />
       </div>
