@@ -1,3 +1,4 @@
+const ErrorString = require('../constants/error');
 const Restaurant = require('../models').Restaurant;
 
 getAll = async (req, res) => {
@@ -33,7 +34,7 @@ getRestaurantById = async (req, res) => {
                 id: id
             }
         });
-        if (!restaurant) throw new Error('RESTAURANT NOT FOUND');
+        if (!restaurant) throw new Error(ErrorString.RESTAURANT_NOT_FOUND);
         return res.status(200).json({
             success: true,
             data: restaurant
