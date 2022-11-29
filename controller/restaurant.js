@@ -75,7 +75,7 @@ updateRestaurant = async (req, res) => {
         })
         res.status(201).json({
             successful: true,
-            data: 'Update restaurant successfully'
+            data: ErrorString.UPDATE_RESTAURANT_SUCCESSFULLY
         })
     } catch (error) {
         res.status(error.status).json({
@@ -95,7 +95,7 @@ deleteRestaurant = async (req, res) => {
         })
         res.status(201).json({
             successful: true,
-            data: 'Delete restaurant successfully'
+            data: ErrorString.DELETE_RESTAURANT_SUCCESSFULLY
         })
     } catch (error) {
         res.status(error.status).json({
