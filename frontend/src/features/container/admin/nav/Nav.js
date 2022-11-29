@@ -26,19 +26,19 @@ import Ngaydi from "..//Ngaydi/Ngaydi";
 import Binhluan from "../Binhluan/Binhluan"
 import Chitietbinhluan from '../Binhluan/Chitietbinhluan';
 import Hoadon from "../Hoadon/Hoadon";
-import Themtintuc from './../tintuc/Themtintuc'
-import Tintuc from './../tintuc/Tintuc'
-import Chitiettintuc from './../tintuc/Chitiettintuc'
-import Doanhthu from './../Doanhthu/Doanhthu'
-import Hoadoncanhan from '../Hoadoncanhan/Hoadoncanhan';
-import { hoadoncanhanData } from '../Hoadoncanhan/hoadoncanhanSlice';
-import Kiemduyet from '../Kiemduyet/Kiemduyet';
-import Phanhoi from '../Phanhoi/Phanhoi';
-import Suaphanhoi from '../Phanhoi/Suaphanhoi';
-import Bieudo from '../Bieudo/Bieudo';
-import Chude from '../Chude/Chude';
-import Themchude from './../Chude/Themchude'
-import Binhluanchude from './../Binhluanchude/Binhluanchude'
+import Themtintuc from '../manageRestaurant/Themtintuc'
+import manageRestaurantRoleAdmin from '../manageRestaurant/manageRestaurant'
+// import Chitiettintuc from './../tintuc/Chitiettintuc'
+// import Doanhthu from './../Doanhthu/Doanhthu'
+// import Hoadoncanhan from '../Hoadoncanhan/Hoadoncanhan';
+// import { hoadoncanhanData } from '../Hoadoncanhan/hoadoncanhanSlice';
+// import Kiemduyet from '../Kiemduyet/Kiemduyet';
+// import Phanhoi from '../Phanhoi/Phanhoi';
+// import Suaphanhoi from '../Phanhoi/Suaphanhoi';
+// import Bieudo from '../Bieudo/Bieudo';
+// import Chude from '../Chude/Chude';
+// import Themchude from './../Chude/Themchude'
+// import Binhluanchude from './../Binhluanchude/Binhluanchude'
 
 export default function Nav() {
     const match = useRouteMatch();
@@ -48,9 +48,9 @@ export default function Nav() {
         visible: true
     })
     const dispatch = useDispatch();
-    const actionResult = async () => { await dispatch(hoadoncanhanData()) }
+    //const actionResult = async () => { await dispatch(hoadoncanhanData()) }
     useEffect(() => {
-        actionResult();
+        //actionResult();
         window.scrollTo(0, 0);
     }, []);
     const hoadoncanhan = useSelector(state => state.hoadoncanhans.hoadoncanhan.data);
@@ -70,9 +70,9 @@ export default function Nav() {
     const user = useSelector(state => state.infor.infor.data);
     const quanlytour = (
         <div>
-             <Route exact path={match.path}>
+             {/* <Route exact path={match.path}>
                 <Doanhthu />
-            </Route>
+            </Route> */}
             <Route exact path={`${match.path}/tour`}  >
                 <Tour url={match.url} />
             </Route>
@@ -117,9 +117,9 @@ export default function Nav() {
     )
     const admin = (
         <div>
-            <Route exact path={match.path}>
+            {/* <Route exact path={match.path}>
                 <Doanhthu />
-            </Route>
+            </Route> */}
             <Route exact path={`${match.path}/diadiem`}  >
                 <Diadiem url={match.url} />
             </Route>
@@ -202,7 +202,7 @@ export default function Nav() {
                 <Themtour />
             </Route>
             <Route exact path={`${match.path}/tintuc`}  >
-                <Tintuc url={match.url} />
+                <manageRestaurant url={match.url} />
             </Route>
             <Route path={`${match.path}/tintuc/themtintuc`}  >
                 <Themtintuc />
@@ -210,7 +210,7 @@ export default function Nav() {
             <Route path={`${match.path}/tintuc/suatintuc/:id`}  >
                 <Themtintuc />
             </Route>
-            <Route path={`${match.path}/tintuc/chitiettintuc/:id`}  >
+            {/* <Route path={`${match.path}/tintuc/chitiettintuc/:id`}  >
                 <Chitiettintuc />
             </Route>
             <Route exact path={`${match.path}/hoadoncanhan`}  >
@@ -233,13 +233,13 @@ export default function Nav() {
             </Route>
             <Route path={`${match.path}/chude/themchude`}  >
                 <Themchude />
-            </Route>
-            <Route path={`${match.path}/chude/suachude/:id`}  >
+            </Route> */}
+            {/* <Route path={`${match.path}/chude/suachude/:id`}  >
                 <Themchude />
             </Route>
             <Route exact path={`${match.path}/binhluanchude`}  >
                 <Binhluanchude url={match.url} />
-            </Route>
+            </Route> */}
         </div>
     )
     const menu_quanlytour = (

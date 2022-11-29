@@ -34,7 +34,7 @@ import { binhluanData } from "../container/admin/Binhluan/binhluanSlice";
 import Listtintuc from "../container/tintuc/listtintuc/Listtintuc";
 import Tintucdetail from "../container/tintuc/tintucdetail/Tintucdetail";
 import { tagData } from "../container/admin/Tag/tagSlice";
-import { tintucData } from "../container/admin/tintuc/tintucSlice";
+import { tintucData } from "../container/admin/manageRestaurant/tintucSlice";
 import { thongbaoData } from "../container/admin/Kiemduyet/thongbaoSlice";
 import Thongtin from "../container/trangchu/thongtin/Thongtin";
 import { phanhoiData } from "../container/admin/Phanhoi/phanhoiSlice";
