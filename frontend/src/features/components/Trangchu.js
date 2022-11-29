@@ -4,7 +4,6 @@ import Banner from "../container/trangchu/banner/Banner";
 import Dichvu from "../container/trangchu/dichvu/Dichvu";
 import Footer from "../container/trangchu/footer/Footer";
 import Nhahang from "../container/trangchu/nhahang/Nhahang";
-import Tintuc from "../container/trangchu/tintuc/Tintuc";
 import Showchat from "./showchat";
 export class Trangchu extends Component {
   render() {
@@ -13,7 +12,8 @@ export class Trangchu extends Component {
         <Banner />
         <Nhahang />
         <Dichvu />
-        <Tintuc />
+        {/* <Tintuc /> */}
+        <Nhahang />
         <Footer />
         <Showchat />
       </div>

@@ -1,72 +1,72 @@
 import { Button, Rate, Select, Space, Spin } from "antd";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { restaurantData } from "../../../container/manageRestaurant/restaurantSlice";
 
 import "./nhahang.css";
-function Tourtrongnuoc(props) {
-  const dispatch = useDispatch();
-  // const restaurants = useSelector(
-  //   (state) => state.restaurants.restaurants.data
-  // );
-  const actionResult = async () => {
-    await dispatch(restaurantData());
-  };
-  useEffect(() => {
-    actionResult();
-  }, []);
-  const restaurants = [
-    {
-      name: "Hùng Xiệc",
-      id: 1,
-      address: "25 Nguyễn Chí Thanh",
-      image:
-        "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-    },
-    {
-      name: "Hùng Xiệc",
-      id: 1,
-      address: "25 Nguyễn Chí Thanh",
-      image:
-        "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-    },
-    {
-      name: "Hùng Xiệc",
-      id: 1,
-      address: "25 Nguyễn Chí Thanh",
-      image:
-        "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-    },
-    {
-      name: "Hùng Xiệc",
-      id: 1,
-      address: "25 Nguyễn Chí Thanh",
-      image:
-        "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-    },
-    {
-      name: "Hùng Xiệc",
-      id: 1,
-      address: "25 Nguyễn Chí Thanh",
-      image:
-        "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-    },
-    {
-      name: "Hùng Xiệc",
-      id: 1,
-      address: "25 Nguyễn Chí Thanh",
-      image:
-        "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-    },
-    {
-      name: "Hùng Xiệc",
-      id: 1,
-      address: "25 Nguyễn Chí Thanh",
-      image:
-        "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
-    },
-  ];
+function NhaHang(props) {
+  // const dispatch = useDispatch();
+  // const actionResult = async () => {
+  //   await dispatch(nhahangData());
+  // };
+  // useEffect(() => {
+  //   actionResult();
+  // }, []);
+  const restaurant = useSelector((state) => state.nhahangs?.nhahangs);
+  let restaurants;
+  if (restaurant) restaurants = restaurant.data;
+  console.log(restaurants);
+  // const restaurants = [
+  //   {
+  //     name: "Hùng Xiệc",
+  //     id: 1,
+  //     address: "25 Nguyễn Chí Thanh",
+  //     image:
+  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
+  //   },
+  //   {
+  //     name: "Hùng Xiệc",
+  //     id: 1,
+  //     address: "25 Nguyễn Chí Thanh",
+  //     image:
+  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
+  //   },
+  //   {
+  //     name: "Hùng Xiệc",
+  //     id: 1,
+  //     address: "25 Nguyễn Chí Thanh",
+  //     image:
+  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
+  //   },
+  //   {
+  //     name: "Hùng Xiệc",
+  //     id: 1,
+  //     address: "25 Nguyễn Chí Thanh",
+  //     image:
+  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
+  //   },
+  //   {
+  //     name: "Hùng Xiệc",
+  //     id: 1,
+  //     address: "25 Nguyễn Chí Thanh",
+  //     image:
+  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
+  //   },
+  //   {
+  //     name: "Hùng Xiệc",
+  //     id: 1,
+  //     address: "25 Nguyễn Chí Thanh",
+  //     image:
+  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
+  //   },
+  //   {
+  //     name: "Hùng Xiệc",
+  //     id: 1,
+  //     address: "25 Nguyễn Chí Thanh",
+  //     image:
+  //       "https://pasgo.vn/Upload/anh-diem-den/king-fe-buffet-nuong-lau-linh-nam-300-193566244408.jpg",
+  //   },
+  // ];
 
   console.log(restaurants);
   const handleChange = (value) => {
@@ -179,6 +179,6 @@ function Tourtrongnuoc(props) {
   );
 }
 
-Tourtrongnuoc.propTypes = {};
+NhaHang.propTypes = {};
 
-export default Tourtrongnuoc;
+export default NhaHang;
