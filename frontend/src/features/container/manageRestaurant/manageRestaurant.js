@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Modal, Button, Col, Row, Image } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import Footer from '../trangchu/footer/Footer'
 import './manageRestaurant.css'
@@ -17,11 +18,11 @@ export default function Listtour() {
         phoneNumber: '',
     });
     const [ isModalVisible, setIsModalVisible ] = useState(false);
-    const [ isModalVisibleDelete, setIsModalVisibleDelete ] = useState(false);
     const [ isModalVisibleUpdate, setIsModalVisibleUpdate ] = useState(false);
     const [ restaurantId, setRestaurantId ] = useState(0);
     const dispatch = useDispatch();
     const restaurants = useSelector(state => state.restaurants.restaurants.data);
+    const history = useHistory()
     const actionResult = async () => { await dispatch(restaurantData())};
     const { name, description, address, phoneNumber } = restaurantInfor;
     useEffect(() => {
@@ -57,46 +58,13 @@ export default function Listtour() {
         })
     }
 
-    const openModalDelete = (restaurantId) => {
-        setRestaurantId(restaurantId);
-        setIsModalVisibleDelete(true);
+    const openDetailRestaurantPage = (restaurantId) => {
+        history.push(
+            {
+                pathname: `/detail-restaurant/${restaurantId}`, 
+                state:{ id: restaurantId },
+            });
     }
-    const handleCancelDelete = () => {
-        setIsModalVisibleDelete(false);
-    }
-    const onOkDelete = async() => {
-        await restaurantApi.deleteRestaurant(restaurantId);
-        actionResult();
-        setIsModalVisibleDelete(false);
-    }
-
-    const openModalUpdate = (restaurantId) => {
-        setRestaurantId(restaurantId);
-        setIsModalVisibleUpdate(true);
-    }
-    const handleCancelUpdate = () => {
-        setIsModalVisibleUpdate(false);
-    }
-
-    const onOkUpdate = async () => {
-        let restaurantBody = {}
-        if (restaurantInfor.name !== '') {
-            restaurantBody.name = restaurantInfor.name;
-        }
-        if (restaurantInfor.address !== '') {
-            restaurantBody.address = restaurantInfor.address;
-        }
-        if (restaurantInfor.description !== '') {
-            restaurantBody.description = restaurantInfor.description;
-        }
-        if (restaurantInfor.phoneNumber !== '') {
-            restaurantBody.phoneNumber = restaurantInfor.phoneNumber;
-        }
-        await restaurantApi.updateRestaurant(restaurantId, restaurantBody);
-        actionResult();
-        setIsModalVisibleUpdate(false);
-    }
-
     let listRestaurant;
     if (restaurants) {
         listRestaurant = restaurants.map((restaurant) => {
@@ -108,44 +76,12 @@ export default function Listtour() {
                             <p>{restaurant.description}</p>
                             <p>Địa chỉ: {restaurant.address}</p>
                             <p>Số điện thoại đặt bàn: {restaurant.phoneNumber}</p>
-                            <Button type='primary' onClick={() => openModalDelete(restaurant.id)}>Xóa</Button>
-                            <Button type='primary' onClick={() => openModalUpdate(restaurant.id)}>Sửa</Button>
-
-                            <Modal title="Bạn có muốn xóa nhà hàng này?" visible={isModalVisibleDelete} onCancel={handleCancelDelete} onOk={() => onOkDelete(restaurant.id)}>
-                            <form onSubmit={onSubmit}>
-                            </form>                
-                            </Modal>
-                            <Modal title="Sửa thông tin nhà hàng" visible={isModalVisibleUpdate} onCancel={handleCancelUpdate} onOk={() => onOkUpdate(restaurant.id)}>
-                                <form onSubmit={onSubmit}>
-                                    <div>
-                                        <label className='labelInput'>
-                                            Tên nhà hàng
-                                        </label>
-                                            <input type="text" name="name" value={name} placeholder={name} onChange={onChange}/>
-                                    </div>
-                                    <div>
-                                        <label className='labelInput'>
-                                            Mô tả
-                                        </label>
-                                            <textarea name="description" value={description} placeholder={description} onChange={onChange} rows='10' cols='50'/>
-                                    </div>
-                                    <div>
-                                        <label className='labelInput'>
-                                            Địa chỉ
-                                        </label>
-                                            <input type="text" name="address" value={address} placeholder={address}  onChange={onChange}/>
-                                    </div>
-                                    <div>
-                                        <label className='labelInput'>
-                                            Số điện thoại
-                                        </label>
-                                            <input type="text" name="phoneNumber" value={phoneNumber} placeholder={phoneNumber}  onChange={onChange}/>
-                                    </div>
-                                </form>                
-                            </Modal>
+                            <Button type='primary' className='btn-restaurant' onClick={() => openDetailRestaurantPage(restaurant.id)}>Xem chi tiết</Button>
                         </Col>
                         <Col span={6} pull={18}>
-                            <Image src=''/>
+                            <div className='image-container'>
+                                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg" alt="restaurant" width="500" height="600" />
+                            </div>
                         </Col>
                     </Row>
                 </li>

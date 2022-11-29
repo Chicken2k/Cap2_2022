@@ -1,25 +1,51 @@
+const ErrorString = require('../constants/error');
 const Restaurant = require('../models').Restaurant;
 
-getRestaurantsByUserId = async (req, res) => {
+getAll = async (req, res) => {
     try {
-        const {userId} = req.query;
-        const restaurants = await Restaurant.findAll({
-            where: {
-                userId: userId,
-            }
+        let restaurants
+        const {userId, cityId, foodId} = req.query;
+        const objQuery = {};
+        if(userId) objQuery.userId = userId;
+        if(cityId) objQuery.cityId = cityId;
+        if(foodId) objQuery.foodId = foodId;
+        if(!objQuery) restaurants = await Restaurant.findAll();
+        restaurants = await Restaurant.findAll({
+            where: objQuery
         });
         res.status(200).json({
             successful: true,
             data: restaurants
         })
     } catch ( error) {
-        res.status(error.status).json({
+        if(!error.status) res.status(500).json({err: 'err'})
+        else res.status(error.status).json({
             successful: false,
             error: error.message
         })
     }
 };
 
+getRestaurantById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const restaurant = await Restaurant.findOne({
+            where: {
+                id: id
+            }
+        });
+        if (!restaurant) throw new Error(ErrorString.RESTAURANT_NOT_FOUND);
+        return res.status(200).json({
+            success: true,
+            data: restaurant
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: error.message
+        })
+    }
+}
 createRestaurant = async (req, res) => {
     try {
         const newRestaurant = await Restaurant.create(req.body);
@@ -80,7 +106,8 @@ deleteRestaurant = async (req, res) => {
 }
 
 module.exports = {
-    getRestaurantsByUserId,
+    getAll,
+    getRestaurantById,
     createRestaurant,
     updateRestaurant,
     deleteRestaurant

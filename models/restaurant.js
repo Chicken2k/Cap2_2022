@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       Restaurant.belongsTo(models.City, {
         foreignKey: 'cityId'
       }),
+      Restaurant.belongsTo(models.Food, {
+        foreignKey: 'foodId'
+      }),
       Restaurant.belongsTo(models.User, {
         foreignKey: 'userId'
       }),
@@ -35,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     phoneNumber: DataTypes.STRING(255),
     description: DataTypes.STRING(255),
     address: DataTypes.STRING(255),
+    status: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Restaurant',
