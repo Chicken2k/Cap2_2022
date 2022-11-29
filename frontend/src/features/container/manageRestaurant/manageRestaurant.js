@@ -18,11 +18,11 @@ export default function Listtour() {
         phoneNumber: '',
     });
     const [ isModalVisible, setIsModalVisible ] = useState(false);
-    const [ isModalVisibleDelete, setIsModalVisibleDelete ] = useState(false);
     const [ isModalVisibleUpdate, setIsModalVisibleUpdate ] = useState(false);
     const [ restaurantId, setRestaurantId ] = useState(0);
     const dispatch = useDispatch();
     const restaurants = useSelector(state => state.restaurants.restaurants.data);
+    const history = useHistory()
     const actionResult = async () => { await dispatch(restaurantData())};
     const { name, description, address, phoneNumber } = restaurantInfor;
     useEffect(() => {
@@ -58,48 +58,6 @@ export default function Listtour() {
         })
     }
 
-    const openModalDelete = (restaurantId) => {
-        setRestaurantId(restaurantId);
-        setIsModalVisibleDelete(true);
-    }
-    const handleCancelDelete = () => {
-        setIsModalVisibleDelete(false);
-    }
-    const onOkDelete = async() => {
-        await restaurantApi.deleteRestaurant(restaurantId);
-        actionResult();
-        setIsModalVisibleDelete(false);
-    }
-
-    const openModalUpdate = (restaurantId) => {
-        setRestaurantId(restaurantId);
-        setIsModalVisibleUpdate(true);
-    }
-    const handleCancelUpdate = () => {
-        setIsModalVisibleUpdate(false);
-    }
-
-    const onOkUpdate = async () => {
-        let restaurantBody = {}
-        if (restaurantInfor.name !== '') {
-            restaurantBody.name = restaurantInfor.name;
-        }
-        if (restaurantInfor.address !== '') {
-            restaurantBody.address = restaurantInfor.address;
-        }
-        if (restaurantInfor.description !== '') {
-            restaurantBody.description = restaurantInfor.description;
-        }
-        if (restaurantInfor.phoneNumber !== '') {
-            restaurantBody.phoneNumber = restaurantInfor.phoneNumber;
-        }
-        await restaurantApi.updateRestaurant(restaurantId, restaurantBody);
-        actionResult();
-        setIsModalVisibleUpdate(false);
-    }
-
-    const history = useHistory()
-
     const openDetailRestaurantPage = (restaurantId) => {
         history.push(
             {
@@ -118,42 +76,7 @@ export default function Listtour() {
                             <p>{restaurant.description}</p>
                             <p>Địa chỉ: {restaurant.address}</p>
                             <p>Số điện thoại đặt bàn: {restaurant.phoneNumber}</p>
-                            <Button type='primary' className='btn-restaurant' onClick={() => openModalDelete(restaurant.id)}>Đóng cửa</Button>
-                            <Button type='primary' className='btn-restaurant' onClick={() => openModalUpdate(restaurant.id)}>Sửa</Button>
                             <Button type='primary' className='btn-restaurant' onClick={() => openDetailRestaurantPage(restaurant.id)}>Xem chi tiết</Button>
-
-                            <Modal title="Bạn có muốn xóa nhà hàng này?" visible={isModalVisibleDelete} onCancel={handleCancelDelete} onOk={() => onOkDelete(restaurant.id)}>
-                            <form onSubmit={onSubmit}>
-                            </form>                
-                            </Modal>
-                            <Modal title="Sửa thông tin nhà hàng" visible={isModalVisibleUpdate} onCancel={handleCancelUpdate} onOk={() => onOkUpdate(restaurant.id)}>
-                                <form onSubmit={onSubmit}>
-                                    <div>
-                                        <label className='labelInput'>
-                                            Tên nhà hàng
-                                        </label>
-                                            <input type="text" name="name" value={name} placeholder={name} onChange={onChange}/>
-                                    </div>
-                                    <div>
-                                        <label className='labelInput'>
-                                            Mô tả
-                                        </label>
-                                            <textarea name="description" value={description} placeholder={description} onChange={onChange} rows='10' cols='50'/>
-                                    </div>
-                                    <div>
-                                        <label className='labelInput'>
-                                            Địa chỉ
-                                        </label>
-                                            <input type="text" name="address" value={address} placeholder={address}  onChange={onChange}/>
-                                    </div>
-                                    <div>
-                                        <label className='labelInput'>
-                                            Số điện thoại
-                                        </label>
-                                            <input type="text" name="phoneNumber" value={phoneNumber} placeholder={phoneNumber}  onChange={onChange}/>
-                                    </div>
-                                </form>                
-                            </Modal>
                         </Col>
                         <Col span={6} pull={18}>
                             <div className='image-container'>
