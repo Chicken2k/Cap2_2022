@@ -1,3 +1,4 @@
+const ErrorString = require('../constants/error');
 const Restaurant = require('../models').Restaurant;
 
 getAll = async (req, res) => {
@@ -33,7 +34,7 @@ getRestaurantById = async (req, res) => {
                 id: id
             }
         });
-        if (!restaurant) throw new Error('RESTAURANT NOT FOUND');
+        if (!restaurant) throw new Error(ErrorString.RESTAURANT_NOT_FOUND);
         return res.status(200).json({
             success: true,
             data: restaurant
@@ -74,7 +75,7 @@ updateRestaurant = async (req, res) => {
         })
         res.status(201).json({
             successful: true,
-            data: 'Update restaurant successfully'
+            data: ErrorString.UPDATE_RESTAURANT_SUCCESSFULLY
         })
     } catch (error) {
         res.status(error.status).json({
@@ -94,7 +95,7 @@ deleteRestaurant = async (req, res) => {
         })
         res.status(201).json({
             successful: true,
-            data: 'Delete restaurant successfully'
+            data: ErrorString.DELETE_RESTAURANT_SUCCESSFULLY
         })
     } catch (error) {
         res.status(error.status).json({

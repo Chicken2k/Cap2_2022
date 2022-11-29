@@ -13,9 +13,9 @@ import userroleReducer from "../features/container/admin/header/userroleSlice"
 import inforReducer from "../features/container/dangnhap/dangnhapSlice"
 import binhluanReducer from "../features/container/admin/Binhluan/binhluanSlice"
 import hoadonReducer from "../features/container/admin/Hoadon/hoadonSlice"
-import tintucReducer from "../features/container/admin/tintuc/tintucSlice"
+//import tintucReducer from "../features/container/admin/ma/tintucSlice"
 import tagReducer from "../features/container/admin/Tag/tagSlice"
-import tintuctagReducer from "../features/container/admin/tintuc/tintuctagSlice"
+//import tintuctagReducer from "../features/container/admin/tintuc/tintuctagSlice"
 import thanhtoanReducer from "../features/container/detailtour/tour/thanhtoanSlice"
 import thongbaoReducer from "../features/container/admin/Kiemduyet/thongbaoSlice"
 import hoadoncanhanReducer from "../features/container/admin/Hoadoncanhan/hoadoncanhanSlice"
@@ -39,9 +39,9 @@ const rootReducer = {
   infor: inforReducer,
   binhluans: binhluanReducer,
   hoadons: hoadonReducer,
-  tintucs: tintucReducer,
+  //tintucs: tintucReducer,
   tags: tagReducer,
-  tintuctags: tintuctagReducer,
+  //tintuctags: tintuctagReducer,
   thanhtoans: thanhtoanReducer,
   hoadoncanhans: hoadoncanhanReducer,
   thongbao: thongbaoReducer,

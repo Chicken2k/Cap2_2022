@@ -6,6 +6,10 @@ class RestaurantApi {
         const url = `/v1/restaurants?userId=${query}`;
         return axiosClient.get(url);
     }
+    getRestaurantById(id) {
+        const url=`/v1/restaurants/${id}`;
+        return axiosClient.get(url);
+    }
     createRestaurant(body) {
         const url = '/v1/restaurants';
         return axiosClient.post(url, body);
