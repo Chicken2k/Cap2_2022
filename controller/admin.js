@@ -1,7 +1,28 @@
+const { where } = require('sequelize');
 const ErrorString = require('../constants/error');
 const Restaurant = require('../models').Restaurant;
 
-changeStatusRestaurant = async(req, res) => {
+getAllRestaurant = async(req, res) => {
+    try {
+        const restaurant = await Restaurant.findAll({
+                attributes: ['id', 'name', 'description', 'address', 'phoneNumber'],
+                where: {
+                    status: false,
+                }
+            },
+        )
+        res.status(201).json({
+            success: false,
+            data: restaurant
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            msg: error.message
+        })
+    }
+}
+updateRestaurant = async(req, res) => {
     try {
         const { id } = req.params;
         const { status } = req.body;
@@ -26,5 +47,6 @@ changeStatusRestaurant = async(req, res) => {
     }
 }
 module.exports = {
-    changeStatusRestaurant
+    getAllRestaurant,
+    updateRestaurant
 }
