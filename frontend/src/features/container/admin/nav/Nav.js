@@ -27,18 +27,7 @@ import Binhluan from "../Binhluan/Binhluan"
 import Chitietbinhluan from '../Binhluan/Chitietbinhluan';
 import Hoadon from "../Hoadon/Hoadon";
 import Themtintuc from '../manageRestaurant/Themtintuc'
-import manageRestaurantRoleAdmin from '../manageRestaurant/manageRestaurant'
-// import Chitiettintuc from './../tintuc/Chitiettintuc'
-// import Doanhthu from './../Doanhthu/Doanhthu'
-// import Hoadoncanhan from '../Hoadoncanhan/Hoadoncanhan';
-// import { hoadoncanhanData } from '../Hoadoncanhan/hoadoncanhanSlice';
-// import Kiemduyet from '../Kiemduyet/Kiemduyet';
-// import Phanhoi from '../Phanhoi/Phanhoi';
-// import Suaphanhoi from '../Phanhoi/Suaphanhoi';
-// import Bieudo from '../Bieudo/Bieudo';
-// import Chude from '../Chude/Chude';
-// import Themchude from './../Chude/Themchude'
-// import Binhluanchude from './../Binhluanchude/Binhluanchude'
+import ManageRestaurantRoleAdmin from '../manageRestaurant/manageRestaurant'
 
 export default function Nav() {
     const match = useRouteMatch();
@@ -201,8 +190,8 @@ export default function Nav() {
             <Route path={`${match.path}/tour/suatour/:id`}  >
                 <Themtour />
             </Route>
-            <Route exact path={`${match.path}/tintuc`}  >
-                <manageRestaurant url={match.url} />
+            <Route exact path={`${match.path}/manage-restaurant`}  >
+                <ManageRestaurantRoleAdmin url={match.url} />
             </Route>
             <Route path={`${match.path}/tintuc/themtintuc`}  >
                 <Themtintuc />
@@ -274,7 +263,7 @@ export default function Nav() {
                 <Link to={`${match.url}/taikhoan`}>Quản lý tài khoản</Link>
             </Menu.Item>
             <Menu.Item key="4" icon={state.collapsed === true ? <span className="far fa-newspaper" ></span> : <span className="far fa-newspaper mr-2"></span>}>
-                <Link to={`${match.url}/tintuc`}>Quản lý nhà hàng</Link>
+                <Link to={`${match.url}/manage-restaurant`}>Quản lý nhà hàng</Link>
             </Menu.Item>
             {/* <Menu.Item key="5" icon={state.collapsed === true ? <span className="fas fa-flag-usa" ></span> : <span className="fas fa-flag-usa mr-2"></span>}>
                 <Link to={`${match.url}/quocgia`}>Quản lý quốc gia</Link>
