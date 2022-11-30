@@ -27,8 +27,8 @@ export default function DetailRestaurant() {
     });
     const { name, description, address, phoneNumber } = restaurantInfor;
     const getRestaurant = async () => {
-        const data = await restaurantApi.getRestaurantById(location.state.id);
-        setRestaurant(data.data);
+        const restaurantItem = await restaurantApi.getRestaurantById(location.state.id);
+        setRestaurant(restaurantItem.data);
     }
     useEffect(() => {
         getRestaurant();

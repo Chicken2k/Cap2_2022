@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Modal, Button, Col, Row, Image } from 'antd';
+import { Modal, Button, Col, Row } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import Footer from '../trangchu/footer/Footer'
 import './manageRestaurant.css'
 import "./checkactive.js";
 import restaurantApi from '../../../api/restaurantApi';
-import { createRestaurant, updateRestaurant, deleteRestaurant, restaurantData } from './restaurantSlice';
+import { restaurantData } from './restaurantSlice';
 
 export default function Listtour() {
     const [ restaurantInfor, setRestaurantInfor ] = useState({
