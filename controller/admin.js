@@ -11,8 +11,8 @@ getAllRestaurant = async(req, res) => {
                 }
             },
         )
-        res.status(201).json({
-            success: false,
+        res.status(200).json({
+            success: true,
             data: restaurant
         })
     } catch (error) {
