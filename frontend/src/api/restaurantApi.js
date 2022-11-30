@@ -14,7 +14,14 @@ class RestaurantApi {
     return axiosClient.get(url);
   }
   getRestaurantQuery(cityId, foodId) {
-    return axiosClient.get(`v1/restaurants/?cityId=${cityId}&foodId=${foodId}`);
+    let queryString = "";
+    if (cityId | foodId) {
+      queryString = queryString + "?";
+      if (cityId && foodId) queryString += `cityId=${cityId}&foodId=${foodId}`;
+      else if (cityId) queryString += `cityId=${cityId}`;
+      else if (foodId) queryString += `foodId=${foodId}`;
+    }
+    return axiosClient.get(`v1/restaurants/${queryString}`);
   }
   createRestaurant(body) {
     const url = "/v1/restaurants";

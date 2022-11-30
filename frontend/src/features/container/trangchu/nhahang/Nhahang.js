@@ -1,25 +1,17 @@
 import { Button, Rate, Select, Space, Spin } from "antd";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import cityApi from "../../../../api/cityApi";
 import foodApi from "../../../../api/foodApi";
 import restaurantApi from "../../../../api/restaurantApi";
 import "./nhahang.css";
 function NhaHang(props) {
-  // const dispatch = useDispatch();
-  // const actionResult = async () => {
-  //   await dispatch(nhahangData());
-  // };
-  // useEffect(() => {
-  //   actionResult();
-  // }, []);
+  const [data, setData] = useState([]);
   const [city, setCity] = useState([]);
   const [food, setFood] = useState([]);
   const [changeFood, setChangeFood] = useState(0);
   const [changeCity, setChangeCity] = useState(0);
-  const restaurants = useSelector((state) => state.nhahangs?.nhahangs);
-  const [restaurant, setRestaurant] = useState([]);
+  const [isLoading, setIdLoading] = useState(true);
 
   const getCity = async () => {
     const data = await cityApi.getAll();
@@ -34,7 +26,9 @@ function NhaHang(props) {
   useEffect(() => {
     getCity();
     getFood();
-    setRestaurant(restaurants);
+  }, []);
+  useEffect(() => {
+    listRestaurant();
   }, []);
   const handleChangeCity = async (value) => {
     setChangeCity(value);
@@ -42,14 +36,24 @@ function NhaHang(props) {
   const handleChangeFood = async (value) => {
     setChangeFood(value);
   };
-  const callApiRestaurant = async (cityId, foodId) => {
-    const data = await restaurantApi.getRestaurantQuery(cityId, foodId);
-    console.log(data);
+  const listRestaurant = async (cityId, foodId) => {
+    try {
+      if (!cityId && !foodId) {
+        const data = await restaurantApi.getAllRestaurants();
+        setData(data.data.slice(0, 6));
+      } else {
+        const data = await restaurantApi.getRestaurantQuery(cityId, foodId);
+        setData(data.data.slice(0, 6));
+      }
+    } catch (err) {
+      setData([]);
+      return err;
+    } finally {
+      setIdLoading(false);
+    }
   };
   const handleClickButton = (event) => {
-    callApiRestaurant(changeCity, changeFood);
-    setRestaurant(restaurants);
-    console.log(changeCity, changeFood);
+    listRestaurant(changeCity, changeFood);
   };
   return (
     <div className="mt-5 mb-5 tour " id="tour">
@@ -93,12 +97,12 @@ function NhaHang(props) {
       </div>
       <div className="container">
         <div className="row justify-content-center">
-          {!restaurant?.data?.length ? (
+          {isLoading ? (
             <div className="spin">
               <Spin />
             </div>
           ) : (
-            restaurant?.data?.slice(0, 6).map((ok) => (
+            data.map((ok) => (
               <div className="col-md-4 mb-2" key={ok.id}>
                 <Link to={`/detail-restaurant/${ok.id}`}>
                   <div className="img rounded">
