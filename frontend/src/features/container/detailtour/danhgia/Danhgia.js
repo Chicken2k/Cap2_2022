@@ -2,7 +2,7 @@ import { Button, message, Progress, Rate, Spin } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import renderHTML from "react-render-html";
+// import renderHTML from "react-render-html";
 import binhluanApi from "../../../../api/binhluanApi";
 import {
   addbinhluan,
@@ -15,9 +15,8 @@ const { monkeyLearnAnalysis } = require("../../../utils/monkeylearn");
 var isSubmitComment = false;
 
 function Danhgia(props) {
-  const [text, setText] = useState(
-    renderHTML("<span className='text-success'>Cực kỳ hài lòng</span>")
-  );
+  const [text, setText] = useState();
+  // renderHTML("<span className='text-success'>Cực kỳ hài lòng</span>")
   const [state, setState] = useState({
     binhluan: "",
     star: 5,
@@ -63,33 +62,33 @@ function Danhgia(props) {
       ...state,
       star: e,
     });
-    switch (e) {
-      case 5:
-        setText(
-          renderHTML("<span className='text-success'>Cực kỳ hài lòng</span>")
-        );
-        break;
-      case 4:
-        setText(renderHTML("<span className='text-success'>Hài lòng</span>"));
-        break;
-      case 3:
-        setText(
-          renderHTML("<span className='text-warning'>Bình thường</span>")
-        );
-        break;
-      case 2:
-        setText(
-          renderHTML("<span className='text-danger'>Không hài lòng</span>")
-        );
-        break;
-      case 1:
-        setText(
-          renderHTML(
-            "<span className='text-danger'>Cực kỳ không hài lòng</span>"
-          )
-        );
-        break;
-    }
+    // switch (e) {
+    //   case 5:
+    //     setText(
+    //       renderHTML("<span className='text-success'>Cực kỳ hài lòng</span>")
+    //     );
+    //     break;
+    //   case 4:
+    //     setText(renderHTML("<span className='text-success'>Hài lòng</span>"));
+    //     break;
+    //   case 3:
+    //     setText(
+    //       renderHTML("<span className='text-warning'>Bình thường</span>")
+    //     );
+    //     break;
+    //   case 2:
+    //     setText(
+    //       renderHTML("<span className='text-danger'>Không hài lòng</span>")
+    //     );
+    //     break;
+    //   case 1:
+    //     setText(
+    //       renderHTML(
+    //         "<span className='text-danger'>Cực kỳ không hài lòng</span>"
+    //       )
+    //     );
+    //     break;
+    // }
   };
   const actionbinhluan = async () => {
     await dispatch(binhluanData());
@@ -270,27 +269,27 @@ function Danhgia(props) {
     return data;
   };
   // getAllBinhluan();
-  const checkstar = (e) => {
-    switch (e) {
-      case 5:
-        return renderHTML("<b className='text-success'>Cực kỳ hài lòng</b>");
-        break;
-      case 4:
-        return renderHTML("<b className='text-success'>Hài lòng</b>");
-        break;
-      case 3:
-        return renderHTML("<b className='text-warning'>Bình thường</b>");
-        break;
-      case 2:
-        return renderHTML("<b className='text-danger'>Không hài lòng</b>");
-        break;
-      case 1:
-        return renderHTML(
-          "<b className='text-danger'>Cực kỳ không hài lòng</b>"
-        );
-        break;
-    }
-  };
+  // const checkstar = (e) => {
+  //   switch (e) {
+  //     case 5:
+  //       return renderHTML("<b className='text-success'>Cực kỳ hài lòng</b>");
+  //       break;
+  //     case 4:
+  //       return renderHTML("<b className='text-success'>Hài lòng</b>");
+  //       break;
+  //     case 3:
+  //       return renderHTML("<b className='text-warning'>Bình thường</b>");
+  //       break;
+  //     case 2:
+  //       return renderHTML("<b className='text-danger'>Không hài lòng</b>");
+  //       break;
+  //     case 1:
+  //       return renderHTML(
+  //         "<b className='text-danger'>Cực kỳ không hài lòng</b>"
+  //       );
+  //       break;
+  //   }
+  // };
   const tinhdiem = () => {
     var tong = new Number();
     if (binhluans) {
@@ -450,7 +449,7 @@ function Danhgia(props) {
                 <div className="clear nx">
                   <Rate className="rate" value={ok.star} disabled />
                   <br />
-                  {checkstar(ok.star)}
+                  {/* {checkstar(ok.star)} */}
                   <br />
                   <p className="content-nx text-justify">{ok.binhluan}</p>
                 </div>
