@@ -104,7 +104,14 @@ function NhaHang(props) {
           ) : (
             data.map((ok) => (
               <div className="col-md-4 mb-2" key={ok.id}>
-                <Link to={`/detail-restaurant/${ok.id}`}>
+                <Link to={
+                  {
+                    pathname: `/detail-restaurant/${ok.id}`, 
+                    state: {
+                        id: ok.id
+                      }
+                    }
+                  }>
                   <div className="img rounded">
                     <img src={ok.image} className="img-fluid " alt="" />
                   </div>
