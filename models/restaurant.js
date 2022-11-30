@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Restaurant extends Model {
     /**
@@ -11,39 +9,42 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Restaurant.belongsTo(models.City, {
-        foreignKey: 'cityId'
+        foreignKey: "cityId",
       }),
-      Restaurant.belongsTo(models.Food, {
-        foreignKey: 'foodId'
-      }),
-      Restaurant.belongsTo(models.User, {
-        foreignKey: 'userId'
-      }),
-      Restaurant.hasMany(models.News, {
-        foreignKey: 'restaurantId'
-      }),
-      Restaurant.hasMany(models.Table, {
-        foreignKey: 'restaurantId'
-      }),
-      Restaurant.hasMany(models.Image, {
-        foreignKey: 'restaurantId'
-      }),
-      Restaurant.hasMany(models.Booking, {
-        foreignKey: 'restaurantId'
-      })
+        Restaurant.belongsTo(models.Food, {
+          foreignKey: "foodId",
+        }),
+        Restaurant.belongsTo(models.User, {
+          foreignKey: "userId",
+        }),
+        Restaurant.hasMany(models.News, {
+          foreignKey: "restaurantId",
+        }),
+        Restaurant.hasMany(models.Comment, {
+          foreignKey: "restaurantId",
+        }),
+        Restaurant.hasMany(models.Image, {
+          foreignKey: "restaurantId",
+        }),
+        Restaurant.hasMany(models.Order, {
+          foreignKey: "restaurantId",
+        });
     }
-  };
-  Restaurant.init({
-    name: DataTypes.STRING(255),
-    phoneNumber: DataTypes.STRING(255),
-    description: DataTypes.STRING(255),
-    address: DataTypes.STRING(255),
-    status: DataTypes.BOOLEAN,
-  }, {
-    sequelize,
-    modelName: 'Restaurant',
-    paranoid: true,
-    deletedAt: 'deletedAt'
-  });
+  }
+  Restaurant.init(
+    {
+      name: DataTypes.STRING(255),
+      phoneNumber: DataTypes.STRING(255),
+      description: DataTypes.STRING(255),
+      address: DataTypes.STRING(255),
+      status: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      modelName: "Restaurant",
+      paranoid: true,
+      deletedAt: "deletedAt",
+    }
+  );
   return Restaurant;
 };
