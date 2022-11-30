@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 
 import './tintuc.css'
 
-function manageRestaurantRoleAdmin() {
+function ManageRestaurantRoleAdmin() {
+    const [ restaurants, setRestaurants ] = useState([]);
+
     return (
-        <div>Xin chào người ae</div>
+        <div>
+            <p>Xin chao</p>
+        </div>
     )
 }
 
-manageRestaurantRoleAdmin.propTypes = {
+ManageRestaurantRoleAdmin.propTypes = {
 
 }
 
-export default manageRestaurantRoleAdmin
+export default ManageRestaurantRoleAdmin;
