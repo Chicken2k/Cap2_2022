@@ -1,18 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import restaurantApi from "../../../api/restaurantApi";
+import restaurantApi from "../../../../api/restaurantApi";
 
-export const restaurantData = createAsyncThunk(
-  "restaurants/restaurantData",
+export const nhahangData = createAsyncThunk(
+  "nhahangs/nhahangData",
   async () => {
-    const userId = localStorage.getItem("userId");
-    const restaurants = await restaurantApi.getAll(userId);
+    const restaurants = await restaurantApi.getAllRestaurants();
+    console.log(restaurants);
     return restaurants;
   }
 );
-const restaurantsSlice = createSlice({
-  name: "restaurants",
+const nhahangSlice = createSlice({
+  name: "nhahangs",
   initialState: {
-    restaurants: [],
+    nhahangs: [],
     loading: true,
     error: "",
   },
@@ -28,19 +28,19 @@ const restaurantsSlice = createSlice({
     },
   },
   extraReducers: {
-    [restaurantData.pending]: (state) => {
+    [nhahangData.pending]: (state) => {
       state.loading = true;
     },
-    [restaurantData.rejected]: (state, action) => {
+    [nhahangData.rejected]: (state, action) => {
       state.loading = true;
       state.error = action.error;
     },
-    [restaurantData.fulfilled]: (state, action) => {
+    [nhahangData.fulfilled]: (state, action) => {
       state.loading = false;
-      state.restaurants = action.payload;
+      state.nhahangs = action.payload;
     },
   },
 });
-const { reducer, actions } = restaurantsSlice;
+const { reducer, actions } = nhahangSlice;
 export const { createRestaurant, updateRestaurant, deleteRestaurant } = actions;
 export default reducer;
