@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "./../../../images/logoTravel.png"
-import { Link as Linkrt } from "react-router-dom";
+import { Link as Linkrt, useHistory } from "react-router-dom";
 import "./menu.css";
 import Avatar from "antd/lib/avatar/avatar";
 import { Menu, Dropdown, Drawer, message } from 'antd';
@@ -20,6 +20,7 @@ function ListMenu(props) {
         visible2: false,
         name: '', gioitinh: 1, diachi: '', ngaysinh: '', sdt: '', anh: "", linkImg: '', tenanh: '', img: ''
     });
+    const history = useHistory();
     const hangdelimage = (e) => {
         setState({
             ...state,
@@ -81,9 +82,12 @@ function ListMenu(props) {
     const actioninfor = async () => { await dispatch(inforData()) }
     const logout = () => {
         localStorage.removeItem("token");
-        actioninfor()
-        setAvatar('')
-        setUser("")
+        localStorage.removeItem('role');
+        localStorage.removeItem('userId');
+        actioninfor();
+        setAvatar('');
+        setUser("");
+        history.push('/dangnhap');
     }
     const onChange = (e) => {
         setState({
