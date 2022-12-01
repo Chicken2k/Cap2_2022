@@ -32,9 +32,10 @@ function Login(props) {
                 let loginResponses = await loginApi.login({ email: email, password: password }).then(data => {
                     return data
                 })
-                if (loginResponses !== "err") {
-                    localStorage.setItem("token", loginResponses.token);
+                if (loginResponses !== 'err') {
+                    localStorage.setItem('token', loginResponses.token);
                     localStorage.setItem('userId', loginResponses.user.id);
+                    localStorage.setItem('role', loginResponses.user.role);
                     actioninfor()
                     message.success("Đăng nhập thành công!");
                     if (loginResponses.user.role === role.ADMIN) {

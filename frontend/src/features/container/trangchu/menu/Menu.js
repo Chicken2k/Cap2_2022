@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-scroll";
 import { Link as Linkrt, useHistory } from "react-router-dom";
+
 import "./menu.css";
 import Avatar from "antd/lib/avatar/avatar";
 import logo from "./../../../images/logomenu2.jpg"
@@ -81,9 +82,12 @@ function ListMenu(props) {
   const actioninfor = async () => { await dispatch(inforData()) }
   const logout = () => {
     localStorage.removeItem("token");
-    actioninfor()
-    setAvatar('')
-    setUser("")
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+    actioninfor();
+    setAvatar('');
+    setUser("");
+    history.push('/dangnhap');
   }
   const onChange = (e) => {
     setState({

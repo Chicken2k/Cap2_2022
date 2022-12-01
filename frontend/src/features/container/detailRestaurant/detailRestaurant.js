@@ -15,7 +15,7 @@ export default function DetailRestaurant() {
     const [ isModalVisibleDelete, setIsModalVisibleDelete ] = useState(false);
     const [ isModalVisibleUpdate, setIsModalVisibleUpdate ] = useState(false);
     const [ restaurantId, setRestaurantId ] = useState(0);
-    const [ isSubmit, setSubmit] = useState(false);
+    const [ userRole, setUserRole ] = useState('');
     const history = useHistory();
     const dispatch = useDispatch();
     const actionResult = async () => { await dispatch(restaurantData())};
@@ -32,6 +32,9 @@ export default function DetailRestaurant() {
     }
     useEffect(() => {
         getRestaurant();
+        const userRole = localStorage.getItem('role');
+        setUserRole(userRole);
+        console.log('user role : ', userRole);
     }, [location]);
     const openModalDelete = (restaurantId) => {
         setRestaurantId(restaurantId);
@@ -117,8 +120,15 @@ export default function DetailRestaurant() {
                     </div>
                 </Content>
                 <Sider className='actionUser'>
-                    <Button type='primary' className='btn-restaurant' onClick={() => openModalDelete(restaurant.id)}>Đóng cửa</Button>
-                    <Button type='primary' className='btn-restaurant' onClick={() => openModalUpdate(restaurant.id)}>Sửa</Button>
+                    {userRole === 'restaurant' ? (
+                        <div>
+                            <Button type='primary' className='btn-restaurant' onClick={() => openModalDelete(restaurant.id)}>Đóng cửa</Button>
+                            <Button type='primary' className='btn-restaurant' onClick={() => openModalUpdate(restaurant.id)}>Sửa</Button>
+                        </div>
+                    ) : (
+                        <Button>Đặt bàn</Button>
+                    )
+                }
                 </Sider>
             </Layout>
                 <Modal title="Bạn có muốn đóng cửa nhà hàng này?" visible={isModalVisibleDelete} onCancel={handleCancelDelete} onOk={() => onOkDelete(restaurant.id)}>               
