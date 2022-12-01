@@ -4,7 +4,7 @@ const Restaurant = require('../models').Restaurant;
 
 getAllRestaurant = async(req, res) => {
     try {
-        const restaurant = await Restaurant.findAll({
+        const restaurants = await Restaurant.findAll({
                 attributes: ['id', 'name', 'description', 'address', 'phoneNumber'],
                 where: {
                     status: false,
@@ -13,12 +13,34 @@ getAllRestaurant = async(req, res) => {
         )
         res.status(200).json({
             success: true,
-            data: restaurant
+            data: restaurants
         })
     } catch (error) {
         res.status(500).json({
             success: false,
             msg: error.message
+        })
+    }
+}
+getRestaurantById = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const restaurant = await Restaurant.findOne({
+            attributes: ['id', 'name', 'description', 'address', 'phoneNumber'],
+            where: {
+                id: id,
+                status: false,
+            }
+        })
+        res.status(200).json({
+            success: true,
+            data: restaurant
+        })
+    } catch (error) {
+        console.log('error: ', error);
+        res.status(500).json({
+            success: false,
+            msg: error.msg
         })
     }
 }
@@ -48,5 +70,6 @@ updateRestaurant = async(req, res) => {
 }
 module.exports = {
     getAllRestaurant,
+    getRestaurantById,
     updateRestaurant
 }
