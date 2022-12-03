@@ -30,6 +30,7 @@
     "node-mailjet": "^3.3.13",
     "nodemailer": "^6.7.0",
     "nodemon": "^2.0.14",
+    "react-scripts": "^5.0.1",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
     "stripe": "^8.188.0"
