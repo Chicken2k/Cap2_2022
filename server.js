@@ -138,6 +138,7 @@ require("./routes/Restaurant")(app);
 require("./routes/admin")(app);
 require("./routes/City")(app);
 require("./routes/Food")(app);
+require("./routes/Order")(app);
 
 app.use(function (err, req, res, next) {
   res.status(500).send(err);

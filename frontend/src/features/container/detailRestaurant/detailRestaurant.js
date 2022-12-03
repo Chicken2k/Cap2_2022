@@ -5,6 +5,7 @@ import {
   Input,
   InputNumber,
   Layout,
+  message,
   Modal,
 } from "antd";
 
@@ -14,7 +15,9 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import orderApi from "../../../api/orderApi";
 import restaurantApi from "../../../api/restaurantApi";
+
 import { restaurantData } from "../manageRestaurant/restaurantSlice";
 import Footer from "../trangchu/footer/Footer";
 import "./detailRestaurant.css";
@@ -26,10 +29,14 @@ export default function DetailRestaurant() {
   const location = useLocation();
   const [restaurant, setRestaurant] = useState({});
   const { Sider, Content } = Layout;
+  const [dateBook, setDateBook] = useState(dayjs());
+  const [amountBook, setAmountBook] = useState(1);
+  const [noteBook, setNoteBook] = useState("");
   const [isModalVisibleDelete, setIsModalVisibleDelete] = useState(false);
   const [isModalVisibleUpdate, setIsModalVisibleUpdate] = useState(false);
   const [restaurantId, setRestaurantId] = useState(0);
   const [userRole, setUserRole] = useState("");
+  const [userId, setUserId] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const actionResult = async () => {
@@ -51,9 +58,13 @@ export default function DetailRestaurant() {
   useEffect(() => {
     getRestaurant();
     const userRole = localStorage.getItem("role");
+    const userId = localStorage.getItem("userId");
     setUserRole(userRole);
-    console.log("user role : ", userRole);
+    setUserId(userId);
+    onChangeDateTime();
+    onChangeNumber(1);
   }, [location]);
+
   const openModalDelete = (restaurantId) => {
     setRestaurantId(restaurantId);
     setIsModalVisibleDelete(true);
@@ -78,17 +89,7 @@ export default function DetailRestaurant() {
   const config = {
     rules: [{ type: "object", required: true, message: "Please select time!" }],
   };
-  console.log(dayjs().format("YYYY/MM/DD"));
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 8 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 16 },
-    },
-  };
+
   const onOkUpdate = async () => {
     let restaurantBody = {};
     if (restaurantInfor.name !== "") {
@@ -115,22 +116,50 @@ export default function DetailRestaurant() {
     });
   };
 
-  const onChangeDate = (date, dateString) => {
-    console.log(date, dateString);
-  };
-
   const onChangeNumber = (value) => {
-    console.log("changed", value);
+    setAmountBook(value);
   };
 
   const onChangeDateTime = (value, dateString) => {
     console.log("Selected Time: ", value);
     console.log("Formatted Selected Time: ", dateString);
+    setDateBook(dateString);
+  };
+  const onChangeNoteBook = (event) => {
+    console.log(event.target.value);
+    setNoteBook(event.target.value);
+  };
+  const onClickButton = async () => {
+    if (!dateBook || !amountBook || !noteBook || !userId || !restaurant.id)
+      message.error("Chưa điền đầy đủ thông tin");
+    else {
+      const data = await orderApi.postOrder({
+        date: dateBook,
+        quantity: amountBook,
+        note: noteBook,
+        userId,
+        restaurantId: restaurant.id,
+        status: 0,
+      });
+      console.log(data);
+    }
+  };
+  const disabledDate = (current) => {
+    // Can not select days before today and today
+    return current && current < dayjs().endOf("day");
   };
 
-  const onOkDateTime = (value) => {
-    console.log("onOk: ", value);
+  const range = (start, end) => {
+    const result = [];
+    for (let i = start; i < end; i++) {
+      result.push(i);
+    }
+    return result;
   };
+  const disabledDateTime = () => ({
+    disabledHours: () => range(0, 24).splice(0, 10),
+    disabledMinutes: () => range(30, 60),
+  });
   return (
     <div>
       <Layout>
@@ -214,17 +243,18 @@ export default function DetailRestaurant() {
                   showTime={{ format: "HH:mm" }}
                   onChange={onChangeDateTime}
                   format="DD.MM.YYYY HH:mm"
-                  onOk={onOkDateTime}
+                  disabledDate={disabledDate}
+                  disabledTime={disabledDateTime}
                 />
 
                 <InputNumber
                   min={1}
                   max={10}
-                  defaultValue={3}
+                  defaultValue={amountBook}
                   onChange={onChangeNumber}
                 />
-                <TextArea rows={4} />
-                <Button>Đặt bàn</Button>
+                <TextArea rows={4} onChange={onChangeNoteBook} />
+                <Button onClick={onClickButton}>Đặt bàn</Button>
               </div>
             </div>
           )}
