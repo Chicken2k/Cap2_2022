@@ -121,12 +121,9 @@ export default function DetailRestaurant() {
   };
 
   const onChangeDateTime = (value, dateString) => {
-    console.log("Selected Time: ", value);
-    console.log("Formatted Selected Time: ", dateString);
     setDateBook(dateString);
   };
   const onChangeNoteBook = (event) => {
-    console.log(event.target.value);
     setNoteBook(event.target.value);
   };
   const onClickButton = async () => {
@@ -141,7 +138,6 @@ export default function DetailRestaurant() {
         restaurantId: restaurant.id,
         status: 0,
       });
-      console.log(data);
     }
   };
   const disabledDate = (current) => {
