@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "development": {
         "username": "root",
         "password": "dcldcl123",
@@ -9,3 +10,15 @@
         "logging": false
     }
 }
+=======
+  "development": {
+    "username": "root",
+    "password": "admin",
+    "database": "restaurant",
+    "host": "localhost",
+    "port": "3006",
+    "dialect": "mysql",
+    "logging": false
+  }
+}
+>>>>>>> c9b4e5b3efd4e22c00cdf9544e7fc0a26763bd4a

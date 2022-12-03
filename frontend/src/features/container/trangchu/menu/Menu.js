@@ -220,10 +220,9 @@ function ListMenu(props) {
     }
   }
   document.addEventListener('DOMContentLoaded',function(){
-    // bắt sự kiện cuộn chuột 
+    //bắt sự kiện cuộn chuột 
     var trangthai = 'duoi300'
-    var doituongmenu = document.querySelector('#menu')
-    console.log(doituongmenu);
+    var doituongmenu = document.querySelector('#menu');
     window.addEventListener('scroll',function(){
         if(window.pageYOffset > 300) {
            if(trangthai == 'duoi300')
@@ -425,7 +424,7 @@ function ListMenu(props) {
     </div>
 
   )
-}
+};
 
 ListMenu.propTypes = {
 

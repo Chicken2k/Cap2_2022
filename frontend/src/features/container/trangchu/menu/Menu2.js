@@ -213,17 +213,18 @@ function ListMenu(props) {
                             </li>
                             <li className="nav-item">
                                 <div className="border-bot-menu">
-                                    <Linkrt className="nav-link">Quản lý bàn</Linkrt>
+                                    <Linkrt className="nav-link" to="/list-restaurant">Danh sách duyệt</Linkrt>
                                 </div>
                             </li>
                             <li className="nav-item">
                                 <div className="border-bot-menu">
-                                    <Linkrt className="nav-link" to="/listtintuc">Quản lý tin tức</Linkrt>
+                                    <Linkrt className="nav-link" to="/news">Quản lý tin tức</Linkrt>
                                 </div>
                             </li>
                             <li className="nav-item">
                                 <div className="border-bot-menu">
-                                    <Linkrt className="nav-link" to="/listtintuc">Quản lý doanh thu</Linkrt>
+                                    <Linkrt className="nav-link" to="/statistical">Thống kê</Linkrt>
+                                    {/**Cái ni là folder list tin tức nè */}
                                 </div>
                             </li>
                         </ul>
