@@ -1,38 +1,37 @@
 .containerCarousel {
-    height: 1500px;
-    /* display: flex;
+  height: 1500px;
+  /* display: flex;
     justify-content: center;
     align-items: center; */
-    padding: 0px 100px;
+  padding: 0px 100px;
 }
 .actionUser {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #FFFFFF !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f2f5 !important;
 }
 .ant-carousel {
-    width: 300px;
-    margin: 0;
-    margin: 50px auto 0px auto !important;
+  width: 300px;
+  margin: 0;
+  margin: 50px auto 0px auto !important;
 }
 .image-container {
-    width: 20rem;
-    height: 200px
+  width: 20rem;
+  height: 200px;
 }
 .image-container img {
-    width: 100%;
-    height: 100%
+  width: 100%;
+  height: 100%;
 }
 
 .restaurant-information {
-    height: 300px;
-    margin-top: 20px;
-    padding: 20px 40px;
-    border: 2px solid black;
-    border-radius: 5px;
+  height: 300px;
+  margin-top: 20px;
+  padding: 20px 40px;
+  border: 2px solid black;
+  border-radius: 5px;
 }
 
 .box-title {
-
 }

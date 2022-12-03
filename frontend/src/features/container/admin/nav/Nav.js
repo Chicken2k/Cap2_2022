@@ -28,6 +28,7 @@ import Chitietbinhluan from '../Binhluan/Chitietbinhluan';
 import Hoadon from "../Hoadon/Hoadon";
 import Themtintuc from '../manageRestaurant/Themtintuc'
 import ManageRestaurantRoleAdmin from '../manageRestaurant/manageRestaurant'
+import { DetailRestaurant } from '../manageRestaurant/detailRestaurant';
 
 export default function Nav() {
     const match = useRouteMatch();
@@ -192,6 +193,9 @@ export default function Nav() {
             </Route>
             <Route exact path={`${match.path}/manage-restaurant`}  >
                 <ManageRestaurantRoleAdmin url={match.url} />
+            </Route>
+            <Route path={`${match.path}/manage-restaurant/detail-Restaurant/:id`}>
+                <DetailRestaurant />
             </Route>
             <Route path={`${match.path}/tintuc/themtintuc`}  >
                 <Themtintuc />
