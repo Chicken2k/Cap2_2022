@@ -4,5 +4,7 @@ module.exports = (app) => {
 
   router.get("/", order.findAll);
   router.post("/", order.create);
+  router.patch('/:id', order.update);
+  router.delete('/:id', order.delete);
   app.use("/v1/order", router);
 };
