@@ -10,17 +10,20 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.belongsTo(models.Role, {
         foreignKey: "roleId",
-      }),
-        User.hasMany(models.News, {
-          foreignKey: "userId",
-        }),
-        User.hasMany(models.Order, {
-          foreignKey: "userId",
-        }),
-        User.hasMany(models.Restaurant, {
-          foreignKey: "userId",
-        });
+      });
+      User.hasMany(models.News, {
+        foreignKey: "userId",
+      });
+      User.hasMany(models.Order, {
+        foreignKey: "userId",
+      });
+      User.hasMany(models.Restaurant, {
+        foreignKey: "userId",
+      });
       User.hasMany(models.Comment, {
+        foreignKey: "userId",
+      });
+      User.hasMany(models.Reply, {
         foreignKey: "userId",
       });
     }

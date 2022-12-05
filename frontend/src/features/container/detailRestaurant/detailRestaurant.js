@@ -9,15 +9,14 @@ import {
   Modal,
 } from "antd";
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { Container } from "semantic-ui-react";
-import Comment from "../comment/comment";
-
-import customParseFormat from "dayjs/plugin/customParseFormat";
 import orderApi from "../../../api/orderApi";
 import restaurantApi from "../../../api/restaurantApi";
+import Comment from "../comment/comment";
 
 import { restaurantData } from "../manageRestaurant/restaurantSlice";
 import Footer from "../trangchu/footer/Footer";
@@ -222,6 +221,7 @@ export default function DetailRestaurant() {
           </div> */}
           <Container style={{ margin: 20 }}>
             <Comment></Comment>
+            {/* <Danhgia></Danhgia> */}
           </Container>
         </Content>
         <Sider className="actionUser">
