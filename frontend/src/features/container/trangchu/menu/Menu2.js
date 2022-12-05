@@ -217,7 +217,7 @@ function ListMenu(props) {
                             </li>
                             <li className="nav-item">
                                 <div className="border-bot-menu">
-                                    <Linkrt className="nav-link" to="/list-restaurant">Danh sách duyệt</Linkrt>
+                                    <Linkrt className="nav-link" to="/list-order-restaurant">Danh sách Đặt bàn</Linkrt>
                                 </div>
                             </li>
                             <li className="nav-item">
