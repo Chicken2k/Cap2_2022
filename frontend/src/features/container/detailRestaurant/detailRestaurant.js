@@ -8,11 +8,12 @@ import {
   message,
   Modal,
 } from "antd";
-
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import { Container } from "semantic-ui-react";
+import Comment from "../comment/comment";
 
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import orderApi from "../../../api/orderApi";
@@ -24,6 +25,11 @@ import "./detailRestaurant.css";
 const { TextArea } = Input;
 dayjs.extend(customParseFormat);
 const format = "HH:mm";
+const styleLink = document.createElement("link");
+styleLink.rel = "stylesheet";
+styleLink.href =
+  "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
+document.head.appendChild(styleLink);
 
 export default function DetailRestaurant() {
   const location = useLocation();
@@ -209,9 +215,14 @@ export default function DetailRestaurant() {
             <div>Address: {restaurant.address}</div>
             <div>Số điện thoại liên hệ: {restaurant.phoneNumber}</div>
           </div>
-          <div className="restaurant-information">
-            <h3 class="box-title">Đánh giá</h3>
-          </div>
+          {/* <div className="restaurant-information">
+            <h3 class="box-title">
+              <Comment></Comment>
+            </h3>
+          </div> */}
+          <Container style={{ margin: 20 }}>
+            <Comment></Comment>
+          </Container>
         </Content>
         <Sider className="actionUser">
           {userRole === "restaurant" ? (
