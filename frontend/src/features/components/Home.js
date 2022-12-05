@@ -42,6 +42,8 @@ import Listtintuc from "../container/tintuc/listtintuc/Listtintuc";
 import Tintucdetail from "../container/tintuc/tintucdetail/Tintucdetail";
 import Thongtin from "../container/trangchu/thongtin/Thongtin";
 
+import { OrderRestaurant } from "../container/listOrderRestaurant/orderRestaurant";
+
 import Stripe from "../teststripe/Stripe";
 
 export default function NestingExample() {
@@ -172,6 +174,9 @@ export default function NestingExample() {
           <Route path="/stripe">
             <Stripe />
           </Route>
+          <Router path='/list-order-restaurant'>
+            <OrderRestaurant />
+          </Router>
         </Switch>
       </div>
     </Router>

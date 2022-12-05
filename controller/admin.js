@@ -1,5 +1,5 @@
 const { where } = require('sequelize');
-const ErrorString = require('../constants/error');
+const ResponseString = require('../constants/error');
 const Restaurant = require('../models').Restaurant;
 
 getAllRestaurant = async(req, res) => {
@@ -58,13 +58,13 @@ updateRestaurant = async(req, res) => {
         });
         res.status(201).json({
             success: true,
-            msg: ErrorString.POST_APPROVED
+            msg: ResponseString.POST_APPROVED
         })
     } catch (error) {
         console.log('error: ', error);
         res.status(500).json({
             success: false,
-            msg: ErrorString.APPROVE_POST_FAIL
+            msg: ResponseString.POST_REJECTED
         })
     }
 }

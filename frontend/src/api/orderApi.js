@@ -17,6 +17,21 @@ class OrderApi {
         message.error("Có lỗi xảy ra!");
       });
   };
+  updateOrder = (orderId) => {
+    const url =  `/v1/order/${orderId}`;
+    return axiosClient.patch(url)
+    .then(() => {
+      message.success('Xác nhận thành công');
+    });
+  }
+
+  deleteOrder = (orderId) => {
+    const url = `/v1/order/${orderId}`;
+    return axiosClient.delete(url)
+    .then(() => {
+      message.success('Từ chối bàn thành công');
+    })
+  }
 }
 const orderApi = new OrderApi();
 export default orderApi;
