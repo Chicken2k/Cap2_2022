@@ -2,19 +2,19 @@ import { message } from "antd";
 import axiosClient from "./axiosClient";
 class CommentApi {
   getAll = () => {
-    const url = "/v1/comment";
+    const url = "/v1/reply";
     return axiosClient.get(url);
   };
   getOne = (id) => {
-    const url = `/v1/comment/${id}`;
+    const url = `/v1/reply/${id}`;
     return axiosClient.get(url);
   };
-  postcomment = (params) => {
-    const url = "/v1/comment";
+  postreply = (params) => {
+    const url = "/v1/reply";
     return axiosClient
       .post(url, params)
       .then((data) => {
-        message.success("Thêm đánh giá thành công");
+        message.success("Trả lời thành công!");
       })
       .catch((err) => {
         console.log(err, err.message);
