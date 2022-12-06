@@ -45,7 +45,7 @@ function Login(props) {
           if (loginResponses.user.role === role.ADMIN) {
             history.push("/admin");
           } else if (loginResponses.user.role === role.RESTAURANT) {
-            history.push("/quanlynhahang");
+            history.push("/restaurant-information");
           } else {
             history.push("/");
           }
