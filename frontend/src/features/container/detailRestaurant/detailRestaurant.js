@@ -2,6 +2,7 @@ import {
   Button,
   Carousel,
   DatePicker,
+  Descriptions,
   Input,
   InputNumber,
   Layout,
@@ -29,7 +30,13 @@ styleLink.rel = "stylesheet";
 styleLink.href =
   "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
 document.head.appendChild(styleLink);
-
+const contentStyle = {
+  height: "160px",
+  color: "#fff",
+  lineHeight: "160px",
+  textAlign: "center",
+  background: "#364d79",
+};
 export default function DetailRestaurant() {
   const location = useLocation();
   const [restaurant, setRestaurant] = useState({});
@@ -165,55 +172,60 @@ export default function DetailRestaurant() {
     <div>
       <Layout>
         <Content className="containerCarousel">
-          <Carousel autoplay className="carousel">
-            <div>
-              <div className="image-container">
+          <Container style={{ margin: 20 }}>
+            <Carousel autoplay>
+              <div style={contentStyle}>
                 <img
                   src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"
                   alt="restaurant"
-                  width="500"
-                  height="600"
+                  width="300"
+                  height="160"
                 />
               </div>
-            </div>
-            <div>
-              <div className="image-container">
+              <div style={contentStyle}>
                 <img
                   src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
                   alt="restaurant"
-                  width="500"
-                  height="600"
+                  width="300"
+                  height="160"
                 />
               </div>
-            </div>
-            <div>
-              <div className="image-container">
+              <div style={contentStyle}>
                 <img
                   src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
                   alt="restaurant"
-                  width="500"
-                  height="600"
+                  width="300"
+                  height="160"
                 />
               </div>
-            </div>
-            <div>
-              <div className="image-container">
+              <div style={contentStyle}>
                 <img
                   src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
                   alt="restaurant"
-                  width="500"
-                  height="600"
+                  width="300"
+                  height="160"
                 />
               </div>
-            </div>
-          </Carousel>
-          <div className="restaurant-information">
-            <h3 class="box-title">Thông tin nhà hàng</h3>
-            <div>Name: {restaurant.name}</div>
-            <div>Description: {restaurant.description}</div>
-            <div>Address: {restaurant.address}</div>
-            <div>Số điện thoại liên hệ: {restaurant.phoneNumber}</div>
-          </div>
+            </Carousel>
+          </Container>
+
+          <Container style={{ margin: 20 }}>
+            <Descriptions title="Thông tin nhà hàng">
+              <Descriptions.Item label="Tên nhà hàng">
+                {restaurant.name}
+              </Descriptions.Item>
+              <Descriptions.Item label="Description">
+                {restaurant.description}
+              </Descriptions.Item>
+              <Descriptions.Item label="Address">
+                {restaurant.address}
+              </Descriptions.Item>
+              <Descriptions.Item label="Số điện thoại liên hệ:">
+                {restaurant.phoneNumber}
+              </Descriptions.Item>
+            </Descriptions>
+          </Container>
+
           {/* <div className="restaurant-information">
             <h3 class="box-title">
               <Comment></Comment>
