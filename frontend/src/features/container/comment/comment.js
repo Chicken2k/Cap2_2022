@@ -100,12 +100,16 @@ export default function Comments() {
               )}
               {userRole !== "restaurant" ? (
                 ""
-              ) : (
+              ) : !replys.find((reply) => {
+                  return reply.commentId === item.id;
+                }) ? (
                 <Comment.Actions>
                   <Comment.Action onClick={onClickReply} value={item.id}>
                     Reply
                   </Comment.Action>
                 </Comment.Actions>
+              ) : (
+                ""
               )}
             </Comment.Content>
             {replys.find((reply) => {
