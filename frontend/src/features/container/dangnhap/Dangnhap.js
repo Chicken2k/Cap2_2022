@@ -43,7 +43,7 @@ function Login(props) {
           actioninfor();
           message.success("Đăng nhập thành công!");
           if (loginResponses.user.role === role.ADMIN) {
-            history.push("/admin");
+            history.push("/admin/taikhoan");
           } else if (loginResponses.user.role === role.RESTAURANT) {
             history.push("/restaurant-information");
           } else {

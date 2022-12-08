@@ -1,0 +1,56 @@
+.ant-pagination-disabled {
+    border: none !important;
+}
+.action{
+    font-size: 1.2rem;
+}
+.action .fa-edit{
+    color: rgb(14, 177, 14);
+}
+.action .fa-trash-alt{
+    color: red;
+}
+.action .fa-thumbs-down{
+    color: red;
+}
+#admin th.ant-table-cell {
+    font-weight: bold;
+    background-color: #007bff;
+}
+/* #admin th.ant-table-cell a {
+    color: rgb(11, 161, 231);
+    font-family: monospace;
+    font-weight: bold;
+} */
+#admin .ct{
+    font-size: .9rem;
+
+}
+#admin .content{
+    margin-top: 2rem;
+}
+#admin .mtb{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+#admin .add{
+    text-align: right;
+    margin-bottom: 1rem;
+}
+.ant-table {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* color: rgb(0 0 0 / 85%); */
+    color: #000000;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum', "tnum";
+    position: relative;
+    font-size: 16px;
+    background: #fff;
+    border-radius: 6px;
+    font-family: 'Font Awesome 5 Pro';
+    font-weight: 550;
+}
