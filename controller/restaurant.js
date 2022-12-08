@@ -1,4 +1,3 @@
-const { read } = require("fs");
 const ResponseString = require("../constants/error");
 const Restaurant = require("../models").Restaurant;
 const Image = require('../models').Image;
