@@ -1,5 +1,7 @@
+const { read } = require("fs");
 const ResponseString = require("../constants/error");
 const Restaurant = require("../models").Restaurant;
+const Image = require('../models').Image;
 
 getAll = async (req, res) => {
   try {
@@ -49,7 +51,19 @@ getRestaurantById = async (req, res) => {
 };
 createRestaurant = async (req, res) => {
   try {
-    const newRestaurant = await Restaurant.create(req.body);
+    const myData = req.body;
+    const restaurant = JSON.parse(myData.information);
+    const newRestaurant = await Restaurant.create(restaurant);
+    const listImage = req.files;
+    for(let i = 0; i < listImage.length; i++) {
+      const image = {
+        name: newRestaurant.name,
+        link: listImage[i].path,
+        description: '',
+        restaurantId: newRestaurant.id
+      }
+      Image.create(image);
+    }
     const data = {
       id: newRestaurant.id,
       name: newRestaurant.name,
