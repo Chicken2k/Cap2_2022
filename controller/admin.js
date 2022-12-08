@@ -1,6 +1,6 @@
-const { where } = require('sequelize');
 const ResponseString = require('../constants/error');
 const Restaurant = require('../models').Restaurant;
+const News = require('../models').News;
 
 getAllRestaurant = async(req, res) => {
     try {
@@ -68,8 +68,52 @@ updateRestaurant = async(req, res) => {
         })
     }
 }
+
+getNews = async (req, res) => {
+    try {
+        const data = await News.findAll({
+            where: {
+                status: false
+            }
+        });
+        res.status(200).json({
+            success: true,
+            data: data
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        })
+    }
+}
+updateNews = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const body = {
+            status: true
+        };
+        const news = await News.update(body, {
+            where: {
+                id: id
+            }
+        });
+        res.status(200).json({
+            success: true,
+            data: news
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     getAllRestaurant,
     getRestaurantById,
-    updateRestaurant
+    updateRestaurant,
+    getNews,
+    updateNews
 }

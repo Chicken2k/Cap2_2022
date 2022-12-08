@@ -20,9 +20,11 @@ module.exports = (sequelize, DataTypes) => {
   };
  News.init({
     name: DataTypes.STRING(255),
-    description: DataTypes.STRING(255),
     content: DataTypes.STRING(255),
-    author: DataTypes.STRING(255)
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   }, {
     sequelize,
     modelName: 'News',
