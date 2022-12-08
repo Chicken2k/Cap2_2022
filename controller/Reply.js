@@ -11,7 +11,9 @@ exports.create = (req, res) => {
     });
 };
 exports.findall = (req, res) => {
-  Reply.findAll()
+  Reply.findAll({
+    include: [{ model: User, attributes: ["id", "name"] }],
+  })
     .then((data) => {
       res.json({ data: data });
     })

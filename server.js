@@ -141,6 +141,7 @@ require("./routes/Food")(app);
 require("./routes/Order")(app);
 require("./routes/Comment")(app);
 require("./routes/Reply")(app);
+require("./routes/news")(app);
 
 app.use(function (err, req, res, next) {
   res.status(500).send(err);

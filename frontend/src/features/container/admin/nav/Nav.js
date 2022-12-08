@@ -29,6 +29,7 @@ import Hoadon from "../Hoadon/Hoadon";
 import Themtintuc from '../manageRestaurant/Themtintuc'
 import ManageRestaurantRoleAdmin from '../manageRestaurant/manageRestaurant'
 import { DetailRestaurant } from '../manageRestaurant/detailRestaurant';
+import ManageNews from '../news/managerNews';
 
 export default function Nav() {
     const match = useRouteMatch();
@@ -203,6 +204,9 @@ export default function Nav() {
             <Route path={`${match.path}/tintuc/suatintuc/:id`}  >
                 <Themtintuc />
             </Route>
+            <Route path={`${match.path}/manage-news`}>
+                <ManageNews />
+            </Route>
             {/* <Route path={`${match.path}/tintuc/chitiettintuc/:id`}  >
                 <Chitiettintuc />
             </Route>
@@ -268,6 +272,9 @@ export default function Nav() {
             </Menu.Item>
             <Menu.Item key="4" icon={state.collapsed === true ? <span className="far fa-newspaper" ></span> : <span className="far fa-newspaper mr-2"></span>}>
                 <Link to={`${match.url}/manage-restaurant`}>Quản lý nhà hàng</Link>
+            </Menu.Item>
+            <Menu.Item key="5" icon={state.collapsed === true ? <span className="far fa-newspaper" ></span> : <span className="far fa-newspaper mr-2"></span>}>
+                <Link to={`${match.url}/manage-news`}>Quản lý tin tức</Link>
             </Menu.Item>
             {/* <Menu.Item key="5" icon={state.collapsed === true ? <span className="fas fa-flag-usa" ></span> : <span className="fas fa-flag-usa mr-2"></span>}>
                 <Link to={`${match.url}/quocgia`}>Quản lý quốc gia</Link>

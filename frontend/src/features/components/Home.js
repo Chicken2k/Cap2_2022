@@ -45,6 +45,7 @@ import Thongtin from "../container/trangchu/thongtin/Thongtin";
 import { OrderRestaurant } from "../container/listOrderRestaurant/orderRestaurant";
 
 import Stripe from "../teststripe/Stripe";
+import CardLineChart from "../container/statistical/statistical";
 
 export default function NestingExample() {
   const dispatch = useDispatch();
@@ -163,7 +164,7 @@ export default function NestingExample() {
             <Tour />
           </Route>
           <Route path="/statistical">
-            <Listtintuc />
+            <CardLineChart />
           </Route>
           <Route path="/detail-new/:id">
             <Tintucdetail />
@@ -176,6 +177,9 @@ export default function NestingExample() {
           </Route>
           <Router path='/list-order-restaurant'>
             <OrderRestaurant />
+          </Router>
+          <Router path='/news'>
+            <Listtintuc />
           </Router>
         </Switch>
       </div>
