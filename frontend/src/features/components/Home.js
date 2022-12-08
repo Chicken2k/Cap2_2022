@@ -177,6 +177,9 @@ export default function NestingExample() {
           <Router path='/list-order-restaurant'>
             <OrderRestaurant />
           </Router>
+          <Router path='/news'>
+            <Listtintuc />
+          </Router>
         </Switch>
       </div>
     </Router>

@@ -1,81 +1,166 @@
-import React, { useEffect } from "react";
-import "./listtintuc.css";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Spin } from "antd";
 import { useSelector } from "react-redux";
+import { Button, Col, Row, Modal } from "antd";
+
+import "./listtintuc.css";
+import Footer from "../../trangchu/footer/Footer";
+import newsApi from "../../../../api/news";
+import restaurantApi from "../../../../api/restaurantApi";
+
 export default function Listtintuc() {
-  const tintucs = useSelector(state => state.tintucs.tintuc.data);
-  var tintuc = []
-  if (tintucs) {
-    for (let i = 0; i < tintucs.length; i++) {
-      if (tintucs[i].status === 1) {
-        tintuc.unshift(tintucs[i])
-      }
-    }
-  }
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  const [ listNews, setListNews ] = useState([]);
+  const [ restaurants, setRestaurants] = useState([]);
+  const [ isModalVisible, setIsModalVisible ] = useState(false);
+  const [ newsInfor, setNewsinfor ] = useState({
+    content: "",
+    restaurantId: 0
   })
-  const tomtat = e => {
-    var chu = ''
-    for (let i = 0; i < e.length; i++) {
-      if (chu.length < 225) {
-        chu += e[i];
-      }
-    }
-    chu = chu + "...";
-    return chu
+  const { content } = newsInfor; 
+  const getNews = async () => {
+    const data = await newsApi.getAll();
+    setListNews(data.data);
   }
-  const formatdate = e => {
-    if (e) {
-      var ngay = e.substr(8, 2)
-      var thang = e.substr(5, 2)
-      var nam = e.substr(0, 4)
-      var gio = e.substr(11, 2);
-      var phut = e.substr(14, 2);
-      return ngay + '/' + thang + '/' + nam + " " + gio + ":" + phut;
+  const getRestarant = async () => {
+    const userId = localStorage.getItem('userId');
+    const data = await restaurantApi.getAll(userId);
+    const listRestaurant = [];
+    data.data.map((item ) => {
+      const obj = {
+        id: item.id,
+        name: item.name
+      };
+      listRestaurant.push(obj);
+    })
+    setRestaurants(listRestaurant);
+  }
+  useEffect(()=> {
+    getNews();
+    getRestarant();
+  }, [])
+
+  const openDetailRestaurantPage = () => {
+
+  };
+
+  const openModal = () => {
+    console.log('wtf');
+    setIsModalVisible(true);
+  }
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  }
+  const onOk = () => {
+    setIsModalVisible(false);
+  }
+  const onSubmit = async () => {
+    const userId = localStorage.getItem("userId");
+    const newsBody = {
+      content: newsInfor.content,
+      userId: userId,
+      restaurantId: newsInfor.restaurantId
     }
+    await newsApi.createNews(newsBody);
+    getNews();
+  }
+  const onChange = (e) => {
+    setNewsinfor({
+      ...newsInfor,
+      [e.target.name]: e.target.value,
+    });
+  };
+  
+  let listData;
+  if (listNews) {
+    listData = listNews.map((restaurant) => {
+      return (
+        <li className="restaurantItem" key={restaurant.id}>
+          <Row>
+            <Col span={18} push={6}>
+              <p>Tên nhà hàng: {restaurant.name}</p>
+              <p>{restaurant.content}</p>
+            </Col>
+            <Col span={6} pull={18}>
+              <div className="image-container">
+                <img
+                  src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"
+                  alt="restaurant"
+                  width="500"
+                  height="600"
+                />
+              </div>
+            </Col>
+          </Row>
+        </li>
+      );
+    });
   }
   return (
-    <div id="listtintuc">
+    <div id="list-tour">
       <div className="breadcrumb">
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item"><Link to="/"><i className="fas fa-home mr-2"></i>Trang chủ</Link></li>
-            <li className="breadcrumb-item active" aria-current="page">Thống kê</li>
+            <li className="breadcrumb-item">
+              <Link to="/">
+                <i className="fas fa-home mr-2"></i>Trang chủ
+              </Link>
+            </li>
+            <li className="breadcrumb-item">
+              <Link to="/list-tour" disabled>
+                Danh sách tin tức
+              </Link>
+            </li>
           </ol>
         </nav>
       </div>
-      <div className="title-new">
-        <div className="hr-new "></div>
-        <h3 className=" ">Thống kê lượt view</h3>
-      </div>
-      <div className="content-new">
-        <div className="box-new ">
-          <div className="w-new">
-
-            <div className="row justify-content-center">
-              {!tintucs ? <div className="spin"><Spin className="mt-5" /></div> :
-                tintuc.map(ok => (
-                  <div className="col-md-6" key={ok.id}>
-                    <div className="img-new">
-                      <img src={ok.anh} className="w-100 h-100" alt="" />
-                    </div>
-                    <div className="title-new mt-2">
-                      <Link to={`/detail-new/${ok.id}`} className="">{ok.name}</Link>
-                      <p className="text-justify">
-                        {tomtat(ok.tomtat)}
-                      </p>
-                      <span>
-                        <i className="far fa-clock"></i> {formatdate(ok.createdAt)}
-                      </span>
-                    </div>
-                  </div>
-                ))}
+      <div className="container">
+        <Modal
+          title="Thêm tin tức"
+          visible={isModalVisible}
+          onCancel={handleCancel}
+          onOk={onOk}
+        >
+          <form onSubmit={onSubmit}>
+            <div>
+              <label>Áp dụng cho nhà hàng</label>
+              <select name="restaurantId" value={''}>
+                {restaurants.map((e, key) => {
+                    return <option key={key} value={e.id} onChange={onChange}>{e.name}</option>;
+                })}
+            </select>
+            </div>
+            <div>
+              <label className="labelInput">Nội dung</label>
+              <textarea
+                name="description"
+                value={content}
+                onChange={onChange}
+                rows="10"
+                cols="50"
+              />
+            </div>
+          </form>
+        </Modal>
+        {listNews === 0 ? (
+          <div>
+            <div className="noRestaurant">
+              <p className="message">Danh sách tin tức trống</p>
+              <Button type="primary" onClick={openModal}>
+                Thêm tin tức
+              </Button>
             </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <Button type="primary" onClick={openModal}>
+              Thêm tin tức
+            </Button>
+            <div>Danh sách nhà hàng của bạn</div>
+            <ul>{listData}</ul>
+          </div>
+        )}
       </div>
+      <Footer />
     </div>
-  )
+  );
 }
