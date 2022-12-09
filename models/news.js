@@ -1,4 +1,5 @@
 'use strict';
+const { kMaxLength } = require('buffer');
 const {
   Model
 } = require('sequelize');
@@ -20,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   };
  News.init({
     name: DataTypes.STRING(255),
-    content: DataTypes.STRING(255),
+    content: DataTypes.STRING(3000),
     status: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
