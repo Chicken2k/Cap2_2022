@@ -2,7 +2,11 @@ const News = require('../models').News;
 
 getAll = async (req, res) => {
     try {
-        const news = await News.findAll();
+        const news = await News.findAll({
+            where: {
+                status: true
+            }
+        });
         res.status(200).json({
             success: true,
             data: news
@@ -16,6 +20,7 @@ getAll = async (req, res) => {
 }
 createNews = async (req, res) => {
     try {
+        console.log('req body: ', req.body);
         const news = await News.create(req.body);
         return res.status(201).json({
             success: true,
