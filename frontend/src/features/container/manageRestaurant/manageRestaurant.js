@@ -15,6 +15,7 @@ export default function Listtour() {
     description: "",
     address: "",
     phoneNumber: "",
+    files: ""
   });
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisibleUpdate, setIsModalVisibleUpdate] = useState(false);
@@ -27,7 +28,7 @@ export default function Listtour() {
   const actionResult = async () => {
     await dispatch(restaurantData());
   };
-  const { name, description, address, phoneNumber } = restaurantInfor;
+  const { name, description, address, phoneNumber, files } = restaurantInfor;
   useEffect(() => {
     actionResult();
   }, []);
@@ -158,6 +159,10 @@ export default function Listtour() {
                 value={phoneNumber}
                 onChange={onChange}
               />
+            </div>
+            <div class="form-group">
+              <label for="formFileMultiple" class="form-label">Chọn ảnh nhà hàng</label>
+              <input class="form-control" name="files" type="file" id="formFileMultiple" multiple />
             </div>
           </form>
         </Modal>
