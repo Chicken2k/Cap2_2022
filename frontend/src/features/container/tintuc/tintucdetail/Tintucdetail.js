@@ -1,34 +1,28 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import Footer from "../../trangchu/footer/Footer";
+import React, { useEffect, useState } from "react";
+// import { useSelector } from "react-redux";
+import { Spin } from "antd";
+import { Link, useLocation } from "react-router-dom";
+import newsApi from "../../../../api/news";
+// import Footer from "../../trangchu/footer/Footer";
 import "./Tintucdetail.css";
-// import renderHTML from 'react-render-html';
+
+import renderHTML from "react-render-html";
+
 function Tintucdetail(props) {
   localStorage.setItem("menu", "nothome");
-  const { id } = useParams();
-  const tintucs = useSelector((state) => state.tintucs.tintuc.data);
-  var sx = [];
-  if (tintucs) {
-    for (let i = 0; i < tintucs.length; i++) {
-      if (tintucs[i].id !== +id) {
-        if (tintucs[i].status === 1 && sx.length < 4) {
-          sx.unshift(tintucs[i]);
-        }
-      }
-    }
-  }
+  const location = useLocation();
+
+  const newId = Number(location?.pathname?.split("/")[3]);
+  const [tintuc, setTinTuc] = useState({});
+  const getTinTuc = async () => {
+    const news = await newsApi.getOne(newId);
+    console.log(news);
+    setTinTuc(news);
+  };
   useEffect(() => {
-    window.scrollTo(0, 0);
-  });
-  const tintuc = [];
-  if (tintucs) {
-    for (let i = 0; i < tintucs.length; i++) {
-      if (tintucs[i].id === +id) {
-        tintuc.push(tintucs[i]);
-      }
-    }
-  }
+    getTinTuc();
+  }, []);
+
   const formatdate = (e) => {
     if (e) {
       var ngay = e.substr(8, 2);
@@ -39,6 +33,7 @@ function Tintucdetail(props) {
       return ngay + "/" + thang + "/" + nam + " " + gio + ":" + phut;
     }
   };
+  console.log(tintuc);
   return (
     <div id="new-detail">
       <div className="breadcrumb">
@@ -50,82 +45,38 @@ function Tintucdetail(props) {
               </Link>
             </li>
             <li className="breadcrumb-item">
-              <Link to="/listtintuc">Tin tức</Link>
-            </li>
-            <li className="breadcrumb-item active" aria-current="page">
-              {tintucs ? tintucs.find((x) => x.id === +id).name : ""}
+              <Link to="/">Tin tức</Link>
             </li>
           </ol>
         </nav>
       </div>
       <div className="content-new">
         <div className="container bg-white">
-          <div className="row mt-5 mb-5">
-            {tintuc.map((ok) => (
-              <div className="col-md-9" key={ok.id}>
+          {!tintuc ? (
+            <Spin></Spin>
+          ) : (
+            <div className="row mt-5 mb-5">
+              <div className="col-md-9" key={tintuc?.id}>
                 <div className="name-new mb-4">
-                  <h2>{ok.name}</h2>
+                  <h2>{tintuc?.data?.name}</h2>
                 </div>
                 <div className="content">
-                  {/* {renderHTML(ok.content)} */}
+                  {renderHTML(tintuc?.data?.content || "")}
                   <div className="text-right">
-                    <p>
-                      <i>Tác giả:</i>{" "}
-                      <strong>
-                        <i>{ok.tacgia}</i>
-                      </strong>
-                    </p>
                     <p>
                       Ngày đăng:{" "}
                       <i>
-                        <strong>{formatdate(ok.createdAt)}</strong>
+                        <strong>{formatdate(tintuc?.data?.createdAt)}</strong>
                       </i>
                     </p>
                   </div>
-                  <div>
-                    <div className="tags mb-4 font-weight-bold">
-                      <h5>
-                        tag:
-                        {ok.Tags.map((oki) => (
-                          <Link>
-                            <span className="tag">{oki.name}</span>
-                          </Link>
-                        ))}
-                      </h5>
-                    </div>
-                  </div>
                 </div>
               </div>
-            ))}
-            <div className="col-md-3">
-              <h3 className="border-bottom">Tin mới</h3>
-
-              {sx.map((ok) => (
-                <div className="box-tinhot" key={ok.id}>
-                  <div className="img-new">
-                    <img src={ok.anh} className="img-fluid" alt="" />
-                  </div>
-                  <div className="title-new">
-                    <p className="mb-2">
-                      <Link
-                        to={`/detail-new/${ok.id}`}
-                        className="title-new-hot"
-                      >
-                        {ok.name}
-                      </Link>
-                    </p>
-                    <span>
-                      <i className="far fa-clock"></i>{" "}
-                      {formatdate(ok.createdAt)}
-                    </span>
-                  </div>
-                </div>
-              ))}
             </div>
-          </div>
+          )}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

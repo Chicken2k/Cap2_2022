@@ -166,7 +166,6 @@ export default function DetailRestaurant() {
   };
   const disabledDateTime = () => ({
     disabledHours: () => range(0, 24).splice(0, 10),
-    disabledMinutes: () => range(30, 60),
   });
   return (
     <div>
