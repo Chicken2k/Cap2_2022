@@ -36,6 +36,7 @@ export default function Listtintuc() {
       listRestaurant.push(obj);
     });
     setRestaurants(listRestaurant);
+    setRestaurantId(listRestaurant[0]?.id);
   };
   useEffect(() => {
     getNews();
