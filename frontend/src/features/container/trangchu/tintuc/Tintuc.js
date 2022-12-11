@@ -1,4 +1,4 @@
-import { Card, Col, Row } from "antd";
+import { Card, Col, Empty, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, Link as Linkrt } from "react-router-dom";
 import newsApi from "../../../../api/news";
@@ -73,42 +73,46 @@ function Tintuc(props) {
       </div>
       <div className="container">
         <div className="row mb-4" style={{ margin: "0, auto" }}>
-          {tintucs.slice(0, 4).map((ok) => (
-            <div className="col-sm-6 mb-3 site-card-wrapper" key={ok.id}>
-              <Linkrt to={`/news/detail/${ok.id}`}>
-                <Row
-                  justify={"space-between"}
-                  style={{ border: "1px solid" }}
-                  wrap={true}
-                >
-                  <Col>
-                    <Card
-                      title={ok.name}
-                      bordered={true}
-                      hoverable
-                      style={{ margin: "0 auto", width: "50%" }}
-                      cover={
-                        <img
-                          alt="example"
-                          display="block"
-                          src="https://www.scb.com.vn/picture/redsun_01_03_08_2019_14_23_45_.jpg"
-                          max-width="100%"
-                          height="auto"
-                        />
-                      }
-                    >
-                      <div className=" p-3">
-                        <strong>Nhà hàng: {ok.Restaurant.name}</strong>
-                      </div>
-                      <div className=" p-3">
-                        <strong>Địa chỉ: {ok.Restaurant.address}</strong>
-                      </div>
-                    </Card>
-                  </Col>
-                </Row>
-              </Linkrt>
-            </div>
-          ))}
+          {tintucs.length ? (
+            tintucs.slice(0, 4).map((ok) => (
+              <div className="col-sm-6 mb-3 site-card-wrapper" key={ok.id}>
+                <Linkrt to={`/news/detail/${ok.id}`}>
+                  <Row
+                    justify={"space-between"}
+                    style={{ border: "1px solid" }}
+                    wrap={true}
+                  >
+                    <Col>
+                      <Card
+                        title={ok.name}
+                        bordered={true}
+                        hoverable
+                        style={{ margin: "0 auto", width: "50%" }}
+                        cover={
+                          <img
+                            alt="example"
+                            display="block"
+                            src="https://www.scb.com.vn/picture/redsun_01_03_08_2019_14_23_45_.jpg"
+                            max-width="100%"
+                            height="auto"
+                          />
+                        }
+                      >
+                        <div className=" p-3">
+                          <strong>Nhà hàng: {ok.Restaurant.name}</strong>
+                        </div>
+                        <div className=" p-3">
+                          <strong>Địa chỉ: {ok.Restaurant.address}</strong>
+                        </div>
+                      </Card>
+                    </Col>
+                  </Row>
+                </Linkrt>
+              </div>
+            ))
+          ) : (
+            <Empty></Empty>
+          )}
         </div>
         <div className="row">
           <div className="col-md-4">
