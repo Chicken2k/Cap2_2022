@@ -76,20 +76,6 @@ function Tintuc(props) {
           {tintucs.map((ok) => (
             <div className="col-sm-6 mb-3 site-card-wrapper" key={ok.id}>
               <Linkrt to={`/news/detail/${ok.id}`}>
-                {/* <div className="news-box">
-                  <div className="heading p-3">
-                    <strong>{ok.name}</strong>
-                  </div>
-                  <div className=" p-3">
-                    <strong>Nhà hàng: {ok.Restaurant.name}</strong>
-                  </div>
-                  <div className=" p-3">
-                    <strong>Địa chỉ: {ok.Restaurant.address}</strong>
-                  </div>
-                  <div className="content-news">
-                    <p className="text-justify">{ok.name}</p>
-                  </div>
-                </div> */}
                 <Row
                   justify={"space-between"}
                   style={{ border: "1px solid" }}
@@ -105,7 +91,7 @@ function Tintuc(props) {
                         <img
                           alt="example"
                           display="block"
-                          src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                          src="https://www.scb.com.vn/picture/redsun_01_03_08_2019_14_23_45_.jpg"
                           max-width="100%"
                           height="auto"
                         />
@@ -116,9 +102,6 @@ function Tintuc(props) {
                       </div>
                       <div className=" p-3">
                         <strong>Địa chỉ: {ok.Restaurant.address}</strong>
-                      </div>
-                      <div className="content-news">
-                        <p className="text-justify">{ok.name}</p>
                       </div>
                     </Card>
                   </Col>

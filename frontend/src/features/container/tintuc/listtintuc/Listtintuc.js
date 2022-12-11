@@ -1,6 +1,5 @@
 import { Button, Col, Layout, Modal, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import renderHTML from "react-render-html";
 import { Link, useHistory } from "react-router-dom";
 
 import newsApi from "../../../../api/news";
@@ -23,7 +22,7 @@ export default function Listtintuc() {
   });
   const { content } = newsInfor;
   const getNews = async () => {
-    const data = await newsApi.getAll();
+    const data = await newsApi.getAll({ userId });
     setListNews(data.data);
   };
   const getRestarant = async () => {
@@ -79,6 +78,17 @@ export default function Listtintuc() {
   const onClickLink = (e) => {
     console.log(e.target);
   };
+
+  const formatdate = (e) => {
+    if (e) {
+      var ngay = e.substr(8, 2);
+      var thang = e.substr(5, 2);
+      var nam = e.substr(0, 4);
+      var gio = e.substr(11, 2);
+      var phut = e.substr(14, 2);
+      return ngay + "/" + thang + "/" + nam + " " + gio + ":" + phut;
+    }
+  };
   let listData;
   if (listNews) {
     listData = listNews.map((restaurant) => {
@@ -97,8 +107,22 @@ export default function Listtintuc() {
                 >
                   <Row>
                     <Col span={18} push={6}>
-                      <p>Tên nhà hàng: {restaurant?.Restaurant?.name}</p>
-                      <p>{renderHTML(restaurant?.content)}</p>
+                      <p style={{ fontSize: 20 }}>
+                        Tên nhà hàng: {restaurant?.Restaurant?.name}
+                      </p>
+                      <p style={{ fontSize: 20 }}>
+                        Địa chỉ: {restaurant?.Restaurant?.address}
+                      </p>
+                      <p style={{ fontSize: 20 }}>
+                        Ngày đăng: {formatdate(restaurant?.createdAt)}
+                      </p>
+                      <p style={{ fontSize: 20 }}>
+                        Tình trạng:{" "}
+                        {restaurant?.status
+                          ? "Đã được đăng vào " +
+                            formatdate(restaurant?.updatedAt)
+                          : "Đang chờ duyệt từ admin"}
+                      </p>
                     </Col>
                     <Col span={6} pull={18}>
                       <div className="image-container">

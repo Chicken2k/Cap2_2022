@@ -3,10 +3,11 @@ const Restaurant = require("../models").Restaurant;
 
 getAll = async (req, res) => {
   try {
+    const { userId } = req.query;
+    const whereObj = {};
+    if (userId) whereObj = { userId };
     const news = await News.findAll({
-      where: {
-        status: true,
-      },
+      where: whereObj,
       include: [{ model: Restaurant }],
     });
     res.status(200).json({

@@ -1,9 +1,9 @@
 import axiosClient from "./axiosClient";
 
 class NewsApi {
-  getAll() {
+  getAll(params) {
     const url = "/v1/news";
-    return axiosClient.get(url);
+    return axiosClient.get(url, params);
   }
   getOne = (id) => {
     const url = `/v1/news/${id}`;
