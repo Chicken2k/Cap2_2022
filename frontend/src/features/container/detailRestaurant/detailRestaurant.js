@@ -139,7 +139,8 @@ export default function DetailRestaurant() {
     setNoteBook(event.target.value);
   };
   const onClickButton = async () => {
-    if (!dateBook || !amountBook || !noteBook || !userId || !restaurant.id)
+    if (!userId) message.error("Chưa đăng nhập");
+    else if (!dateBook || !amountBook || !noteBook || !restaurant.id)
       message.error("Chưa điền đầy đủ thông tin");
     else {
       const data = await orderApi.postOrder({
