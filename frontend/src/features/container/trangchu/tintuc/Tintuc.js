@@ -73,10 +73,10 @@ function Tintuc(props) {
       </div>
       <div className="container">
         <div className="row mb-4" style={{ margin: "0, auto" }}>
-          {tintucs.length ? (
+          {tintucs?.length ? (
             tintucs.slice(0, 4).map((ok) => (
-              <div className="col-sm-6 mb-3 site-card-wrapper" key={ok.id}>
-                <Linkrt to={`/news/detail/${ok.id}`}>
+              <div className="col-sm-6 mb-3 site-card-wrapper" key={ok?.id}>
+                <Linkrt to={`/news/detail/${ok?.id}`}>
                   <Row
                     justify={"space-between"}
                     style={{ border: "1px solid" }}
@@ -84,7 +84,7 @@ function Tintuc(props) {
                   >
                     <Col>
                       <Card
-                        title={ok.name}
+                        title={ok?.name}
                         bordered={true}
                         hoverable
                         style={{ margin: "0 auto", width: "50%" }}
@@ -99,10 +99,10 @@ function Tintuc(props) {
                         }
                       >
                         <div className=" p-3">
-                          <strong>Nhà hàng: {ok.Restaurant.name}</strong>
+                          <strong>Nhà hàng: {ok?.Restaurant?.name}</strong>
                         </div>
                         <div className=" p-3">
-                          <strong>Địa chỉ: {ok.Restaurant.address}</strong>
+                          <strong>Địa chỉ: {ok?.Restaurant?.address}</strong>
                         </div>
                       </Card>
                     </Col>
