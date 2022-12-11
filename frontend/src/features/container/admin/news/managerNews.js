@@ -35,6 +35,10 @@ function ManageNews() {
     await adminApi.updateNews(restaurantId);
     getRestaurants();
   };
+  const cancelNew = async (restaurantId) => {
+    await adminApi.deleteNews(restaurantId);
+    getRestaurants();
+  };
   if (restaurants) {
     listRestaurant = restaurants.map((item) => {
       return (
@@ -46,47 +50,44 @@ function ManageNews() {
             <Layout>
               <Content>
                 <div className="news-box" onClick={onClickLink}>
-                  <li className="restaurantItem" value={item.id}>
-                    <Link
-                      to={{
-                        pathname: `/news/detail/${item.id}`,
-                        state: {
-                          id: item.id,
-                        },
-                      }}
-                    >
-                      <Row>
-                        <Col span={18} push={6}>
-                          <p style={{ fontSize: 20 }}>
-                            Tên nhà hàng: {item?.Restaurant?.name}
-                          </p>
-                          <p style={{ fontSize: 20 }}>
-                            Địa chỉ: {item?.Restaurant?.address}
-                          </p>
-                          <p style={{ fontSize: 20 }}>
-                            Ngày đăng: {formatdate(item?.createdAt)}
-                          </p>
-                          <p style={{ fontSize: 20 }}>
-                            Tình trạng:{" "}
-                            {item?.status
-                              ? "Đã được đăng vào " +
-                                formatdate(item?.updatedAt)
-                              : "Đang chờ duyệt từ admin"}
-                          </p>
-                        </Col>
-                        <Col span={6} pull={18}>
-                          <div className="image-container">
-                            <img
-                              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"
-                              alt="restaurant"
-                              width="500"
-                              height="600"
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                    </Link>
-                  </li>
+                  <Link
+                    to={{
+                      pathname: `/news/detail/${item.id}`,
+                      state: {
+                        id: item.id,
+                      },
+                    }}
+                  >
+                    <Row>
+                      <Col span={18} push={6}>
+                        <p style={{ fontSize: 20 }}>
+                          Tên nhà hàng: {item?.Restaurant?.name}
+                        </p>
+                        <p style={{ fontSize: 20 }}>
+                          Địa chỉ: {item?.Restaurant?.address}
+                        </p>
+                        <p style={{ fontSize: 20 }}>
+                          Ngày đăng: {formatdate(item?.createdAt)}
+                        </p>
+                        <p style={{ fontSize: 20 }}>
+                          Tình trạng:{" "}
+                          {item?.status
+                            ? "Đã được đăng vào " + formatdate(item?.updatedAt)
+                            : "Đang chờ duyệt từ admin"}
+                        </p>
+                      </Col>
+                      <Col span={6} pull={18}>
+                        <div className="image-container">
+                          <img
+                            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"
+                            alt="restaurant"
+                            width="500"
+                            height="600"
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+                  </Link>
                 </div>
               </Content>
             </Layout>
@@ -96,7 +97,9 @@ function ManageNews() {
             >
               Duyệt
             </Button>
-            <Button type="primary">Từ chối</Button>
+            <Button type="primary" onClick={() => cancelNew(item.id)}>
+              Từ chối
+            </Button>
           </div>
         </div>
       );

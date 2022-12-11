@@ -45,8 +45,31 @@ createNews = async (req, res) => {
     });
   }
 };
+getNewsRestaurant = async (req, res) => {
+  try {
+    // Lấy danh sách đặt bàn bên trang quản lý restaurant
+    const { userId } = req.query;
+    console.log(userId);
+    const data = await News.findAll({
+      where: {
+        userId,
+      },
+      include: [{ model: Restaurant }],
+    });
+    return res.status(200).json({
+      success: true,
+      data: data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
 module.exports = {
   getAll,
   getOne,
   createNews,
+  getNewsRestaurant,
 };

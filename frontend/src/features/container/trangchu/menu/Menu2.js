@@ -10,6 +10,7 @@ import { inforData } from "../../dangnhap/dangnhapSlice";
 import "./menu.css";
 
 function ListMenu(props) {
+  const userRole = localStorage.getItem("role");
   const [avatar, setAvatar] = useState("");
   const [state, setState] = useState({
     collapsed: false,
@@ -240,7 +241,7 @@ function ListMenu(props) {
       return ngay + "/" + thang + "/" + nam;
     }
   };
-
+  console.log(user?.role);
   const { name, diachi, ngaysinh, gioitinh, sdt, linkImg, img } = state;
   return (
     <div id="menu2">
@@ -264,30 +265,46 @@ function ListMenu(props) {
             <ul className="navbar-nav m-auto">
               <li className="nav-item">
                 <div className="border-bot-menu">
-                  <Linkrt className="nav-link" to="/restaurant-information">
-                    Quản lý nhà hàng
-                  </Linkrt>
+                  {user && userRole === "restaurant" ? (
+                    <Linkrt className="nav-link" to="/restaurant-information">
+                      Quản lý nhà hàng
+                    </Linkrt>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </li>
               <li className="nav-item">
                 <div className="border-bot-menu">
-                  <Linkrt className="nav-link" to="/list-order-restaurant">
-                    Danh sách Đặt bàn
-                  </Linkrt>
+                  {user && userRole === "restaurant" ? (
+                    <Linkrt className="nav-link" to="/list-order-restaurant">
+                      Danh sách Đặt bàn
+                    </Linkrt>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </li>
               <li className="nav-item">
                 <div className="border-bot-menu">
-                  <Linkrt className="nav-link" to="/news">
-                    Quản lý tin tức
-                  </Linkrt>
+                  {user && userRole === "restaurant" ? (
+                    <Linkrt className="nav-link" to="/news">
+                      Quản lý tin tức
+                    </Linkrt>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </li>
               <li className="nav-item">
                 <div className="border-bot-menu">
-                  <Linkrt className="nav-link" to="/statistical">
-                    Thống kê
-                  </Linkrt>
+                  {user && userRole === "restaurant" ? (
+                    <Linkrt className="nav-link" to="/statistical">
+                      Thống kê
+                    </Linkrt>
+                  ) : (
+                    ""
+                  )}
                   {/**Cái ni là folder list tin tức nè */}
                 </div>
               </li>

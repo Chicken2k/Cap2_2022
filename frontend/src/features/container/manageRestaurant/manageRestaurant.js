@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row } from "antd";
+import { Button, Col, Empty, Modal, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -15,13 +15,13 @@ export default function Listtour() {
     description: "",
     address: "",
     phoneNumber: "",
-    files: ""
+    files: "",
   });
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisibleUpdate, setIsModalVisibleUpdate] = useState(false);
   const [restaurantId, setRestaurantId] = useState(0);
   const [selectedFile, setSelectedFile] = useState();
-	const [isFilePicked, setIsFilePicked] = useState(false);
+  const [isFilePicked, setIsFilePicked] = useState(false);
   const dispatch = useDispatch();
   const restaurants = useSelector(
     (state) => state.restaurants.restaurants.data
@@ -41,10 +41,10 @@ export default function Listtour() {
   const openModal = () => {
     setIsModalVisible(true);
   };
-  const changeHandlerFile = async(event) => {
+  const changeHandlerFile = async (event) => {
     setSelectedFile(event.target.files[0]);
-		setIsFilePicked(true);
-  }
+    setIsFilePicked(true);
+  };
   const onSubmit = async () => {
     const userId = localStorage.getItem("userId");
     const restaurantBody = {
@@ -55,12 +55,12 @@ export default function Listtour() {
       userId: userId,
     };
     let formData = new FormData();
-    formData.append('name', restaurantInfor.name);
-    formData.append('phoneNumber', restaurantInfor.phoneNumber);
-    formData.append('description', restaurantInfor.description);
-    formData.append('address', restaurantInfor.address);
-    formData.append('userId', userId);
-    formData.append('image', selectedFile);
+    formData.append("name", restaurantInfor.name);
+    formData.append("phoneNumber", restaurantInfor.phoneNumber);
+    formData.append("description", restaurantInfor.description);
+    formData.append("address", restaurantInfor.address);
+    formData.append("userId", userId);
+    formData.append("image", selectedFile);
     await restaurantApi.createRestaurant(formData);
     actionResult();
   };
@@ -174,15 +174,24 @@ export default function Listtour() {
               />
             </div>
             <div class="form-group">
-              <label for="formFileMultiple" class="form-label">Chọn ảnh nhà hàng</label>
-              <input class="
+              <label for="formFileMultiple" class="form-label">
+                Chọn ảnh nhà hàng
+              </label>
+              <input
+                class="
                 block w-full text-sm text-slate-500
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold
                 file:bg-violet-50 file:text-violet-700
                 hover:file:bg-violet-100
-              " name="files" type="file" id="formFileMultiple" onChange={changeHandlerFile} multiple />
+              "
+                name="files"
+                type="file"
+                id="formFileMultiple"
+                onChange={changeHandlerFile}
+                multiple
+              />
             </div>
           </form>
         </Modal>
@@ -201,7 +210,7 @@ export default function Listtour() {
               Thêm nhà hàng
             </Button>
             <div>Danh sách nhà hàng của bạn</div>
-            <ul>{listRestaurant}</ul>
+            <ul>{listRestaurant?.length ? listRestaurant : <Empty></Empty>}</ul>
           </div>
         )}
       </div>

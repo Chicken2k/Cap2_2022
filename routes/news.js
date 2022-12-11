@@ -3,6 +3,7 @@ module.exports = (app) => {
   const news = require("../controller/news");
   const router = require("express").Router();
 
+  router.get("/restaurant", news.getNewsRestaurant);
   router.get("/:id", news.getOne);
   router.get("/", news.getAll);
   router.post("/", news.createNews);

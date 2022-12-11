@@ -109,11 +109,20 @@ updateNews = async (req, res) => {
     });
   }
 };
-
+deleteNews = (req, res) => {
+  News.destroy({ where: { id: req.params.id } })
+    .then((data) => {
+      res.json({ data: data });
+    })
+    .catch((er) => {
+      throw er;
+    });
+};
 module.exports = {
   getAllRestaurant,
   getRestaurantById,
   updateRestaurant,
   getNews,
   updateNews,
+  deleteNews,
 };

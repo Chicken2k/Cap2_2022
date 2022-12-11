@@ -13,6 +13,10 @@ class NewsApi {
     const url = "/v1/news";
     return axiosClient.post(url, body);
   }
+  getRestaurantNews = (params) => {
+    const url = `/v1/news/restaurant`;
+    return axiosClient.get(url, { params });
+  };
 }
 const newsApi = new NewsApi();
 export default newsApi;

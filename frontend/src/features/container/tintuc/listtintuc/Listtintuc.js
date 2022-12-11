@@ -1,4 +1,4 @@
-import { Button, Col, Layout, Modal, Row, Select } from "antd";
+import { Button, Col, Empty, Layout, Modal, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
@@ -22,7 +22,7 @@ export default function Listtintuc() {
   });
   const { content } = newsInfor;
   const getNews = async () => {
-    const data = await newsApi.getAll({ userId });
+    const data = await newsApi.getRestaurantNews({ userId });
     setListNews(data.data);
   };
   const getRestarant = async () => {
@@ -204,8 +204,8 @@ export default function Listtintuc() {
             <Button type="primary" onClick={openModal}>
               Thêm tin tức
             </Button>
-            <div>Danh sách nhà hàng của bạn</div>
-            <ul>{listData}</ul>
+            <div>Danh sách tin tức của bạn</div>
+            <ul>{listData?.length ? listData : <Empty></Empty>}</ul>
           </div>
         )}
       </div>
