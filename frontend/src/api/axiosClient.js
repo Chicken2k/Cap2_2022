@@ -4,7 +4,7 @@ import queryString from 'query-string';
 const axiosClient = axios.create({
     baseURL: `http://localhost:666`,
     headers: {
-        'content-type': "application/json",
+        "content-type": "application/json",
     },
     paramsSerializer: params => queryString.stringify(params),
 });

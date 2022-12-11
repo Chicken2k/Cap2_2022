@@ -25,7 +25,11 @@ class RestaurantApi {
   }
   createRestaurant(body) {
     const url = "/v1/restaurants";
-    return axiosClient.post(url, body);
+    return axiosClient.post(url, body, {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    });
   }
   updateRestaurant(id, body) {
     const url = `/v1/restaurants/${id}`;

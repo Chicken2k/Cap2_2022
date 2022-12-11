@@ -10,10 +10,10 @@ const stripe = Stripe(
 );
 const talkToChatbot = require("./chatbot");
 const fulfillmentRoutes = require("./fulfillment");
-const mailjet = require("node-mailjet").connect(
-  process.env.MJ_APIKEY_PUBLIC,
-  process.env.MJ_APIKEY_PRIVATE
-);
+// const mailjet = require("node-mailjet").connect(
+//   process.env.MJ_APIKEY_PUBLIC,
+//   process.env.MJ_APIKEY_PRIVATE
+// );
 let jsonParser = express.json();
 let urlEncoded = express.urlencoded({ extended: true });
 app.use(cors());
