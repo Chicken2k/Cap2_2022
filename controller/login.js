@@ -22,7 +22,7 @@ exports.login = (req, res) => {
                 user: user,
             });
         } else {
-            res.status(204).json({
+            res.status(200).json({
                 success: false,
                 message: 'USER NOT FOUND'
             })

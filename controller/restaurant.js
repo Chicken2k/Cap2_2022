@@ -6,7 +6,9 @@ getAll = async (req, res) => {
   try {
     let restaurants;
     const { userId, cityId, foodId } = req.query;
-    const objQuery = {};
+    const objQuery = {
+      status: true
+    };
     if (userId) objQuery.userId = userId;
     if (cityId) objQuery.cityId = cityId;
     if (foodId) objQuery.foodId = foodId;
