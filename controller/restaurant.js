@@ -6,7 +6,9 @@ getAll = async (req, res) => {
   try {
     let restaurants;
     const { userId, cityId, foodId } = req.query;
-    const objQuery = {};
+    const objQuery = {
+      status: true
+    };
     if (userId) objQuery.userId = userId;
     if (cityId) objQuery.cityId = cityId;
     if (foodId) objQuery.foodId = foodId;
@@ -50,8 +52,8 @@ getRestaurantById = async (req, res) => {
 };
 createRestaurant = async (req, res) => {
   try {
-    const myData = req.body;
-    const restaurant = JSON.parse(myData.information);
+    let restaurant = JSON.stringify(req.body);
+    restaurant = JSON.parse(restaurant);
     const newRestaurant = await Restaurant.create(restaurant);
     const listImage = req.files;
     for(let i = 0; i < listImage.length; i++) {
@@ -72,7 +74,7 @@ createRestaurant = async (req, res) => {
       data: data,
     });
   } catch (error) {
-    res.status(error.status).json({
+    res.status(500).json({
       successful: false,
       error: error.message,
     });

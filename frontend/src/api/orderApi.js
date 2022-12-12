@@ -2,9 +2,13 @@ import { message } from "antd";
 import axiosClient from "./axiosClient";
 
 class OrderApi {
-  getAll = () => {
+  getAll = (params) => {
     const url = "/v1/order";
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
+  };
+  getOrderPending = (params) => {
+    const url = "/v1/order/pending";
+    return axiosClient.get(url, { params });
   };
   postOrder = (params) => {
     const url = "/v1/order";
@@ -18,20 +22,23 @@ class OrderApi {
       });
   };
   updateOrder = (orderId) => {
-    const url =  `/v1/order/${orderId}`;
-    return axiosClient.patch(url)
-    .then(() => {
-      message.success('Xác nhận thành công');
+    const url = `/v1/order/${orderId}`;
+    return axiosClient.patch(url).then(() => {
+      message.success("Xác nhận thành công");
     });
-  }
+  };
 
   deleteOrder = (orderId) => {
     const url = `/v1/order/${orderId}`;
-    return axiosClient.delete(url)
-    .then(() => {
-      message.success('Từ chối bàn thành công');
-    })
-  }
+    return axiosClient.delete(url).then(() => {
+      message.success("Từ chối bàn thành công");
+    });
+  };
+
+  getRestaurantOrder = (params) => {
+    const url = `/v1/order/restaurant`;
+    return axiosClient.get(url, { params });
+  };
 }
 const orderApi = new OrderApi();
 export default orderApi;

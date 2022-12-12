@@ -1,7 +1,6 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { kMaxLength } = require("buffer");
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class News extends Model {
     /**
@@ -10,24 +9,29 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-     News.belongsTo(models.Restaurant, {
-      foreignKey: 'restaurantId'
-     }),
-     News.belongsTo(models.User, {
-      foreignKey: 'userId'
-     })
+      News.belongsTo(models.Restaurant, {
+        foreignKey: "restaurantId",
+      }),
+        News.belongsTo(models.User, {
+          foreignKey: "userId",
+        });
     }
-  };
- News.init({
-    name: DataTypes.STRING(255),
-    description: DataTypes.STRING(255),
-    content: DataTypes.STRING(255),
-    author: DataTypes.STRING(255)
-  }, {
-    sequelize,
-    modelName: 'News',
-    paranoid: true,
-    deletedAt: 'deletedAt'
-  });
+  }
+  News.init(
+    {
+      name: DataTypes.STRING(255),
+      content: DataTypes.TEXT,
+      status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: "News",
+      paranoid: true,
+      deletedAt: "deletedAt",
+    }
+  );
   return News;
 };

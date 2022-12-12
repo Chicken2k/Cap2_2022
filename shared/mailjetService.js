@@ -1,7 +1,6 @@
 const mailjet = require ('node-mailjet')
 .connect(process.env.API_KEY, process.env.SECRET_KEY)
 const sendMail = () => {
-    console.log('run here');
     const request = mailjet
     .post("send", {'version': 'v3.1'})
     .request({

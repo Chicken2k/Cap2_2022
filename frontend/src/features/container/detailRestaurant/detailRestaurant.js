@@ -139,7 +139,8 @@ export default function DetailRestaurant() {
     setNoteBook(event.target.value);
   };
   const onClickButton = async () => {
-    if (!dateBook || !amountBook || !noteBook || !userId || !restaurant.id)
+    if (!userId) message.error("Chưa đăng nhập");
+    else if (!dateBook || !amountBook || !noteBook || !restaurant.id)
       message.error("Chưa điền đầy đủ thông tin");
     else {
       const data = await orderApi.postOrder({
@@ -150,6 +151,7 @@ export default function DetailRestaurant() {
         restaurantId: restaurant.id,
         status: 0,
       });
+      history.push("/thongtin/0");
     }
   };
   const disabledDate = (current) => {
@@ -166,7 +168,6 @@ export default function DetailRestaurant() {
   };
   const disabledDateTime = () => ({
     disabledHours: () => range(0, 24).splice(0, 10),
-    disabledMinutes: () => range(30, 60),
   });
   return (
     <div>
@@ -272,7 +273,12 @@ export default function DetailRestaurant() {
                   defaultValue={amountBook}
                   onChange={onChangeNumber}
                 />
-                <TextArea rows={4} onChange={onChangeNoteBook} />
+                <TextArea
+                  rows={4}
+                  onChange={onChangeNoteBook}
+                  placeholder="Ký tự tối đa 255"
+                  maxLength={255}
+                />
                 <Button onClick={onClickButton}>Đặt bàn</Button>
               </div>
             </div>

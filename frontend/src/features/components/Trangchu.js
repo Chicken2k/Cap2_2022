@@ -4,17 +4,17 @@ import Banner from "../container/trangchu/banner/Banner";
 import Dichvu from "../container/trangchu/dichvu/Dichvu";
 import Footer from "../container/trangchu/footer/Footer";
 import Nhahang from "../container/trangchu/nhahang/Nhahang";
-import Showchat from "./showchat";
+import Tintuc from "../container/trangchu/tintuc/Tintuc";
 export class Trangchu extends Component {
   render() {
     return (
       <div>
         <Banner />
         <Nhahang />
+        <Tintuc />
         <Dichvu />
-        {/* <Tintuc /> */}
         <Footer />
-        <Showchat />
+        {/* <Showchat /> */}
       </div>
     );
   }
