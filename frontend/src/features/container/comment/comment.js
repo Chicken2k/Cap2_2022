@@ -8,7 +8,8 @@ import { monkeyLearnAnalysis } from "../../utils/monkeylearn";
 import "./comment.css";
 export default function Comments() {
   const location = useLocation();
-  const [restaurantId, setRestaurantId] = useState(location.state.id);
+  console.log(location);
+  const [restaurantId, setRestaurantId] = useState(location?.state?.id);
   const [comments, setComments] = useState([]);
   const [binhluan, setBinhluan] = useState("");
   const [replys, setReplys] = useState([]);

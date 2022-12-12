@@ -58,7 +58,7 @@ function NhaHang(props) {
   return (
     <div className="mt-5 mb-5 tour " id="tour">
       <div className="heading text-center">
-        <span>Nhà hàng thành phố đà nẵng</span>
+        <span>Nhà hàng các thành phố</span>
         <div className="hr"></div>
         <p className="mb-4 mt-2">Món ăn Việt - Yêu thương quay về</p>
       </div>
