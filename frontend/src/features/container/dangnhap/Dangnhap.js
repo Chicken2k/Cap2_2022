@@ -36,7 +36,6 @@ function Login(props) {
           .then((data) => {
             return data;
           });
-          console.log('login response: ', loginResponses);
         if (loginResponses.success !== false) {
           localStorage.setItem("token", loginResponses.token);
           localStorage.setItem("userId", loginResponses.user.id);

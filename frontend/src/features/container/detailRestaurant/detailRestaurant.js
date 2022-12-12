@@ -262,7 +262,7 @@ export default function DetailRestaurant() {
                 <DatePicker
                   showTime={{ format: "HH:mm" }}
                   onChange={onChangeDateTime}
-                  format="DD.MM.YYYY HH:mm"
+                  format="YYYY-MM-DD HH:mm:ss"
                   disabledDate={disabledDate}
                   disabledTime={disabledDateTime}
                 />
