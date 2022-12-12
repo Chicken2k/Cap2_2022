@@ -11,8 +11,8 @@ export const OrderRestaurant = () => {
         const orderRestaurants = await orderApi.getAll();
         setListOrderRestaurant(orderRestaurants.data);
     }
-    const confirmRestaurant = async (orderId) => {
-        await orderApi.updateOrder(orderId);
+    const confirmRestaurant = async (orderId, userId) => {
+        await orderApi.updateOrder(orderId, userId);
         getOrderRestaurant();
     }
     const rejectOrderRestaurant = async (orderId) => {
@@ -36,7 +36,7 @@ export const OrderRestaurant = () => {
                 <p>Số lượng chỗ ngồi: {item.quantity}</p>
                 <p>Note: {item.note}</p>
                 <Button type="danger" className="btn btn-reject" onClick={() => rejectOrderRestaurant(item.id)}>Từ chối</Button>
-                <Button type="primary" className="btn btn-approve" onClick={() => confirmRestaurant(item.id)}>Xác nhận</Button>
+                <Button type="primary" className="btn btn-approve" onClick={() => confirmRestaurant(item.id, item.User.id)}>Xác nhận</Button>
             </li>
         )
     });

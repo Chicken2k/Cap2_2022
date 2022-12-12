@@ -39,13 +39,36 @@ exports.create = (req, res) => {
       res.json({ data: data });
     })
     .catch((er) => {
-      throw er;
+      res.status(500).json({
+        success: false,
+        msg: er.message
+      })
     });
 };
 
 exports.update = async(req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params;  
+    const { userId } = req.body;
+    console.log('userId: ', userId);
+    const order = await Order.findOne({
+      where: {
+        id: id
+      },
+      attributes: ['restaurantId']
+    })
+    const restaurant = await Restaurant.findOne({
+      where: {
+        id: order.dataValues.restaurantId
+      },
+      attributes: ['userId']
+    });
+    const userRestaurant = await User.findOne({
+      where: {
+        id: restaurant.dataValues.userId
+      },
+      attributes: ['name', 'email']
+    })
     const body = {
       status: true,
     }
@@ -54,12 +77,19 @@ exports.update = async(req, res) => {
         id: id
       }
     });
-    await mailjet.sendMail();
+    const user = await User.findOne({
+      where: {
+        id: userId
+      },
+      attributes: ['name', 'email']
+    });
+    await mailjet.sendMail(userRestaurant.dataValues, user.dataValues);
     res.status(201).json({
       success: true,
       msg: ResponseString.ORDER_RESTAURANT_CONFIRMED
     })
   } catch (error) {
+    console.log('error nè trời: ', error);
     return res.status(500).json({
       success: false,
       msg: error.message

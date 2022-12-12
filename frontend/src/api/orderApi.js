@@ -17,9 +17,12 @@ class OrderApi {
         message.error("Có lỗi xảy ra!");
       });
   };
-  updateOrder = (orderId) => {
+  updateOrder = (orderId, userId) => {
+    const body = {
+      userId: userId
+    }
     const url =  `/v1/order/${orderId}`;
-    return axiosClient.patch(url)
+    return axiosClient.patch(url, userId)
     .then(() => {
       message.success('Xác nhận thành công');
     });

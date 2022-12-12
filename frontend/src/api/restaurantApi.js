@@ -1,4 +1,5 @@
 import axiosClient from "./axiosClient";
+import { message } from "antd";
 
 class RestaurantApi {
   getAll(query) {
@@ -29,6 +30,9 @@ class RestaurantApi {
       headers: {
         'content-type': 'multipart/form-data'
       }
+    })
+    .then((data) => {
+      message.success("Tạo nhà hàng thành công, hãy chờ admin xét duyệt");
     });
   }
   updateRestaurant(id, body) {
