@@ -1,19 +1,19 @@
 const mailjet = require ('node-mailjet')
 .connect(process.env.API_KEY, process.env.SECRET_KEY)
-const sendMail = () => {
+const sendMail = (userRestaurant, user) => {
     const request = mailjet
     .post("send", {'version': 'v3.1'})
     .request({
     "Messages":[
         {
         "From": {
-            "Email": "nguyenanhdung462@gmail.com",
-            "Name": "Lân Đặng đẹp trai"
+            "Email": `${userRestaurant.email}`,
+            "Name": `${userRestaurant.name}`
         },
         "To": [
             {
-            "Email": "kurochan159357@gmail.com",
-            "Name": "Quý Trần ngốc nghếch"
+                "Email": `${user.email}`,
+                "Name": `${user.name}`
             }
         ],
         "Subject": "Confirmed order restaurant",
@@ -25,7 +25,7 @@ const sendMail = () => {
     })
     request
     .then((result) => {
-        //console.log('successfully: ', result.body)
+        console.log('successfully: ', result.body)
     })
     .catch((err) => {
         console.log('err: ',err.message);
