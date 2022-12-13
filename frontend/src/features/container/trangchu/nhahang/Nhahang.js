@@ -69,7 +69,7 @@ function NhaHang(props) {
             <Select
               style={{ width: 120 }}
               onChange={handleChangeCity}
-              options={city.map((city) => {
+              options={city?.map((city) => {
                 return {
                   value: city.id,
                   label: city.name,
@@ -82,7 +82,7 @@ function NhaHang(props) {
             <Select
               style={{ width: 120 }}
               onChange={handleChangeFood}
-              options={food.map((food) => {
+              options={food?.map((food) => {
                 return {
                   value: food.id,
                   label: food.name,

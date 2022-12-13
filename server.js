@@ -146,6 +146,6 @@ require("./routes/news")(app);
 app.use(function (err, req, res, next) {
   res.status(500).send(err);
 });
-app.listen(process.env.PORT || 666, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log(`Server is listening on port 666`);
 });

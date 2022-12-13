@@ -7,4 +7,11 @@ exports.findAll = (req, res) => {
     .catch((er) => {
       throw er;
     });
+  Food.create(req.body)
+    .then((data) => {
+      res.json({ data: data });
+    })
+    .catch((er) => {
+      throw er;
+    });
 };
