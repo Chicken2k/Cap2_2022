@@ -55,34 +55,34 @@ exports.create = (req, res) => {
     .catch((er) => {
       res.status(500).json({
         success: false,
-        msg: er.message
-      })
+        msg: er.message,
+      });
     });
 };
 
 exports.update = async (req, res) => {
   try {
-    const { id } = req.params;  
+    const { id } = req.params;
     const { userId } = req.body;
-    console.log('userId: ', userId);
+    console.log("userId: ", userId);
     const order = await Order.findOne({
       where: {
-        id: id
+        id: id,
       },
-      attributes: ['restaurantId']
-    })
+      attributes: ["restaurantId"],
+    });
     const restaurant = await Restaurant.findOne({
       where: {
-        id: order.dataValues.restaurantId
+        id: order.dataValues.restaurantId,
       },
-      attributes: ['userId']
+      attributes: ["userId"],
     });
     const userRestaurant = await User.findOne({
       where: {
-        id: restaurant.dataValues.userId
+        id: restaurant.dataValues.userId,
       },
-      attributes: ['name', 'email']
-    })
+      attributes: ["name", "email"],
+    });
     const body = {
       status: true,
     };
@@ -93,9 +93,9 @@ exports.update = async (req, res) => {
     });
     const user = await User.findOne({
       where: {
-        id: userId
+        id: userId,
       },
-      attributes: ['name', 'email']
+      attributes: ["name", "email"],
     });
     await mailjet.sendMail(userRestaurant.dataValues, user.dataValues);
     res.status(201).json({
@@ -103,7 +103,7 @@ exports.update = async (req, res) => {
       msg: ResponseString.ORDER_RESTAURANT_CONFIRMED,
     });
   } catch (error) {
-    console.log('error nè trời: ', error);
+    console.log("error nè trời: ", error);
     return res.status(500).json({
       success: false,
       msg: error.message,
@@ -136,12 +136,15 @@ exports.getOrderRestaurant = async (req, res) => {
     // Lấy danh sách đặt bàn bên trang quản lý restaurant
     const { userId } = req.query;
     const data = await Order.findAll({
-      include: {
-        model: Restaurant,
-        where: {
-          userId,
+      include: [
+        {
+          model: Restaurant,
+          where: {
+            userId,
+          },
         },
-      },
+        User,
+      ],
       where: { status: false },
     });
     return res.status(200).json({
