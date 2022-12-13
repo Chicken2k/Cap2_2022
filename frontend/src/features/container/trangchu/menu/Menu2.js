@@ -247,7 +247,7 @@ function ListMenu(props) {
     <div id="menu2">
       <div className="background ">
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-          <Linkrt className="navbar-brand" to="#">
+          <Linkrt className="navbar-brand" to="/">
             Food2K
           </Linkrt>
           <button

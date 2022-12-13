@@ -13,8 +13,8 @@ export const OrderRestaurant = () => {
     });
     setListOrderRestaurant(orderRestaurants.data);
   };
-  const confirmRestaurant = async (orderId) => {
-    await orderApi.updateOrder(orderId);
+  const confirmRestaurant = async (orderId, userId) => {
+    await orderApi.updateOrder(orderId, userId);
     getOrderRestaurant();
   };
   const rejectOrderRestaurant = async (orderId) => {
@@ -47,7 +47,7 @@ export const OrderRestaurant = () => {
         <Button
           type="primary"
           className="btn btn-approve"
-          onClick={() => confirmRestaurant(item.id)}
+          onClick={() => confirmRestaurant(item.id, item.User.id)}
         >
           Xác nhận
         </Button>
