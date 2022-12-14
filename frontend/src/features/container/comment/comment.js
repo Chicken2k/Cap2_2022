@@ -91,7 +91,7 @@ export default function Comments() {
               ) : (
                 <div
                   style={
-                    item.analyzeComment === "Negative"
+                    item.analyzeComment === "negative"
                       ? { "background-color": "red" }
                       : { "background-color": "green" }
                   }

@@ -23,12 +23,11 @@ class OrderApi {
   };
   updateOrder = (orderId, userId) => {
     const body = {
-      userId: userId
-    }
-    const url =  `/v1/order/${orderId}`;
-    return axiosClient.patch(url, userId)
-    .then(() => {
-      message.success('Xác nhận thành công');
+      userId: userId,
+    };
+    const url = `/v1/order/${orderId}`;
+    return axiosClient.patch(url, body).then(() => {
+      message.success("Xác nhận thành công");
     });
   };
 

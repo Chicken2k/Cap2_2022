@@ -40,14 +40,14 @@ export const OrderRestaurant = () => {
         <Button
           type="danger"
           className="btn btn-reject"
-          onClick={() => rejectOrderRestaurant(item.id)}
+          onClick={() => rejectOrderRestaurant(item?.id)}
         >
           Từ chối
         </Button>
         <Button
           type="primary"
           className="btn btn-approve"
-          onClick={() => confirmRestaurant(item.id, item.User.id)}
+          onClick={() => confirmRestaurant(item?.id, item?.User?.id)}
         >
           Xác nhận
         </Button>
