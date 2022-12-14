@@ -1,4 +1,4 @@
-import { Button, Col, Layout, Row } from "antd";
+import { Button, Col, Empty, Layout, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
@@ -39,7 +39,7 @@ function ManageNews() {
     await adminApi.deleteNews(restaurantId);
     getRestaurants();
   };
-  if (restaurants) {
+  if (restaurants.length) {
     listRestaurant = restaurants.map((item) => {
       return (
         <div className="containerItem">
@@ -107,11 +107,7 @@ function ManageNews() {
   }
   return (
     <div>
-      {restaurants === 0 ? (
-        <div>Danh sách trống</div>
-      ) : (
-        <div>{listRestaurant}</div>
-      )}
+      {restaurants.length === 0 ? <Empty></Empty> : <div>{listRestaurant}</div>}
     </div>
   );
 }

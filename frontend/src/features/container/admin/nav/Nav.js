@@ -7,11 +7,15 @@ import Ngaydi from "..//Ngaydi/Ngaydi";
 import Anh from "../Anh/Anh";
 import Binhluan from "../Binhluan/Binhluan";
 import Chitietbinhluan from "../Binhluan/Chitietbinhluan";
-import Chude from "../Chude/Chude";
+import City from "../Cities/City";
+import Themcity from "../Cities/Themcity";
 import Diadiem from "../DiaDiem/Diadiem";
 import Themdiadiem from "../DiaDiem/Themdiadiem";
 import Dichvu from "../Dichvu/Dichvu";
 import Themdichvu from "../Dichvu/Themdichvu";
+import Foodtype from "../FoodType/Foodtype";
+import Themfood from "../FoodType/Themfood";
+
 import Hoadon from "../Hoadon/Hoadon";
 import { DetailRestaurant } from "../manageRestaurant/detailRestaurant";
 import ManageRestaurantRoleAdmin from "../manageRestaurant/manageRestaurant";
@@ -210,7 +214,22 @@ export default function Nav() {
         <ManageNews />
       </Route>
       <Route path={`${match.path}/food-type`}>
-        <Chude />
+        <Foodtype />
+      </Route>
+      <Route path={`${match.path}/food-type/add`}>
+        <Themfood />
+      </Route>{" "}
+      <Route path={`${match.path}/food-type/edit/:id`}>
+        <Themfood />
+      </Route>
+      <Route path={`${match.path}/cities`}>
+        <City />
+      </Route>
+      <Route path={`${match.path}/cities/add`}>
+        <Themcity />
+      </Route>
+      <Route path={`${match.path}/cities/edit/:id`}>
+        <Themcity />
       </Route>
       {/* <Route path={`${match.path}/tintuc/chitiettintuc/:id`}  >
                 <Chitiettintuc />
@@ -374,7 +393,7 @@ export default function Nav() {
           )
         }
       >
-        <Link to={`${match.url}/manage-news`}>Quản lý thành phố</Link>
+        <Link to={`${match.url}/cities`}>Quản lý thành phố</Link>
       </Menu.Item>
       {/* <Menu.Item key="5" icon={state.collapsed === true ? <span className="fas fa-flag-usa" ></span> : <span className="fas fa-flag-usa mr-2"></span>}>
                 <Link to={`${match.url}/quocgia`}>Quản lý quốc gia</Link>

@@ -1,5 +1,5 @@
-import axiosClient from "./axiosClient";
 import { message } from "antd";
+import axiosClient from "./axiosClient";
 
 class RestaurantApi {
   getAll(query) {
@@ -26,18 +26,21 @@ class RestaurantApi {
   }
   createRestaurant(body) {
     const url = "/v1/restaurants";
-    return axiosClient.post(url, body, {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    })
-    .then((data) => {
-      message.success("Tạo nhà hàng thành công, hãy chờ admin xét duyệt");
-    });
+    return axiosClient
+      .post(url, body, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
+      .then((data) => {
+        message.success("Tạo nhà hàng thành công, hãy chờ admin xét duyệt");
+      });
   }
   updateRestaurant(id, body) {
     const url = `/v1/restaurants/${id}`;
-    return axiosClient.patch(url, body);
+    return axiosClient.patch(url, body).then((data) => {
+      message.success("Sửa thông tin thành công");
+    });
   }
   deleteRestaurant(id) {
     const url = `/v1/restaurants/${id}`;

@@ -11,7 +11,7 @@ import renderHTML from "react-render-html";
 function Tintucdetail(props) {
   localStorage.setItem("menu", "nothome");
   const location = useLocation();
-
+  const role = localStorage.getItem("role");
   const newId = Number(location?.pathname?.split("/")[3]);
   const [tintuc, setTinTuc] = useState({});
   const getTinTuc = async () => {
@@ -33,7 +33,6 @@ function Tintucdetail(props) {
       return ngay + "/" + thang + "/" + nam + " " + gio + ":" + phut;
     }
   };
-  console.log(tintuc);
   return (
     <div id="new-detail">
       <div className="breadcrumb">
@@ -51,30 +50,34 @@ function Tintucdetail(props) {
         </nav>
       </div>
       <div className="content-new">
-        <div className="container bg-white">
-          {!tintuc ? (
-            <Spin></Spin>
-          ) : (
-            <div className="row mt-5 mb-5">
-              <div className="col-md-9" key={tintuc?.id}>
-                <div className="name-new mb-4">
-                  <h2>{tintuc?.data?.name}</h2>
-                </div>
-                <div className="content">
-                  {renderHTML(tintuc?.data?.content || "")}
-                  <div className="text-right">
-                    <p>
-                      Ngày đăng:{" "}
-                      <i>
-                        <strong>{formatdate(tintuc?.data?.createdAt)}</strong>
-                      </i>
-                    </p>
+        {role !== "admin" && !tintuc?.data?.status ? (
+          <p>403 authorized</p>
+        ) : (
+          <div className="container bg-white">
+            {!tintuc ? (
+              <Spin></Spin>
+            ) : (
+              <div className="row mt-5 mb-5">
+                <div className="col-md-9" key={tintuc?.id}>
+                  <div className="name-new mb-4">
+                    <h2>{tintuc?.data?.name}</h2>
+                  </div>
+                  <div className="content">
+                    {renderHTML(tintuc?.data?.content || "")}
+                    <div className="text-right">
+                      <p>
+                        Ngày đăng:{" "}
+                        <i>
+                          <strong>{formatdate(tintuc?.data?.createdAt)}</strong>
+                        </i>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
       {/* <Footer /> */}
     </div>

@@ -8,6 +8,7 @@ import {
   Layout,
   message,
   Modal,
+  Select,
 } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -15,6 +16,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { Container } from "semantic-ui-react";
+import cityApi from "../../../api/cityApi";
+import foodApi from "../../../api/foodApi";
 import orderApi from "../../../api/orderApi";
 import restaurantApi from "../../../api/restaurantApi";
 import Comment from "../comment/comment";
@@ -49,10 +52,25 @@ export default function DetailRestaurant() {
   const [restaurantId, setRestaurantId] = useState(0);
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
+  const [city, setCity] = useState([]);
+  const [food, setFood] = useState([]);
+  const [changeFood, setChangeFood] = useState(0);
+  const [changeCity, setChangeCity] = useState(0);
   const history = useHistory();
   const dispatch = useDispatch();
   const actionResult = async () => {
     await dispatch(restaurantData());
+  };
+
+  const getCity = async () => {
+    const data = await cityApi.getAll();
+    setCity(data.data);
+    return data.data;
+  };
+  const getFood = async () => {
+    const data = await foodApi.getAll();
+    setFood(data.data);
+    return data.data;
   };
   const [restaurantInfor, setRestaurantInfor] = useState({
     name: "",
@@ -63,11 +81,13 @@ export default function DetailRestaurant() {
   const { name, description, address, phoneNumber } = restaurantInfor;
   const getRestaurant = async () => {
     const restaurantItem = await restaurantApi.getRestaurantById(
-      location.state.id
+      location?.state?.id
     );
     setRestaurant(restaurantItem.data);
   };
   useEffect(() => {
+    getCity();
+    getFood();
     getRestaurant();
     const userRole = localStorage.getItem("role");
     const userId = localStorage.getItem("userId");
@@ -116,6 +136,8 @@ export default function DetailRestaurant() {
     if (restaurantInfor.phoneNumber !== "") {
       restaurantBody.phoneNumber = restaurantInfor.phoneNumber;
     }
+    restaurantBody.foodId = changeFood;
+    restaurantBody.cityId = changeCity;
     await restaurantApi.updateRestaurant(restaurantId, restaurantBody);
     actionResult();
     getRestaurant();
@@ -154,6 +176,12 @@ export default function DetailRestaurant() {
       history.push("/thongtin/0");
     }
   };
+  const handleChangeCity = async (value) => {
+    setChangeCity(value);
+  };
+  const handleChangeFood = async (value) => {
+    setChangeFood(value);
+  };
   const disabledDate = (current) => {
     // Can not select days before today and today
     return current && current < dayjs().endOf("day");
@@ -171,120 +199,126 @@ export default function DetailRestaurant() {
   });
   return (
     <div>
-      <Layout>
-        <Content className="containerCarousel">
-          <Container style={{ margin: 20 }}>
-            <Carousel autoplay>
-              <div style={contentStyle}>
-                <img
-                  src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"
-                  alt="restaurant"
-                  width="300"
-                  height="160"
-                />
-              </div>
-              <div style={contentStyle}>
-                <img
-                  src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                  alt="restaurant"
-                  width="300"
-                  height="160"
-                />
-              </div>
-              <div style={contentStyle}>
-                <img
-                  src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-                  alt="restaurant"
-                  width="300"
-                  height="160"
-                />
-              </div>
-              <div style={contentStyle}>
-                <img
-                  src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-                  alt="restaurant"
-                  width="300"
-                  height="160"
-                />
-              </div>
-            </Carousel>
-          </Container>
+      {userRole === "customer" && !restaurant?.status ? (
+        <p>403 Authorized</p>
+      ) : (
+        <Layout>
+          <Content className="containerCarousel">
+            <Container style={{ margin: 20 }}>
+              <Carousel autoplay>
+                <div style={contentStyle}>
+                  <img
+                    src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"
+                    alt="restaurant"
+                    width="300"
+                    height="160"
+                  />
+                </div>
+                <div style={contentStyle}>
+                  <img
+                    src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                    alt="restaurant"
+                    width="300"
+                    height="160"
+                  />
+                </div>
+                <div style={contentStyle}>
+                  <img
+                    src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+                    alt="restaurant"
+                    width="300"
+                    height="160"
+                  />
+                </div>
+                <div style={contentStyle}>
+                  <img
+                    src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+                    alt="restaurant"
+                    width="300"
+                    height="160"
+                  />
+                </div>
+              </Carousel>
+            </Container>
 
-          <Container style={{ margin: 20 }}>
-            <Descriptions title="Thông tin nhà hàng">
-              <Descriptions.Item label="Tên nhà hàng">
-                {restaurant.name}
-              </Descriptions.Item>
-              <Descriptions.Item label="Description">
-                {restaurant.description}
-              </Descriptions.Item>
-              <Descriptions.Item label="Address">
-                {restaurant.address}
-              </Descriptions.Item>
-              <Descriptions.Item label="Số điện thoại liên hệ:">
-                {restaurant.phoneNumber}
-              </Descriptions.Item>
-            </Descriptions>
-          </Container>
+            <Container style={{ margin: 20 }}>
+              <Descriptions title="Thông tin nhà hàng">
+                <Descriptions.Item label="Tên nhà hàng">
+                  {restaurant.name}
+                </Descriptions.Item>
+                <Descriptions.Item label="Description">
+                  {restaurant.description}
+                </Descriptions.Item>
+                <Descriptions.Item label="Address">
+                  {restaurant.address}
+                </Descriptions.Item>
+                <Descriptions.Item label="Số điện thoại liên hệ:">
+                  {restaurant.phoneNumber}
+                </Descriptions.Item>
+              </Descriptions>
+            </Container>
 
-          {/* <div className="restaurant-information">
-            <h3 class="box-title">
+            {/* <div className="restaurant-information">
+                <h3 class="box-title">
+                  <Comment></Comment>
+                </h3>
+              </div> */}
+            <Container style={{ margin: 20 }}>
               <Comment></Comment>
-            </h3>
-          </div> */}
-          <Container style={{ margin: 20 }}>
-            <Comment></Comment>
-            {/* <Danhgia></Danhgia> */}
-          </Container>
-        </Content>
-        <Sider className="actionUser">
-          {userRole === "restaurant" ? (
-            <div>
-              <Button
-                type="primary"
-                className="btn-restaurant"
-                onClick={() => openModalDelete(restaurant.id)}
-              >
-                Đóng cửa
-              </Button>
-              <Button
-                type="primary"
-                className="btn-restaurant"
-                onClick={() => openModalUpdate(restaurant.id)}
-              >
-                Sửa
-              </Button>
-            </div>
-          ) : (
-            <div className="book-edit-restaurant">
-              <h2>Đặt chỗ nhà hàng</h2>
-              <div className="form-dat-ban">
-                <DatePicker
-                  showTime={{ format: "HH:mm" }}
-                  onChange={onChangeDateTime}
-                  format="YYYY-MM-DD HH:mm:ss"
-                  disabledDate={disabledDate}
-                  disabledTime={disabledDateTime}
-                />
-
-                <InputNumber
-                  min={1}
-                  max={10}
-                  defaultValue={amountBook}
-                  onChange={onChangeNumber}
-                />
-                <TextArea
-                  rows={4}
-                  onChange={onChangeNoteBook}
-                  placeholder="Ký tự tối đa 255"
-                  maxLength={255}
-                />
-                <Button onClick={onClickButton}>Đặt bàn</Button>
+              {/* <Danhgia></Danhgia> */}
+            </Container>
+          </Content>
+          <Sider className="actionUser">
+            {userRole === "restaurant" ? (
+              <div>
+                <Button
+                  type="primary"
+                  className="btn-restaurant"
+                  onClick={() => openModalDelete(restaurant.id)}
+                >
+                  Đóng cửa
+                </Button>
+                <Button
+                  type="primary"
+                  className="btn-restaurant"
+                  onClick={() => openModalUpdate(restaurant.id)}
+                >
+                  Sửa
+                </Button>
               </div>
-            </div>
-          )}
-        </Sider>
-      </Layout>
+            ) : (
+              <div className="book-edit-restaurant">
+                <h2>Đặt chỗ nhà hàng</h2>
+                <div className="form-dat-ban">
+                  <DatePicker
+                    showTime={{ format: "HH:mm" }}
+                    onChange={onChangeDateTime}
+                    format="YYYY-MM-DD HH:mm:ss"
+                    disabledDate={disabledDate}
+                    disabledTime={disabledDateTime}
+                  />
+
+                  <InputNumber
+                    min={1}
+                    max={10}
+                    defaultValue={amountBook}
+                    onChange={onChangeNumber}
+                  />
+                  <TextArea
+                    rows={4}
+                    onChange={onChangeNoteBook}
+                    placeholder="Ký tự tối đa 255"
+                    detail-restaurant
+                    maxLength={255}
+                  />
+                  <Button onClick={onClickButton}>Đặt bàn</Button>
+                </div>
+              </div>
+            )}
+          </Sider>
+        </Layout>
+      )}
+
       <Modal
         title="Bạn có muốn đóng cửa nhà hàng này?"
         visible={isModalVisibleDelete}
@@ -337,6 +371,32 @@ export default function DetailRestaurant() {
               value={phoneNumber}
               placeholder={phoneNumber}
               onChange={onChange}
+            />
+          </div>
+          <div>
+            <label className="labelInput">Loại thức ăn</label>
+            <Select
+              style={{ width: 120 }}
+              onChange={handleChangeFood}
+              options={food?.map((food) => {
+                return {
+                  value: food.id,
+                  label: food.name,
+                };
+              })}
+            />
+          </div>
+          <div>
+            <label className="labelInput">Thành phố</label>
+            <Select
+              style={{ width: 120 }}
+              onChange={handleChangeCity}
+              options={city?.map((city) => {
+                return {
+                  value: city.id,
+                  label: city.name,
+                };
+              })}
             />
           </div>
         </form>
