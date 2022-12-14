@@ -57,29 +57,29 @@ export default function Lichsu() {
                     <table>
                       <tr>
                         <th>Ngày đặt bàn &emsp;&emsp;</th>
-                        <th>{new Date(ok.date)?.toDateString()}</th>
+                        <th>{new Date(ok?.date)?.toDateString()}</th>
                       </tr>
                       <tr>
                         <th>Thời gian</th>
                         <th>
-                          {new Date(ok.date).getHours() +
+                          {new Date(ok?.date).getHours() +
                             ":" +
-                            new Date(ok.date).getMinutes()}
+                            new Date(ok?.date).getMinutes()}
                         </th>
                       </tr>
                       <tr>
                         <th>Địa chỉ nhà hàng</th>
-                        <th>{ok?.Restaurant.address}</th>
+                        <th>{ok?.Restaurant?.address}</th>
                       </tr>
                     </table>
                     <table className="nmn">
                       <tr>
                         <th>Tên khách hàng &emsp;&emsp;</th>
-                        <th>{ok.User.name}</th>
+                        <th>{ok?.User?.name}</th>
                       </tr>
                       <tr>
                         <th>Số lượng khách</th>
-                        <th>{ok.quantity}</th>
+                        <th>{ok?.quantity}</th>
                       </tr>
                       <tr>
                         <th>Ghi chú</th>
