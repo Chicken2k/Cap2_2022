@@ -13,7 +13,7 @@ function Footer(props) {
         <div className="container-fluid text-center text-md-left">
           <div className="row">
             {
-              <div className="col-md-6 mt-md-0 mt-3" >
+              <div className="col-md-6 mt-md-0 mt-3 color_hienthi" >
                 <h5 className="text-uppercase text-danger mt-3 footer">Liên hệ</h5>
                 <p>
                   <strong>Email: </strong>
@@ -61,10 +61,13 @@ function Footer(props) {
               </ul>
             </div>
             <div className="col-md-3 mb-md-0 mb-3 mxh ">
-              <h5 className="text-uppercase text-danger footer">Thanh vien</h5>
+              <h5 className="text-uppercase text-danger footer">Thành viên</h5>
               {
                 <ul className="text_footer">
                   <li>Đặng Công Lân</li>
+                  <li>Nguyễn Huy Hoàng</li>
+                  <li>Nguyễn Công Hậu</li>
+                  <li>Nguyễn Tú</li>
                 </ul>
               }
             </div>
