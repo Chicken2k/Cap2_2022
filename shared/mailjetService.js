@@ -7,7 +7,7 @@ const sendMail = (userRestaurant, user) => {
     "Messages":[
         {
         "From": {
-            "Email": `${userRestaurant.email}`,
+            "Email": "nguyenanhdung462@gmail.com",
             "Name": `${userRestaurant.name}`
         },
         "To": [
@@ -16,6 +16,7 @@ const sendMail = (userRestaurant, user) => {
                 "Name": `${user.name}`
             }
         ],
+        "TemplateID": 4439653,
         "Subject": "Confirmed order restaurant",
         "TextPart": "My first Mailjet email",
         "HTMLPart": "Bàn bạn đặt đã được xác nhận. Chúc bạn có một bữa ăn ngon miệng.",
@@ -25,7 +26,7 @@ const sendMail = (userRestaurant, user) => {
     })
     request
     .then((result) => {
-        console.log('successfully: ', result.body)
+        console.log('successfully: ', result.body.Messages[0].To)
     })
     .catch((err) => {
         console.log('err: ',err.message);
