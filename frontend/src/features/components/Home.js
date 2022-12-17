@@ -49,6 +49,7 @@ import { OrderRestaurant } from "../container/listOrderRestaurant/orderRestauran
 
 import CardLineChart from "../container/statistical/statistical";
 import Stripe from "../teststripe/Stripe";
+import { ErrorBoundary } from "./errorBoundary/errorBoundary";
 
 export default function NestingExample() {
   const dispatch = useDispatch();
