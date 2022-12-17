@@ -21,6 +21,7 @@ import cityApi from "../../../api/cityApi";
 import foodApi from "../../../api/foodApi";
 import orderApi from "../../../api/orderApi";
 import restaurantApi from "../../../api/restaurantApi";
+import imageApi from "../../../api/imageApi";
 import Comment from "../comment/comment";
 
 import { restaurantData } from "../manageRestaurant/restaurantSlice";
@@ -60,6 +61,7 @@ export default function DetailRestaurant() {
   const [food, setFood] = useState([]);
   const [changeFood, setChangeFood] = useState(0);
   const [changeCity, setChangeCity] = useState(0);
+  const [ images, setListImage ] = useState([]);
   const history = useHistory();
   const dispatch = useDispatch();
   const actionResult = async () => {
@@ -89,6 +91,8 @@ export default function DetailRestaurant() {
       location?.state?.id
     );
     setRestaurant(restaurantItem.data);
+    const listImage = await imageApi.getAll(location?.state?.id);
+    setListImage(listImage.data);
   };
   useEffect(() => {
     getCity();
@@ -202,6 +206,18 @@ export default function DetailRestaurant() {
   const disabledDateTime = () => ({
     disabledHours: () => range(0, 24).splice(0, 10),
   });
+  let renderImage = images.map((item) => {
+    return (
+      <div style={contentStyle}>
+        <img
+          src={item ? item : "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"}
+          alt="restaurant"
+          width="800"
+          height="460"
+        />
+      </div>
+    )
+  })
   return (
     <div className="all">
       {userRole === "customer" && !restaurant?.status ? (
@@ -209,42 +225,16 @@ export default function DetailRestaurant() {
       ) : (
         <Layout>
           <Content className="containerCarousel">
+            <Container style={{ margin: 20 }}>
+              <Carousel autoplay>
+                {renderImage}
+              </Carousel>
+            </Container>
             <Container className="Thongtinnhahangcolor">
               <div className="row card_products justify-content-center">
                 <div className="col-7 col-sm-8 col-md-8 col-lg-5 ">
                   <Carousel autoplay>
-                    <div style={contentStyle}>
-                      <img
-                        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"
-                        alt="restaurant"
-                        width="300"
-                        height="160"
-                      />
-                    </div>
-                    <div style={contentStyle}>
-                      <img
-                        src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cmVzdGF1cmFudHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                        alt="restaurant"
-                        width="300"
-                        height="160"
-                      />
-                    </div>
-                    <div style={contentStyle}>
-                      <img
-                        src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-                        alt="restaurant"
-                        width="300"
-                        height="160"
-                      />
-                    </div>
-                    <div style={contentStyle}>
-                      <img
-                        src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHJlc3RhdXJhbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-                        alt="restaurant"
-                        width="300"
-                        height="160"
-                      />
-                    </div>
+                    {renderImage}
                   </Carousel>
                 </div>
                 <div

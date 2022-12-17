@@ -15,6 +15,7 @@ getAll = async (req, res) => {
     if (!objQuery) restaurants = await Restaurant.findAll();
     restaurants = await Restaurant.findAll({
       where: objQuery,
+      include: { model: Image}
     });
     res.status(200).json({
       successful: true,
