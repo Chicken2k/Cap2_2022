@@ -93,7 +93,10 @@ function Tintuc(props) {
                           <img
                             alt="example"
                             display="block"
-                            src="https://www.scb.com.vn/picture/redsun_01_03_08_2019_14_23_45_.jpg"
+                            src={
+                              ok?.image ||
+                              "https://www.scb.com.vn/picture/redsun_01_03_08_2019_14_23_45_.jpg"
+                            }
                             max-width="100%"
                             height="auto"
                           />

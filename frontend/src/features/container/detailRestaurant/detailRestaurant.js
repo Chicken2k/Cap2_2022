@@ -19,9 +19,9 @@ import { useHistory, useLocation } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import cityApi from "../../../api/cityApi";
 import foodApi from "../../../api/foodApi";
+import imageApi from "../../../api/imageApi";
 import orderApi from "../../../api/orderApi";
 import restaurantApi from "../../../api/restaurantApi";
-import imageApi from "../../../api/imageApi";
 import Comment from "../comment/comment";
 
 import { restaurantData } from "../manageRestaurant/restaurantSlice";
@@ -61,7 +61,7 @@ export default function DetailRestaurant() {
   const [food, setFood] = useState([]);
   const [changeFood, setChangeFood] = useState(0);
   const [changeCity, setChangeCity] = useState(0);
-  const [ images, setListImage ] = useState([]);
+  const [images, setListImage] = useState([]);
   const history = useHistory();
   const dispatch = useDispatch();
   const actionResult = async () => {
@@ -133,24 +133,36 @@ export default function DetailRestaurant() {
 
   const onOkUpdate = async () => {
     let restaurantBody = {};
-    if (restaurantInfor.name !== "") {
-      restaurantBody.name = restaurantInfor.name;
+    const { name, address, description, phoneNumber } = restaurantInfor;
+    if (
+      !name ||
+      !address ||
+      !description ||
+      !phoneNumber ||
+      !restaurantBody?.foodId ||
+      !restaurantBody?.cityId
+    )
+      message.error("Bạn chưa nhập đủ thông tin");
+    else {
+      if (restaurantInfor.name !== "") {
+        restaurantBody.name = restaurantInfor.name;
+      }
+      if (restaurantInfor.address !== "") {
+        restaurantBody.address = restaurantInfor.address;
+      }
+      if (restaurantInfor.description !== "") {
+        restaurantBody.description = restaurantInfor.description;
+      }
+      if (restaurantInfor.phoneNumber !== "") {
+        restaurantBody.phoneNumber = restaurantInfor.phoneNumber;
+      }
+      restaurantBody.foodId = changeFood;
+      restaurantBody.cityId = changeCity;
+      await restaurantApi.updateRestaurant(restaurantId, restaurantBody);
+      actionResult();
+      getRestaurant();
+      setIsModalVisibleUpdate(false);
     }
-    if (restaurantInfor.address !== "") {
-      restaurantBody.address = restaurantInfor.address;
-    }
-    if (restaurantInfor.description !== "") {
-      restaurantBody.description = restaurantInfor.description;
-    }
-    if (restaurantInfor.phoneNumber !== "") {
-      restaurantBody.phoneNumber = restaurantInfor.phoneNumber;
-    }
-    restaurantBody.foodId = changeFood;
-    restaurantBody.cityId = changeCity;
-    await restaurantApi.updateRestaurant(restaurantId, restaurantBody);
-    actionResult();
-    getRestaurant();
-    setIsModalVisibleUpdate(false);
   };
   const onChange = (e) => {
     setRestaurantInfor({
@@ -210,14 +222,18 @@ export default function DetailRestaurant() {
     return (
       <div style={contentStyle}>
         <img
-          src={item ? item : "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"}
+          src={
+            item
+              ? item
+              : "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80img_girl.jpg"
+          }
           alt="restaurant"
           width="800"
           height="460"
         />
       </div>
-    )
-  })
+    );
+  });
   return (
     <div className="all">
       {userRole === "customer" && !restaurant?.status ? (
@@ -226,16 +242,12 @@ export default function DetailRestaurant() {
         <Layout>
           <Content className="containerCarousel">
             <Container style={{ margin: 20 }}>
-              <Carousel autoplay>
-                {renderImage}
-              </Carousel>
+              <Carousel autoplay>{renderImage}</Carousel>
             </Container>
             <Container className="Thongtinnhahangcolor">
               <div className="row card_products justify-content-center">
                 <div className="col-7 col-sm-8 col-md-8 col-lg-5 ">
-                  <Carousel autoplay>
-                    {renderImage}
-                  </Carousel>
+                  <Carousel autoplay>{renderImage}</Carousel>
                 </div>
                 <div
                   className="card_products_name body_cart col-5 col-sm-4 col-md-4 col-lg-7 "
