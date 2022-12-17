@@ -1,5 +1,6 @@
 const ResponseString = require("../constants/error");
 const Restaurant = require("../models").Restaurant;
+const User = require("../models").User;
 const News = require("../models").News;
 
 getAllRestaurant = async (req, res) => {
@@ -9,6 +10,7 @@ getAllRestaurant = async (req, res) => {
       where: {
         status: false,
       },
+      include: [{ model: User }],
     });
     res.status(200).json({
       success: true,
@@ -43,6 +45,41 @@ getRestaurantById = async (req, res) => {
     });
   }
 };
+getAllRestaurantManage = async (req, res) => {
+  try {
+    const restaurants = await Restaurant.findAll({
+      include: [{ model: User }],
+    });
+    res.status(200).json({
+      success: true,
+      data: restaurants,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
+getAllNewManage = async (req, res) => {
+  try {
+    const restaurants = await News.findAll({
+      include: [
+        { model: Restaurant, attributes: ["id", "name", "address"] },
+        { model: User },
+      ],
+    });
+    res.status(200).json({
+      success: true,
+      data: restaurants,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
 updateRestaurant = async (req, res) => {
   try {
     const { id } = req.params;
@@ -74,7 +111,10 @@ getNews = async (req, res) => {
       where: {
         status: false,
       },
-      include: [{ model: Restaurant, attributes: ["id", "name", "address"] }],
+      include: [
+        { model: Restaurant, attributes: ["id", "name", "address"] },
+        { model: User },
+      ],
     });
     res.status(200).json({
       success: true,
@@ -118,6 +158,16 @@ deleteNews = (req, res) => {
       throw er;
     });
 };
+
+deleteRestaurant = (req, res) => {
+  Restaurant.destroy({ where: { id: req.params.id } })
+    .then((data) => {
+      res.json({ data: data });
+    })
+    .catch((er) => {
+      throw er;
+    });
+};
 module.exports = {
   getAllRestaurant,
   getRestaurantById,
@@ -125,4 +175,7 @@ module.exports = {
   getNews,
   updateNews,
   deleteNews,
+  deleteRestaurant,
+  getAllRestaurantManage,
+  getAllNewManage,
 };

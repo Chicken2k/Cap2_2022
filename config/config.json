@@ -1,10 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": "trandaiquy123",
+    "password": "admin",
     "database": "restaurant",
     "host": "localhost",
-    "port": "3306",
+    "port": "3006",
     "dialect": "mysql",
     "logging": false
   }

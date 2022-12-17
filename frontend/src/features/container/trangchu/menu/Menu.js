@@ -137,6 +137,19 @@ function ListMenu(props) {
         ""
       )}
       {users ? (
+        users.role === "restaurant" ? (
+          <Menu.Item key="3">
+            <Linkrt to="/restaurant-information" className="nav-link">
+              Quản lý nhà hàng
+            </Linkrt>
+          </Menu.Item>
+        ) : (
+          ""
+        )
+      ) : (
+        ""
+      )}
+      {users ? (
         phanquyen() ? (
           <Menu.Item key="3">
             <Linkrt to="/admin" className="nav-link">
@@ -326,7 +339,7 @@ function ListMenu(props) {
   return (
     <div id="menu">
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-        <Linkrt className="navbar-brand" to="/">
+        <Linkrt className="food2k navbar-brand" to="/">
           Food2K
         </Linkrt>
         <button
@@ -344,7 +357,7 @@ function ListMenu(props) {
           <ul className="navbar-nav ml-auto">
             <li className="nav-item ">
               <Link
-                className="nav-link"
+                className="nav-link "
                 activeClass="active"
                 to="banner"
                 spy={true}

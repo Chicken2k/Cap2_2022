@@ -75,12 +75,13 @@ function Tintuc(props) {
         <div className="row mb-4" style={{ margin: "0, auto" }}>
           {tintucs?.length ? (
             tintucs.slice(0, 4).map((ok) => (
-              <div className="col-sm-6 mb-3 site-card-wrapper" key={ok?.id}>
+              <div className="col-sm-6  site-card-wrapper" key={ok?.id}>
                 <Linkrt to={`/news/detail/${ok?.id}`}>
                   <Row
                     justify={"space-between"}
                     style={{ border: "1px solid" }}
                     wrap={true}
+                    className="boder_title"
                   >
                     <Col>
                       <Card
