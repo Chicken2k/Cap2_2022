@@ -70,8 +70,8 @@ export default function Comments() {
   };
   return (
     <Comment.Group>
-      <Header as="h3" dividing>
-        Comments
+      <Header as="h1" className="tieude" dividing>
+        Bình luận
       </Header>
       {!comments.length ? (
         <div className="spin">
@@ -169,9 +169,11 @@ export default function Comments() {
             ></textarea>
           </div>
           <div className="position-relative">
-            <Button htmlType="submit" type="primary" className="btn-dg">
+          
+          <button htmlType="submit" type="primary" className="custom-btn btn-5"><span> Thêm phản hồi</span></button>
+            {/* <Button htmlType="submit" type="primary" className="btn-dg">
               Thêm phản hồi
-            </Button>
+            </Button> */}
           </div>
         </form>
       </div>

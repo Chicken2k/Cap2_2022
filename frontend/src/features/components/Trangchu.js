@@ -5,6 +5,7 @@ import Dichvu from "../container/trangchu/dichvu/Dichvu";
 import Footer from "../container/trangchu/footer/Footer";
 import Nhahang from "../container/trangchu/nhahang/Nhahang";
 import Tintuc from "../container/trangchu/tintuc/Tintuc";
+import Chat2 from "./Chat2";
 export class Trangchu extends Component {
   render() {
     return (
@@ -15,6 +16,7 @@ export class Trangchu extends Component {
         <Dichvu />
         <Footer />
         {/* <Showchat /> */}
+        <Chat2/>
       </div>
     );
   }

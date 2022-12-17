@@ -127,6 +127,10 @@ function NhaHang(props) {
                     <div className="star float-left">
                       <Rate value="5" disabled />
                     </div>
+                    <div>
+                    <button className="custom-btn btn-5"><span>Đặt bàn</span></button>
+                    </div>
+                    
                     {/* <div className="money float-left ml-3 text-warning">
                     {
                       <div>

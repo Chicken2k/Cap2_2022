@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "trandaiquy123",
-    "database": "restaurant",
+    "password": "dcldcl123",
+    "database": "datban3",
     "host": "localhost",
     "port": "3306",
     "dialect": "mysql",
