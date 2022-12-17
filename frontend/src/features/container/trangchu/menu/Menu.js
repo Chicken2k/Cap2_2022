@@ -137,6 +137,19 @@ function ListMenu(props) {
         ""
       )}
       {users ? (
+        users.role === "restaurant" ? (
+          <Menu.Item key="3">
+            <Linkrt to="/restaurant-information" className="nav-link">
+              Quản lý nhà hàng
+            </Linkrt>
+          </Menu.Item>
+        ) : (
+          ""
+        )
+      ) : (
+        ""
+      )}
+      {users ? (
         phanquyen() ? (
           <Menu.Item key="3">
             <Linkrt to="/admin" className="nav-link">
