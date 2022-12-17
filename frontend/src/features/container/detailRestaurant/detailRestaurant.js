@@ -8,6 +8,7 @@ import {
   Layout,
   message,
   Modal,
+  Select,
 } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -15,6 +16,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { Container } from "semantic-ui-react";
+import cityApi from "../../../api/cityApi";
+import foodApi from "../../../api/foodApi";
 import orderApi from "../../../api/orderApi";
 import restaurantApi from "../../../api/restaurantApi";
 import Comment from "../comment/comment";
@@ -49,10 +52,25 @@ export default function DetailRestaurant() {
   const [restaurantId, setRestaurantId] = useState(0);
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
+  const [city, setCity] = useState([]);
+  const [food, setFood] = useState([]);
+  const [changeFood, setChangeFood] = useState(0);
+  const [changeCity, setChangeCity] = useState(0);
   const history = useHistory();
   const dispatch = useDispatch();
   const actionResult = async () => {
     await dispatch(restaurantData());
+  };
+
+  const getCity = async () => {
+    const data = await cityApi.getAll();
+    setCity(data.data);
+    return data.data;
+  };
+  const getFood = async () => {
+    const data = await foodApi.getAll();
+    setFood(data.data);
+    return data.data;
   };
   const [restaurantInfor, setRestaurantInfor] = useState({
     name: "",
@@ -63,11 +81,13 @@ export default function DetailRestaurant() {
   const { name, description, address, phoneNumber } = restaurantInfor;
   const getRestaurant = async () => {
     const restaurantItem = await restaurantApi.getRestaurantById(
-      location.state.id
+      location?.state?.id
     );
     setRestaurant(restaurantItem.data);
   };
   useEffect(() => {
+    getCity();
+    getFood();
     getRestaurant();
     const userRole = localStorage.getItem("role");
     const userId = localStorage.getItem("userId");
@@ -116,6 +136,8 @@ export default function DetailRestaurant() {
     if (restaurantInfor.phoneNumber !== "") {
       restaurantBody.phoneNumber = restaurantInfor.phoneNumber;
     }
+    restaurantBody.foodId = changeFood;
+    restaurantBody.cityId = changeCity;
     await restaurantApi.updateRestaurant(restaurantId, restaurantBody);
     actionResult();
     getRestaurant();
@@ -154,6 +176,12 @@ export default function DetailRestaurant() {
       history.push("/thongtin/0");
     }
   };
+  const handleChangeCity = async (value) => {
+    setChangeCity(value);
+  };
+  const handleChangeFood = async (value) => {
+    setChangeFood(value);
+  };
   const disabledDate = (current) => {
     // Can not select days before today and today
     return current && current < dayjs().endOf("day");
@@ -171,6 +199,9 @@ export default function DetailRestaurant() {
   });
   return (
     <div className="all">
+    {userRole === "customer" && !restaurant?.status ? (
+        <p>403 Authorized</p>
+      ) : (
       <Layout>
         <Content className="containerCarousel">
           <Container className="Thongtinnhahangcolor">
@@ -341,6 +372,7 @@ export default function DetailRestaurant() {
           
         </Content>
       </Layout>
+      )}
       <Modal
         title="Bạn có muốn đóng cửa nhà hàng này?"
         visible={isModalVisibleDelete}
@@ -393,6 +425,32 @@ export default function DetailRestaurant() {
               value={phoneNumber}
               placeholder={phoneNumber}
               onChange={onChange}
+            />
+          </div>
+          <div>
+            <label className="labelInput">Loại thức ăn</label>
+            <Select
+              style={{ width: 120 }}
+              onChange={handleChangeFood}
+              options={food?.map((food) => {
+                return {
+                  value: food.id,
+                  label: food.name,
+                };
+              })}
+            />
+          </div>
+          <div>
+            <label className="labelInput">Thành phố</label>
+            <Select
+              style={{ width: 120 }}
+              onChange={handleChangeCity}
+              options={city?.map((city) => {
+                return {
+                  value: city.id,
+                  label: city.name,
+                };
+              })}
             />
           </div>
         </form>

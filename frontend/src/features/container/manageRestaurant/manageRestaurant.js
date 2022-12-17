@@ -1,8 +1,10 @@
-import { Button, Col, Empty, Modal, Row } from "antd";
+import { Button, Col, Empty, message, Modal, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
+import cityApi from "../../../api/cityApi";
+import foodApi from "../../../api/foodApi";
 import restaurantApi from "../../../api/restaurantApi";
 import Footer from "../trangchu/footer/Footer";
 import "./checkactive.js";
@@ -22,6 +24,20 @@ export default function Listtour() {
   const [restaurantId, setRestaurantId] = useState(0);
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
+  const [city, setCity] = useState([]);
+  const [food, setFood] = useState([]);
+  const [changeFood, setChangeFood] = useState(0);
+  const [changeCity, setChangeCity] = useState(0);
+  const getCity = async () => {
+    const data = await cityApi.getAll();
+    setCity(data.data);
+    return data.data;
+  };
+  const getFood = async () => {
+    const data = await foodApi.getAll();
+    setFood(data.data);
+    return data.data;
+  };
   const dispatch = useDispatch();
   const restaurants = useSelector(
     (state) => state.restaurants.restaurants.data
@@ -32,9 +48,10 @@ export default function Listtour() {
   };
   const { name, description, address, phoneNumber, files } = restaurantInfor;
   useEffect(() => {
+    getCity();
+    getFood();
     actionResult();
   }, []);
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
@@ -47,22 +64,29 @@ export default function Listtour() {
   };
   const onSubmit = async () => {
     const userId = localStorage.getItem("userId");
-    const restaurantBody = {
-      name: restaurantInfor.name,
-      phoneNumber: restaurantInfor.phoneNumber,
-      description: restaurantInfor.description,
-      address: restaurantInfor.address,
-      userId: userId,
-    };
-    let formData = new FormData();
-    formData.append("name", restaurantInfor.name);
-    formData.append("phoneNumber", restaurantInfor.phoneNumber);
-    formData.append("description", restaurantInfor.description);
-    formData.append("address", restaurantInfor.address);
-    formData.append("userId", userId);
-    formData.append("image", selectedFile);
-    await restaurantApi.createRestaurant(formData);
-    actionResult();
+    if (!changeCity || !changeFood || !restaurantInfor || !userId)
+      message.error("Chưa điền đủ thông tin");
+    else {
+      const restaurantBody = {
+        name: restaurantInfor.name,
+        phoneNumber: restaurantInfor.phoneNumber,
+        description: restaurantInfor.description,
+        address: restaurantInfor.address,
+        userId: userId,
+      };
+      let formData = new FormData();
+      formData.append("name", restaurantInfor.name);
+      formData.append("phoneNumber", restaurantInfor.phoneNumber);
+      formData.append("description", restaurantInfor.description);
+      formData.append("address", restaurantInfor.address);
+      formData.append("userId", userId);
+      formData.append("status", 0);
+      formData.append("image", selectedFile);
+      formData.append("foodId", changeFood);
+      formData.append("cityId", changeCity);
+      await restaurantApi.createRestaurant(formData);
+      actionResult();
+    }
   };
   const onOk = () => {
     onSubmit();
@@ -80,6 +104,12 @@ export default function Listtour() {
       pathname: `/detail-restaurant/${restaurantId}`,
       state: { id: restaurantId },
     });
+  };
+  const handleChangeCity = async (value) => {
+    setChangeCity(value);
+  };
+  const handleChangeFood = async (value) => {
+    setChangeFood(value);
   };
   let listRestaurant;
   if (restaurants) {
@@ -173,6 +203,33 @@ export default function Listtour() {
                 onChange={onChange}
               />
             </div>
+            <div>
+              <label className="labelInput">Loại thức ăn</label>
+              <Select
+                style={{ width: 120 }}
+                onChange={handleChangeFood}
+                options={food?.map((food) => {
+                  return {
+                    value: food.id,
+                    label: food.name,
+                  };
+                })}
+              />
+            </div>
+            <div>
+              <label className="labelInput">Thành phố</label>
+              <Select
+                style={{ width: 120 }}
+                onChange={handleChangeCity}
+                options={city?.map((city) => {
+                  return {
+                    value: city.id,
+                    label: city.name,
+                  };
+                })}
+              />
+            </div>
+
             <div class="form-group">
               <label for="formFileMultiple" class="form-label">
                 Chọn ảnh nhà hàng

@@ -82,7 +82,7 @@ function Themtintuc(props) {
             userId: Number(props.userId),
           });
           if (data) setState({ ...state, load: false });
-          message.success("Thêm tin tức thành công");
+          message.success("Thêm tin tức thành công, hãy chờ được duyệt");
           setState({ ...state, name: "" });
           setcontent("");
         }

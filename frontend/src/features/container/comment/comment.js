@@ -20,11 +20,11 @@ export default function Comments() {
     getComment();
     const userId = localStorage.getItem("userId");
     setUserId(userId);
-    setRestaurantId(location.state.id);
+    setRestaurantId(location?.state?.id);
     getReply();
   }, []);
   const getComment = async () => {
-    const commentItem = await commentApi.getOne(location.state.id);
+    const commentItem = await commentApi.getOne(location?.state?.id);
     setComments(commentItem.data);
   };
   const getReply = async () => {

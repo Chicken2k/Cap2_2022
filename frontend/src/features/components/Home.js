@@ -33,6 +33,8 @@ import { nhahangData } from "../container/trangchu/nhahang/nhahangSlice";
 import { binhluanData } from "../container/admin/Binhluan/binhluanSlice";
 import { binhluanchudeData } from "../container/admin/Binhluanchude/binhluanchudeSlice";
 import { chudeData } from "../container/admin/Chude/chudeSlice";
+import { cityData } from "../container/admin/Cities/citySlice";
+import { foodData } from "../container/admin/FoodType/foodSlice";
 import { hoadonData } from "../container/admin/Hoadon/hoadonSlice";
 import { thongbaoData } from "../container/admin/Kiemduyet/thongbaoSlice";
 import { tintucData } from "../container/admin/manageRestaurant/tintucSlice";
@@ -104,6 +106,12 @@ export default function NestingExample() {
   const actionbinhluanchude = async () => {
     await dispatch(binhluanchudeData());
   };
+  const actionFoodType = async () => {
+    await dispatch(foodData());
+  };
+  const actionCities = async () => {
+    await dispatch(cityData());
+  };
 
   useEffect(() => {
     actionquocgia();
@@ -124,6 +132,8 @@ export default function NestingExample() {
     actionchude();
     actionnhahang();
     actionbinhluanchude();
+    actionFoodType();
+    actionCities();
   }, []);
   return (
     <Router>

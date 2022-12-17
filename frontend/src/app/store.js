@@ -18,6 +18,8 @@ import tagReducer from "../features/container/admin/Tag/tagSlice";
 //import tintuctagReducer from "../features/container/admin/tintuc/tintuctagSlice"
 import binhluanchudeReducer from "../features/container/admin/Binhluanchude/binhluanchudeSlice";
 import chudeReducer from "../features/container/admin/Chude/chudeSlice";
+import cityReducer from "../features/container/admin/Cities/citySlice";
+import foodReducer from "../features/container/admin/FoodType/foodSlice";
 import hoadoncanhanReducer from "../features/container/admin/Hoadoncanhan/hoadoncanhanSlice";
 import thongbaoReducer from "../features/container/admin/Kiemduyet/thongbaoSlice";
 import phanhoiReducer from "../features/container/admin/Phanhoi/phanhoiSlice";
@@ -51,6 +53,8 @@ const rootReducer = {
   binhluanchudes: binhluanchudeReducer,
   restaurants: restaurantReducer,
   nhahangs: nhahangReducer,
+  foods: foodReducer,
+  cities: cityReducer,
 };
 
 export default configureStore({
