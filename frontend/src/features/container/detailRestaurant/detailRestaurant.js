@@ -48,6 +48,7 @@ export default function DetailRestaurant() {
   });
   const { Sider, Content } = Layout;
   const [dateBook, setDateBook] = useState(dayjs());
+  const [content, setcontent] = useState("");
   const [amountBook, setAmountBook] = useState(1);
   const [noteBook, setNoteBook] = useState("");
   const [isModalVisibleDelete, setIsModalVisibleDelete] = useState(false);
@@ -81,6 +82,7 @@ export default function DetailRestaurant() {
     address: "",
     phoneNumber: "",
   });
+  restaurantInfor.description = content;
   const { name, description, address, phoneNumber } = restaurantInfor;
   const getRestaurant = async () => {
     const restaurantItem = await restaurantApi.getRestaurantById(
@@ -409,21 +411,17 @@ export default function DetailRestaurant() {
               type="text"
               name="name"
               value={name}
-              placeholder={name}
+              placeholder={restaurant?.name}
               onChange={onChange}
             />
           </div>
           <div>
             <label className="labelInput">Mô tả</label>
-            {/* <textarea
-              name="description"
-              value={description}
-              placeholder={description}
-              onChange={onChange}
-              rows="10"
-              cols="50"
-            /> */}
-            <JoditEditor value={description} tabIndex={1} onChange={onChange} />
+            <JoditEditor
+              value={content}
+              tabIndex={1}
+              onChange={(e) => setcontent(e)}
+            />
           </div>
           <div>
             <label className="labelInput">Địa chỉ</label>
@@ -431,7 +429,7 @@ export default function DetailRestaurant() {
               type="text"
               name="address"
               value={address}
-              placeholder={address}
+              placeholder={restaurant?.address}
               onChange={onChange}
             />
           </div>
@@ -441,7 +439,7 @@ export default function DetailRestaurant() {
               type="text"
               name="phoneNumber"
               value={phoneNumber}
-              placeholder={phoneNumber}
+              placeholder={restaurant?.phoneNumber}
               onChange={onChange}
             />
           </div>
@@ -472,15 +470,9 @@ export default function DetailRestaurant() {
             />
           </div>
         </form>
+
         <div className="google-map">
-          <iframe
-            src="https://www.google.com/maps/embed?pb="
-            width="600"
-            height="450"
-            frameborder="0"
-            style="border:0"
-            allowfullscreen
-          ></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245368.20484126982!2d108.07812645!3d16.071809050000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c792252a13%3A0x1df0cb4b86727e06!2sDa%20Nang!5e0!3m2!1sen!2s!4v1671276462656!5m2!1sen!2s"></iframe>
         </div>
       </Modal>
       <Footer></Footer>
