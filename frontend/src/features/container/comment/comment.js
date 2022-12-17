@@ -1,7 +1,7 @@
 import { message, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Button, Comment, Header } from "semantic-ui-react";
+import { Comment, Header } from "semantic-ui-react";
 import commentApi from "../../../api/commentApi";
 import replyApi from "../../../api/replyApi";
 import { monkeyLearnAnalysis } from "../../utils/monkeylearn";
@@ -68,6 +68,16 @@ export default function Comments() {
     setCommentId(e.target.attributes.value.value);
     console.log(commentId);
   };
+  const formatdate = (e) => {
+    if (e) {
+      var ngay = e.substr(8, 2);
+      var thang = e.substr(5, 2);
+      var nam = e.substr(0, 4);
+      var gio = e.substr(11, 2);
+      var phut = e.substr(14, 2);
+      return ngay + "/" + thang + "/" + nam + " " + gio + ":" + phut;
+    }
+  };
   return (
     <Comment.Group>
       <Header as="h1" className="tieude" dividing>
@@ -84,9 +94,9 @@ export default function Comments() {
             <Comment.Content>
               <Comment.Author as="a">{item.User.name}</Comment.Author>
               <Comment.Metadata>
-                <div>{item.createdAt}</div>
+                <div>{formatdate(item?.createdAt)}</div>
               </Comment.Metadata>
-              {userRole === "customer" ? (
+              {userRole === "customer" || userRole === "admin" ? (
                 <Comment.Text>{item.content}</Comment.Text>
               ) : (
                 <div
@@ -129,11 +139,11 @@ export default function Comments() {
                     </Comment.Author>
                     <Comment.Metadata>
                       <div>
-                        {
+                        {formatdate(
                           replys.find((reply) => {
                             return reply.commentId === item.id;
                           }).createdAt
-                        }
+                        )}
                       </div>
                     </Comment.Metadata>
                     <Comment.Text>
@@ -169,8 +179,13 @@ export default function Comments() {
             ></textarea>
           </div>
           <div className="position-relative">
-          
-          <button htmlType="submit" type="primary" className="custom-btn btn-5"><span> Thêm phản hồi</span></button>
+            <button
+              htmlType="submit"
+              type="primary"
+              className="custom-btn btn-5"
+            >
+              <span> Thêm phản hồi</span>
+            </button>
             {/* <Button htmlType="submit" type="primary" className="btn-dg">
               Thêm phản hồi
             </Button> */}

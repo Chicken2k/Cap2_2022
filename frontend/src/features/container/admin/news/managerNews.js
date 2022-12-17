@@ -8,11 +8,17 @@ const { Content } = Layout;
 
 function ManageNews() {
   const [restaurants, setRestaurants] = useState([]);
-  let listRestaurant;
+  let listRestaurant, listNews;
   const history = useHistory();
   const getRestaurants = async () => {
     const listRestaurant = await adminApi.getAllNews();
     if (listRestaurant) setRestaurants(listRestaurant.data);
+  };
+  const [currentNews, setCurrentNews] = useState([]);
+
+  const getAllNewManage = async () => {
+    const data = await adminApi.getManageNew();
+    setCurrentNews(data.data);
   };
   const formatdate = (e) => {
     if (e) {
@@ -30,17 +36,20 @@ function ManageNews() {
   };
   useEffect(() => {
     getRestaurants();
+    getAllNewManage();
   }, []);
   const switchDetailRestaurantPage = async (restaurantId) => {
     await adminApi.updateNews(restaurantId);
     getRestaurants();
+    getAllNewManage();
   };
   const cancelNew = async (restaurantId) => {
     await adminApi.deleteNews(restaurantId);
     getRestaurants();
+    getAllNewManage();
   };
-  if (restaurants.length) {
-    listRestaurant = restaurants.map((item) => {
+  if (currentNews.length) {
+    listNews = currentNews?.map((item) => {
       return (
         <div className="containerItem">
           <div className="containerImage">
@@ -67,6 +76,9 @@ function ManageNews() {
                           Địa chỉ: {item?.Restaurant?.address}
                         </p>
                         <p style={{ fontSize: 20 }}>
+                          Chủ nhà hàng: {item?.User?.name}
+                        </p>
+                        <p style={{ fontSize: 20 }}>
                           Ngày đăng: {formatdate(item?.createdAt)}
                         </p>
                         <p style={{ fontSize: 20 }}>
@@ -91,15 +103,21 @@ function ManageNews() {
                 </div>
               </Content>
             </Layout>
-            <Button
-              type="primary"
-              onClick={() => switchDetailRestaurantPage(item.id)}
-            >
-              Duyệt
-            </Button>
-            <Button type="primary" onClick={() => cancelNew(item.id)}>
-              Từ chối
-            </Button>
+            {item?.status ? (
+              ""
+            ) : (
+              <>
+                <Button
+                  type="primary"
+                  onClick={() => switchDetailRestaurantPage(item.id)}
+                >
+                  Duyệt
+                </Button>
+                <Button type="primary" onClick={() => cancelNew(item.id)}>
+                  Từ chối
+                </Button>
+              </>
+            )}
           </div>
         </div>
       );
@@ -107,7 +125,7 @@ function ManageNews() {
   }
   return (
     <div>
-      {restaurants.length === 0 ? <Empty></Empty> : <div>{listRestaurant}</div>}
+      {currentNews.length === 0 ? <Empty></Empty> : <div>{listNews}</div>}
     </div>
   );
 }

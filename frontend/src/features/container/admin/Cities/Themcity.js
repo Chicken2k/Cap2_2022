@@ -51,13 +51,13 @@ function Themcity(props) {
   return (
     <div id="admin">
       <div className="heading">
-        <h4>{id ? "Sửa chủ đề" : "Thêm chủ đề"}</h4>
+        <h4>{id ? "Sửa khu vực" : "Thêm khu vực"}</h4>
         <div className="hr"></div>
       </div>
       <div className="content">
         <form action="" method="post" onSubmit={onSubmit}>
           <div className="form-group">
-            <label htmlFor="">Tên chủ đề</label>
+            <label htmlFor="">Tên khu vực</label>
             <input
               type="text"
               name="name"
@@ -70,7 +70,7 @@ function Themcity(props) {
           </div>
           <div className="text-center mtb">
             <Button type="submit" color="primary" variant="contained">
-              {id ? "Sửa chủ đề" : "Thêm chủ đề"}
+              {id ? "Sửa khu vực" : "Thêm khu vực"}
             </Button>
           </div>
         </form>

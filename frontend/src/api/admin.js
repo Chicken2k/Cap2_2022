@@ -12,7 +12,15 @@ class AdminApi {
   };
   updateRestaurant = (id, body) => {
     const url = `/v1/admin/restaurant/${id}`;
-    return axiosClient.patch(url, body);
+    return axiosClient
+      .patch(url, body)
+      .then((data) => {
+        console.log(data);
+        message.success("Duyệt tin tức thành công!");
+      })
+      .catch((err) => {
+        message.error("Có lỗi xảy ra!");
+      });
   };
 
   getAllNews = () => {
@@ -41,6 +49,25 @@ class AdminApi {
       .catch((err) => {
         message.error("Có lỗi xảy ra!");
       });
+  };
+  deleteRestaurant = (id) => {
+    const url = `/v1/admin/restaurant/${id}`;
+    return axiosClient
+      .delete(url)
+      .then((data) => {
+        message.success("Từ chối thành công!");
+      })
+      .catch((err) => {
+        message.error("Có lỗi xảy ra!");
+      });
+  };
+  getManageRestaurant = () => {
+    const url = "/v1/admin/restaurants/all";
+    return axiosClient.get(url);
+  };
+  getManageNew = () => {
+    const url = "/v1/admin/news/all";
+    return axiosClient.get(url);
   };
 }
 const adminApi = new AdminApi();
