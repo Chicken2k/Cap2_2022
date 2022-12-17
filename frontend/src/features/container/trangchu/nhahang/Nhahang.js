@@ -69,7 +69,7 @@ function NhaHang(props) {
             <Select
               style={{ width: 120 }}
               onChange={handleChangeCity}
-              options={city.map((city) => {
+              options={city?.map((city) => {
                 return {
                   value: city.id,
                   label: city.name,
@@ -82,7 +82,7 @@ function NhaHang(props) {
             <Select
               style={{ width: 120 }}
               onChange={handleChangeFood}
-              options={food.map((food) => {
+              options={food?.map((food) => {
                 return {
                   value: food.id,
                   label: food.name,
@@ -127,6 +127,10 @@ function NhaHang(props) {
                     <div className="star float-left">
                       <Rate value="5" disabled />
                     </div>
+                    <div>
+                    <button className="custom-btn btn-5"><span>Đặt bàn</span></button>
+                    </div>
+                    
                     {/* <div className="money float-left ml-3 text-warning">
                     {
                       <div>

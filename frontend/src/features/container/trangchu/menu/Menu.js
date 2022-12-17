@@ -326,7 +326,7 @@ function ListMenu(props) {
   return (
     <div id="menu">
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-        <Linkrt className="navbar-brand" to="/">
+        <Linkrt className="food2k navbar-brand" to="/">
           Food2K
         </Linkrt>
         <button
@@ -344,7 +344,7 @@ function ListMenu(props) {
           <ul className="navbar-nav ml-auto">
             <li className="nav-item ">
               <Link
-                className="nav-link"
+                className="nav-link "
                 activeClass="active"
                 to="banner"
                 spy={true}
