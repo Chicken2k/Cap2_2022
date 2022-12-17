@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
+import JoditEditor from "jodit-react";
 import cityApi from "../../../api/cityApi";
 import foodApi from "../../../api/foodApi";
 import restaurantApi from "../../../api/restaurantApi";
@@ -20,6 +21,7 @@ export default function Listtour() {
     files: "",
   });
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [content, setcontent] = useState("");
   const [isModalVisibleUpdate, setIsModalVisibleUpdate] = useState(false);
   const [restaurantId, setRestaurantId] = useState(0);
   const [selectedFile, setSelectedFile] = useState();
@@ -47,6 +49,7 @@ export default function Listtour() {
     await dispatch(restaurantData());
   };
   const { name, description, address, phoneNumber, files } = restaurantInfor;
+  restaurantInfor.description = content;
   useEffect(() => {
     getCity();
     getFood();
@@ -119,7 +122,6 @@ export default function Listtour() {
           <Row>
             <Col span={18} push={6}>
               <p>Tên nhà hàng: {restaurant.name}</p>
-              <p>{restaurant.description}</p>
               <p>Địa chỉ: {restaurant.address}</p>
               <p>Số điện thoại đặt bàn: {restaurant.phoneNumber}</p>
               <Button
@@ -156,7 +158,7 @@ export default function Listtour() {
               </Link>
             </li>
             <li className="breadcrumb-item">
-              <Link to="/list-tour" disabled>
+              <Link to="#" disabled>
                 Thông tin nhà hàng
               </Link>
             </li>
@@ -177,12 +179,17 @@ export default function Listtour() {
             </div>
             <div>
               <label className="labelInput">Mô tả</label>
-              <textarea
+              {/* <textarea
                 name="description"
                 value={description}
                 onChange={onChange}
                 rows="10"
                 cols="50"
+              /> */}
+              <JoditEditor
+                value={content}
+                tabIndex={1}
+                onChange={(e) => setcontent(e)}
               />
             </div>
             <div>
