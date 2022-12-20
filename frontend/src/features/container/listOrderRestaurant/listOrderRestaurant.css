@@ -12,3 +12,9 @@
 .btn-reject {
     margin-right: 10px;
 }
+.restaurantItem {
+    border: 1px solid black;
+    margin-top: 6px;
+    padding: 6px;
+    border-radius: 5px;
+  }

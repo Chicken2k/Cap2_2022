@@ -41,48 +41,43 @@ export default function Duyettour() {
                       Tên nhà hàng: {ok?.Restaurant?.name}
                     </div>
                     <div className="duyettour--form">
+                      <div className="luuytour">Tên khách hàng  : {ok?.User?.name}</div>
+                    </div>
+                    <div className="duyettour--form">
+                      <div className="luuytour">Số lượng khách  : {ok?.quantity}</div>
+                    </div>
+                    <div className="duyettour--form">
                       <div className="giatour">
-                        Địa chỉ: {ok?.Restaurant?.address}
+                        Địa chỉ nhà hàng : {ok?.Restaurant?.address}
                       </div>
                     </div>
                     <div className="duyettour--form">
                       <div className="giatour">
-                        Ngày giờ đặt bàn: {formatDate(ok?.date)}
+                        {/* Ngày giờ đặt bàn: {formatDate(ok?.date)} */}
                       </div>
                     </div>
                     <div className="duyettour--form">
-                      <div className="luuytour">{ok?.note}</div>
+                      <div className="luuytour"> Ngày đặt bàn : {new Date(ok?.date)?.toDateString()}</div>
+                    </div>
+                    {/* <div className="duyettour--form">
+                      <div className="luuytour"> Thời gian :  {new Date(ok?.date).getHours() +
+                            ":" +
+                            new Date(ok?.date).getMinutes()}</div>
+                    </div> */}
+                    <div className="duyettour--form">
+                      <div className="luuytour"> Yêu cầu : {ok?.note}</div>
+                    </div>
+                    <div className="duyettour--form">
+                      <div className="luuytour">Thời gian đặt bàn  : {formatDate(ok?.createdAt)}</div>
                     </div>
                     <div className="btn__tour">
-                      {/* <Popconfirm
-                        title="Bạn có chắc chắn？"
-                        icon={
-                          <QuestionCircleOutlined style={{ color: "green" }} />
-                        }
-                      >
-                        <Button
-                          color="primary"
-                          variant="contained"
-                          className="mr-1"
-                        >
-                          Đồng ý
-                        </Button>
-                      </Popconfirm>
-                      <Popconfirm
-                        title="Bạn có chắc chắn？"
-                        icon={
-                          <QuestionCircleOutlined style={{ color: "green" }} />
-                        }
-                      >
-                        <Button color="secondary" variant="contained">
-                          Huỷ
-                        </Button>
-                      </Popconfirm> */}
-                      <h3 style={{ fontWeightBold: 20, color: "red" }}>
+                      <h2 style={{ fontWeightBold: 20, color: "red" }}>
                         Đang chờ
-                      </h3>
+                      </h2>
                     </div>
                   </div>
+                  
+                  
                 )
               )}
         </div>

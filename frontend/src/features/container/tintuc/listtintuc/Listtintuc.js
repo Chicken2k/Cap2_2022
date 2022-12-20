@@ -205,10 +205,11 @@ export default function Listtintuc() {
           </div>
         ) : (
           <div>
+          
+            <div className="CoChu">Danh sách tin tức của bạn</div>
             <Button type="primary" onClick={openModal}>
               Thêm tin tức
             </Button>
-            <div>Danh sách tin tức của bạn</div>
             <ul>{listData?.length ? listData : <Empty></Empty>}</ul>
           </div>
         )}

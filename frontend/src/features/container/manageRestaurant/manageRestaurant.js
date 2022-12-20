@@ -283,10 +283,10 @@ export default function Listtour() {
           </div>
         ) : (
           <div>
+            <div className="CoChu">Danh sách nhà hàng của bạn</div>
             <Button type="primary" onClick={openModal}>
               Thêm nhà hàng
-            </Button>
-            <div>Danh sách nhà hàng của bạn</div>
+            </Button> 
             <ul>{listRestaurant?.length ? listRestaurant : <Empty></Empty>}</ul>
           </div>
         )}

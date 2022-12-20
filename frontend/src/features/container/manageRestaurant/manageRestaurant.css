@@ -102,10 +102,10 @@
   margin-right: 6px;
 }
 
-.image-container {
+/* .image-container {
   width: 160px;
   height: 160px;
-}
+} */
 
 .image-container > img {
   width: 100%;
@@ -135,4 +135,8 @@
 }
 .custom-file-input:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+.CoChu{
+  font-size: 50px;
+  text-align: center;
 }

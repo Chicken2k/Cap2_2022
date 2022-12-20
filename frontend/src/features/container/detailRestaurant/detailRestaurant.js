@@ -134,6 +134,7 @@ export default function DetailRestaurant() {
   const onOkUpdate = async () => {
     let restaurantBody = {};
     const { name, address, description, phoneNumber } = restaurantInfor;
+    console.log(name, address, description, phoneNumber +"1");
     if (
       !name ||
       !address ||
@@ -241,12 +242,12 @@ export default function DetailRestaurant() {
       ) : (
         <Layout>
           <Content className="containerCarousel">
-            <Container style={{ margin: 20 }}>
+            {/* <Container style={{ margin: 20 }}>
               <Carousel autoplay>{renderImage}</Carousel>
-            </Container>
+            </Container> */}
             <Container className="Thongtinnhahangcolor">
               <div className="row card_products justify-content-center">
-                <div className="col-7 col-sm-8 col-md-8 col-lg-5 ">
+                <div className="col-7 col-sm-8 col-md-8 col-lg-5 Img_tieude ">
                   <Carousel autoplay>{renderImage}</Carousel>
                 </div>
                 <div

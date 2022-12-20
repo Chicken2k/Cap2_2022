@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import orderApi from "../../../api/orderApi";
 import Footer from "../trangchu/footer/Footer";
 import "./listOrderRestaurant.css";
+import "../manageRestaurant/manageRestaurant.css";
 export const OrderRestaurant = () => {
   const [listOrderRestaurant, setListOrderRestaurant] = useState([]);
   const userId = localStorage.getItem("userId");
@@ -30,12 +31,12 @@ export const OrderRestaurant = () => {
     const minutes = formatDate.getMinutes();
     const strDate = formatDate.toDateString();
     return (
-      <li className="item-order">
+      <li className="item-order restaurantItem">
         <p>Nhà hàng: {item?.Restaurant?.name}</p>
-        <p>Date: {strDate}</p>
-        <p>Time: {hours + ":" + minutes}</p>
         <p>Tên khách hàng: {item?.User?.name}</p>
         <p>Số lượng chỗ ngồi: {item?.quantity}</p>
+        <p>Date: {strDate}</p>
+        <p>Time: {hours + ":" + minutes}</p>
         <p>Note: {item?.note}</p>
         <Button
           type="danger"
@@ -57,8 +58,8 @@ export const OrderRestaurant = () => {
 
   return (
     <div className="">
-      <div className="container-content">
-        <h4 className="title">Danh sách đặt bàn</h4>
+      <div className="container-content container">
+        <div className="title CoChu">Danh sách đặt bàn</div>
         {renderListOrderRestaurant.length ? (
           renderListOrderRestaurant
         ) : (

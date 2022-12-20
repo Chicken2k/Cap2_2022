@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import orderApi from "../../../../../api/orderApi";
 import "./lichsu.css";
+import "../duyettour/duyettour.css";
 export default function Lichsu() {
   const [orders, setOrders] = useState([]);
   const userId = localStorage.getItem("userId");
@@ -48,7 +49,7 @@ export default function Lichsu() {
                 },
               }}
             >
-              <div className="history__box" key={index}>
+              {/* <div className="history__box" key={index}>
                 <div className="history__tour">
                   <div className="history--title">
                     <div className="history--name">{ok?.Restaurant?.name}</div>
@@ -92,7 +93,55 @@ export default function Lichsu() {
                     </table>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              
+              <div className="container">
+        <div className="duyettour__content">
+                  <div className="duyettour__box" key={index}>
+                    <div className="duyettour--name">
+                      Tên nhà hàng: {ok?.Restaurant?.name}
+                    </div>
+                    <div className="duyettour--form">
+                      <div className="luuytour">Tên khách hàng  : {ok?.User?.name}</div>
+                    </div>
+                    <div className="duyettour--form">
+                      <div className="luuytour">Số lượng khách  : {ok?.quantity}</div>
+                    </div>
+                    <div className="duyettour--form">
+                      <div className="giatour">
+                        Địa chỉ nhà hàng : {ok?.Restaurant?.address}
+                      </div>
+                    </div>
+                    <div className="duyettour--form">
+                      <div className="giatour">
+                        {/* Ngày giờ đặt bàn: {formatDate(ok?.date)} */}
+                      </div>
+                    </div>
+                    <div className="duyettour--form">
+                      <div className="luuytour"> Ngày đặt bàn : {new Date(ok?.date)?.toDateString()}</div>
+                    </div>
+                    {/* <div className="duyettour--form">
+                      <div className="luuytour"> Thời gian :  {new Date(ok?.date).getHours() +
+                            ":" +
+                            new Date(ok?.date).getMinutes()}</div>
+                    </div> */}
+                    <div className="duyettour--form">
+                      <div className="luuytour"> Yêu cầu : {ok?.note}</div>
+                    </div>
+                    <div className="duyettour--form">
+                      <div className="luuytour">Thời gian đặt bàn  : {formatdate(ok?.createdAt)}</div>
+                    </div>
+                    <div className="btn__tour">
+                      <h2 style={{ fontWeightBold: 20, color: "green" }}>
+                        Đã đặt 
+                      </h2>
+                    </div>
+                  </div>
+              
+        </div>
+           </div>
+      
+      
             </Link>
           ))
         )}
