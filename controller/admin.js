@@ -2,6 +2,7 @@ const ResponseString = require("../constants/error");
 const Restaurant = require("../models").Restaurant;
 const User = require("../models").User;
 const News = require("../models").News;
+const Image = require("../models").Image;
 
 getAllRestaurant = async (req, res) => {
   try {
@@ -48,7 +49,7 @@ getRestaurantById = async (req, res) => {
 getAllRestaurantManage = async (req, res) => {
   try {
     const restaurants = await Restaurant.findAll({
-      include: [{ model: User }],
+      include: [{ model: User }, { model: Image }],
     });
     res.status(200).json({
       success: true,
