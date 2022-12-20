@@ -135,12 +135,13 @@ export default function DetailRestaurant() {
     let restaurantBody = {};
     const { name, address, description, phoneNumber } = restaurantInfor;
     if (
+      !restaurantId ||
       !name ||
       !address ||
       !description ||
       !phoneNumber ||
-      !restaurantBody?.foodId ||
-      !restaurantBody?.cityId
+      !changeCity ||
+      !changeFood
     )
       message.error("Bạn chưa nhập đủ thông tin");
     else {
@@ -254,7 +255,7 @@ export default function DetailRestaurant() {
                   style={{ padding: 30 }}
                 >
                   <p>
-                    <b className="textProducts">{restaurant.name}</b>
+                    <b className="textProducts">{restaurant?.name}</b>
                   </p>
 
                   <span className="iStar">
