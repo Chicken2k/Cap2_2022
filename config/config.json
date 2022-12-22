@@ -4,7 +4,7 @@
     "password": "Trandaiquy123",
     "database": "restaurant",
     "host": "localhost",
-    "port": "3306",
+    "port": "3006",
     "dialect": "mysql",
     "logging": false
   }

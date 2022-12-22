@@ -8,6 +8,9 @@ const Stripe = require("stripe");
 const stripe = Stripe(
   "sk_test_51JvilZB36PKJt46mB4ANXnXBOA2jsJ5zCef0EwHRjE07stlFLFP3qAybd28UziINm2mPADme1eZVh6qeav54BNs2009bnwcV67"
 );
+
+const upload = require("./config/dinaryConfig");
+
 const talkToChatbot = require("./chatbot");
 const fulfillmentRoutes = require("./fulfillment");
 // const mailjet = require("node-mailjet").connect(
@@ -95,16 +98,16 @@ app.get("/", (req, res) => {
   res.send("<h1>Hi</h1>");
 });
 
-app.post("/payment", async (req, res) => {
-  const { email, price } = req.body;
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: price,
-    currency: "usd",
-    // Verify your integration in this guide by including this parameter
-    metadata: { integration_check: "accept_a_payment" },
-    receipt_email: email,
-  });
-  res.json({ client_secret: paymentIntent["client_secret"] });
+app.post("/v1/upload", upload.upload.array("image", 10), (req, res, next) => {
+  try {
+    if (!req.files) {
+      next(new Error("No file uploaded!"));
+      return;
+    }
+    res.json({ secure_url: req.files[0].path });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 require("./routes/dangnhap")(app);
@@ -142,10 +145,11 @@ require("./routes/Order")(app);
 require("./routes/Comment")(app);
 require("./routes/Reply")(app);
 require("./routes/news")(app);
+require("./routes/image")(app);
 
 app.use(function (err, req, res, next) {
   res.status(500).send(err);
 });
 app.listen(process.env.PORT || 3001, () => {
-  console.log(`Server is listening on port 666`);
+  console.log(`Server is listening on port 3001`);
 });
